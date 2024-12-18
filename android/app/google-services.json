@@ -1,0 +1,190 @@
+{
+  "project_info": {
+    "project_number": "836803540175",
+    "project_id": "lyon-1bad1",
+    "storage_bucket": "lyon-1bad1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:836803540175:android:7125389d4c2bf9cf2d73ba",
+        "android_client_info": {
+          "package_name": "com.example.lyonnn"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "836803540175-7e216qd56hdk4uhhtkkdd0u367qh2l1b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJygd8ti3mISUf40bAYhBPANSoMcgq0P4"
+        },
+        {
+          "current_key": "AIzaSyALrH9jbS0d04OfjAT4ZP1R_Zq21PBDbPM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "836803540175-7e216qd56hdk4uhhtkkdd0u367qh2l1b.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "836803540175-9cvsq74cu6gk9i68lq7570mrn7lg421v.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.lyonjo.company"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:836803540175:android:6d647230901e06642d73ba",
+        "android_client_info": {
+          "package_name": "com.example.new_lyon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "836803540175-7e216qd56hdk4uhhtkkdd0u367qh2l1b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJygd8ti3mISUf40bAYhBPANSoMcgq0P4"
+        },
+        {
+          "current_key": "AIzaSyALrH9jbS0d04OfjAT4ZP1R_Zq21PBDbPM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "836803540175-7e216qd56hdk4uhhtkkdd0u367qh2l1b.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "836803540175-9cvsq74cu6gk9i68lq7570mrn7lg421v.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.lyonjo.company"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:836803540175:android:b1a3b9de196d84b12d73ba",
+        "android_client_info": {
+          "package_name": "com.lyonjo.company"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "836803540175-1l4pdcei8afquc5o2oaltvpqvg7kr401.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lyonjo.company",
+            "certificate_hash": "ccbc902449c95cd25fbe5949e56a85fb49a4067b"
+          }
+        },
+        {
+          "client_id": "836803540175-3rg5iam4p0l6fh9ctq1nsh6phml14ppg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lyonjo.company",
+            "certificate_hash": "9cf41e6d2fbb1dbeac109503c25d98a0d7177b7d"
+          }
+        },
+        {
+          "client_id": "836803540175-imbf0hs282j21rjjbbpbuhgo1qmvua4e.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lyonjo.company",
+            "certificate_hash": "f39af72d07c786eaa9198668c3e79c141f239047"
+          }
+        },
+        {
+          "client_id": "836803540175-7e216qd56hdk4uhhtkkdd0u367qh2l1b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJygd8ti3mISUf40bAYhBPANSoMcgq0P4"
+        },
+        {
+          "current_key": "AIzaSyALrH9jbS0d04OfjAT4ZP1R_Zq21PBDbPM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "836803540175-7e216qd56hdk4uhhtkkdd0u367qh2l1b.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "836803540175-9cvsq74cu6gk9i68lq7570mrn7lg421v.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.lyonjo.company"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:836803540175:android:82e87e54a509687d2d73ba",
+        "android_client_info": {
+          "package_name": "com.lyonjo.mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "836803540175-7e216qd56hdk4uhhtkkdd0u367qh2l1b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJygd8ti3mISUf40bAYhBPANSoMcgq0P4"
+        },
+        {
+          "current_key": "AIzaSyALrH9jbS0d04OfjAT4ZP1R_Zq21PBDbPM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "836803540175-7e216qd56hdk4uhhtkkdd0u367qh2l1b.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "836803540175-9cvsq74cu6gk9i68lq7570mrn7lg421v.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.lyonjo.company"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

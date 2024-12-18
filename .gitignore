@@ -1,0 +1,21 @@
+# macOS system files
+.DS_Store
+
+# IDE settings
+.idea/
+.vscode/
+*.iml
+
+# Flutter build files
+build/
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+
+# Certificates and sensitive files
+client.csr
+keystore.jks
+upload_certificate.pem
+
+# Other generated files
+pubspec.lock
