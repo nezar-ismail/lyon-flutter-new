@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
-import 'package:lyon/v_done/trip_form/views/selecte_multe_trip_company.dart';
+import 'package:lyon/v_done/company/trip_form/views/selecte_multe_trip_company.dart';
 import 'package:lyon/shared/mehod/switch_sreen.dart';
 import 'package:lyon/shared/styles/colors.dart';
 

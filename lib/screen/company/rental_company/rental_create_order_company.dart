@@ -10,7 +10,7 @@ import 'package:lyon/shared/mehod/switch_sreen.dart';
 import 'package:lyon/shared/styles/colors.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../other/hestory/history_orders_company.dart';
+import '../../../v_done/company/history/history_orders_company.dart';
 
 // ignore: must_be_immutable
 class RentalCreateOrderCompany extends StatefulWidget {

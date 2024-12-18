@@ -27,11 +27,16 @@ const Map<String, String> arAE = {
   "service": "الخدمة",
   "cancel": "إلغاء",
   "status": "الحالة",
+  "no_data":"لا يوجة بيانات",
   "are u sure delete20jd":
       "هل أنت متأكد من إلغاء هاذا الحجز؟ لأن هذا الطلب قد تجاوز ٢٤ ساعة، سيترتب عليك مبلغ ٢٠ دينار أردني.",
   "are u sure delete": "هل أنت متأكد من حذف هذا الحجز؟",
   "details": "التفاصيل",
   "delete": "حذف",
+  "Slide_For_more_details":"اسحب لمزيد من التفاصيل",
+  "delete_order":"حذف الطلب",
+  'Are you sure you want to delete this order?':"هل انت متإكد من حذف لطلب؟",
+  "Canceled":"مرفوض",
   "offer": "خصم",
   "airport": "طريق المطار",
   "bayader": "البيادر",
@@ -320,6 +325,7 @@ const Map<String, String> arAE = {
   "total_price": "السعر : ",
   "complete": "إتمام",
   "error": "خطأ",
+  'name/date': 'الاسم والتاريخ',
   "you_are_blacklisted": "لقد تم إدراجك في القائمة السوداء",
   "warning": "تحذير",
   "please_pay_the_amounts_due": "الرجاء تسديد المبالغ المستحقة",
@@ -399,6 +405,7 @@ const Map<String, String> arAE = {
 /////////////////////// Company ///////////////////////////////
 
   "my_orders": "حجوزاتي",
+  "Can't_open_invoice_please_try_again!":"حدث خطأ الرجاء اعادة المحاولة مرة اخرى",
   "invoice": "فاتورة",
   "you_do_not_have_any_reservations": "ليس لديك أي حجوزات",
   "email_has_been_sent_successfully": "تم ارسال البريد الالكتروني بنجاح.",

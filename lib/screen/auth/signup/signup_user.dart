@@ -19,7 +19,7 @@ import 'package:lyon/shared/styles/colors.dart';
 import 'package:lyon/v_done/utils/custom_log.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
-import '../../Translate/localization.dart';
+import '../../../v_done/utils/Translate/localization.dart';
 
 // ignore: unused_element
 // File? _image;

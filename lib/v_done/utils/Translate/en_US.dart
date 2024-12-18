@@ -29,10 +29,13 @@ const Map<String, String> enUS = {
   "name": "Name",
   "service": "Service",
   "status": "Status",
+  "no_data":"No data",
+  "Can't_open_invoice_please_try_again!":"Cant open invoice, Please try again!" ,
   "are u sure delete20jd":
       "Are you sure you want to delete this order? Because you want to cancel after 24 hours of making the order, a fine of 20 JOD will be added.",
   "are u sure delete": "Are you sure you want to delete Order?",
   "cancel": "Cancel",
+  "delete_order":"Delete Order",
   "details": "Details",
   "delete": "Delete",
   "offer": "Offer",
@@ -410,6 +413,8 @@ const Map<String, String> enUS = {
 
   "my_orders": "My Orders",
   "invoice": "Invoice",
+  "Slide_For_more_details":"slide for more details",
+  "Canceled":"Canceled",
   "you_do_not_have_any_reservations": "You do not have any reservations",
   "email_has_been_sent_successfully": "Email has been sent successfully.",
   "enter_project_name": "Enter Project Name",
@@ -485,4 +490,6 @@ const Map<String, String> enUS = {
   "we_are_calculation_your_trips_price": "We are calculation your trips price",
   "did_not_receive_code": "Did not receive code?",
   "resend_code": "Resend Code",
+  "Trips_Program_Form":'Trips Program',
+
 };

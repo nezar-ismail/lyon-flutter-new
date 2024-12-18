@@ -95,6 +95,7 @@ dependencies:
   meta: ^1.15.0
   flutter_inner_shadow: ^0.0.1
   equatable: ^2.0.7
+  shimmer: ^3.0.0
 
 dev_dependencies:
   flutter_test:

@@ -5,19 +5,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 import 'package:lyon/model/company_model/get_orders_company_model.dart';
-import 'package:lyon/screen/company/other/hestory/cubit/historu_order_cubit.dart';
+import 'package:lyon/v_done/company/history/cubit/history_order_cubit.dart';
 import 'package:lyon/screen/company/other/home_page_company.dart';
 import 'package:lyon/shared/mehod/message.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'package:url_launcher/url_launcher.dart';
-import '../../../../api/api.dart';
-import '../../../../shared/Widgets/custom_text.dart';
-import '../../../../shared/mehod/switch_sreen.dart';
-import '../../../../shared/styles/colors.dart';
-import '../../full_day_company/full_day_order_details_company.dart';
-import '../../rental_company/rental_order_details_company.dart';
-import '../../trip_company/trip_order_details_company.dart';
+import '../../../api/api.dart';
+import '../../../shared/Widgets/custom_text.dart';
+import '../../../shared/mehod/switch_sreen.dart';
+import '../../../shared/styles/colors.dart';
+import '../../../screen/company/full_day_company/full_day_order_details_company.dart';
+import '../../../screen/company/rental_company/rental_order_details_company.dart';
+import '../../../screen/company/trip_company/trip_order_details_company.dart';
 
 class HistoryOrdersCompany extends StatefulWidget {
   const HistoryOrdersCompany({super.key});

@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:lyon/screen/Translate/en_US.dart';
+import 'package:lyon/v_done/utils/Translate/en_US.dart';
 
 import 'ar_AE.dart';
 

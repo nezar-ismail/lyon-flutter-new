@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:lyon/model/company_model/trips_model.dart';
-import 'package:lyon/v_done/trip_form/cubit/nav_cubit.dart';
-import 'package:lyon/v_done/trip_form/cubit/trip_form_cubit.dart';
-import 'package:lyon/v_done/trip_form/widgets/project_name.dart';
-import 'package:lyon/v_done/trip_form/widgets/trip_form.dart';
+import 'package:lyon/v_done/company/trip_form/cubit/nav_cubit.dart';
+import 'package:lyon/v_done/company/trip_form/cubit/trip_form_cubit.dart';
+import 'package:lyon/v_done/company/trip_form/widgets/project_name.dart';
+import 'package:lyon/v_done/company/trip_form/widgets/trip_form.dart';
 import 'package:lyon/shared/styles/colors.dart';
 
 class SelecteMulteTripCompany extends StatelessWidget {
