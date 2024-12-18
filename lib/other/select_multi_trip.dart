@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
-import 'package:lyon/other/tourist_program.dart';
+import 'package:lyon/other/user_trip_program/tourist_program.dart';
 import 'package:lyon/shared/mehod/switch_sreen.dart';
 import '../shared/Widgets/appbar.dart';
-// import '../shared/styles/colors.dart';
 
 class SelectMultiTrip extends StatefulWidget {
   const SelectMultiTrip({super.key});
@@ -33,7 +32,7 @@ class _SelectMultiTripState extends State<SelectMultiTrip> {
                 onTap: () {
                   push(
                       context,
-                      const TouristProgram(
+                      SelecteMulteTripUser(
                           image: 'assets/images/camry2.png',
                           price: 'carPrice',
                           type: "Car"));
@@ -64,7 +63,7 @@ class _SelectMultiTripState extends State<SelectMultiTrip> {
                 onTap: () {
                   push(
                       context,
-                      const TouristProgram(
+                      SelecteMulteTripUser(
                           image: 'assets/images/van2.png',
                           price: 'vanPrice',
                           type: "Van"));

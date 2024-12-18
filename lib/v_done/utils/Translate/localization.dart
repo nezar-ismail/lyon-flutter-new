@@ -28,7 +28,9 @@ class LocalizationService extends Translations {
     final locale = getLocale(lang);
     final box = GetStorage();
     box.write('lng', lang);
-    Get.updateLocale(locale!);
+    if (locale != null) {
+      Get.updateLocale(locale); 
+    }
   }
 
   Locale? getLocale(String lang) {

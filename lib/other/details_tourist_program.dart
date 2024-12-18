@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:lyon/other/payment_page_tourist_program.dart';
+import 'package:lyon/other/user_trip_program/model/trip.dart';
 import 'package:lyon/screen/tourism_check_out/tourism_check_out.dart';
 import 'package:lyon/shared/mehod/switch_sreen.dart';
 import 'package:lyon/tourism_check_out_controller.dart/tourism_check_out_controller.dart';
@@ -11,13 +12,11 @@ import '../shared/styles/colors.dart';
 
 class TouristProgramDetails extends StatefulWidget {
   // ignore: prefer_typing_uninitialized_variables
-  final trips;
+  final List<UserTrips> trips;
   // ignore: prefer_typing_uninitialized_variables
   final totalPrice;
   // ignore: prefer_typing_uninitialized_variables
   final currency;
-  // ignore: prefer_typing_uninitialized_variables
-  final result;
   // ignore: prefer_typing_uninitialized_variables
   final image;
   // ignore: prefer_typing_uninitialized_variables
@@ -26,13 +25,12 @@ class TouristProgramDetails extends StatefulWidget {
   final ticket;
   const TouristProgramDetails(
       {super.key,
-      this.trips,
-      this.totalPrice,
-      this.currency,
-      this.ticket,
-      this.result,
-      this.image,
-      this.vehicleType});
+      required this.trips,
+      required this.totalPrice,
+      required this.currency,
+      required this.ticket,
+      required this.image,
+      required this.vehicleType});
 
   @override
   State<TouristProgramDetails> createState() => _TouristProgramDetailsState();
@@ -96,15 +94,15 @@ class _TouristProgramDetailsState extends State<TouristProgramDetails> {
                     itemCount: widget.trips.length,
                     itemBuilder: (context, i) {
                       return ListTile(
-                        title: Text(widget.trips[i]['Destination']),
+                        title: Text(widget.trips[i].destination.toString()),
                         subtitle: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text(widget.trips[i]['Date'].toString()),
-                            Text(widget.trips[i]['Time'].toString()),
+                            Text(widget.trips[i].date.toString()),
+                            Text(widget.trips[i].time.toString()),
                             Row(
                               children: [
-                                Text(widget.trips[i]['price'].toString()),
+                                Text(widget.trips[i].price.toString()),
                                 SizedBox(
                                   width: width * .01,
                                 ),
@@ -229,7 +227,7 @@ class _TouristProgramDetailsState extends State<TouristProgramDetails> {
                                                               locationTicket:
                                                                   "Outside of Jordan",
                                                               result:
-                                                                  widget.result,
+                                                                  widget.trips,
                                                               currency: widget
                                                                   .currency,
                                                               vehicleType: widget
@@ -298,7 +296,7 @@ class _TouristProgramDetailsState extends State<TouristProgramDetails> {
                                                                   locationTicket:
                                                                       locationTicket,
                                                                   result: widget
-                                                                      .result,
+                                                                      .trips,
                                                                   currency: widget
                                                                       .currency,
                                                                   vehicleType:

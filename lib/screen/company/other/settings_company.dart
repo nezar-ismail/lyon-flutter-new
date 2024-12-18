@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lyon/shared/styles/colors.dart';
+import 'package:lyon/v_done/utils/Translate/localization.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
-import '../../Translate/Localization.dart';
 
 class SettingsCompany extends StatefulWidget {
   const SettingsCompany({super.key});
