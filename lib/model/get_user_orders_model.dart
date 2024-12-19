@@ -36,7 +36,7 @@ class GetUserOrdersModel {
 
 class Datum {
   Datum({
-    this.date,
+    this.timeLeft,
     this.name,
     this.service,
     this.status,
@@ -45,10 +45,13 @@ class Datum {
     this.contractId,
     this.paymentMethod,
     this.orderStartDate,
+    this.statusAllowCancel,
+    this.date
   });
-
-  String? id;
   String? date;
+  int? statusAllowCancel;
+  String? id;
+  String? timeLeft;
   String? name;
   String? service;
   String? status;
@@ -58,7 +61,8 @@ class Datum {
   String? orderStartDate;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
-      date: json["date"],
+      timeLeft: json["timeLeft"],
+      date: json['date'],
       name: json["name"],
       service: json["service"],
       status: json["status"],
@@ -66,10 +70,13 @@ class Datum {
       isRelayed: json["isRelayed"],
       contractId: json['ContractId'],
       paymentMethod: json['paymentMethod'],
-      orderStartDate: json['OrderStartDate']);
+      orderStartDate: json['OrderStartDate'],
+      statusAllowCancel: json['statusAllowCancel']
+      );
 
   Map<String, dynamic> toJson() => {
         "date": date,
+        "timeLeft": timeLeft,
         "name": name,
         "service": service,
         "status": status,
@@ -77,6 +84,7 @@ class Datum {
         "isRelayed": isRelayed,
         "ContractId": contractId,
         "paymentMethod": paymentMethod,
-        "OrderStartDate": orderStartDate
+        "OrderStartDate": orderStartDate,
+        "statusAllowCancel": statusAllowCancel
       };
 }

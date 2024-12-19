@@ -20,12 +20,12 @@ class _SelectOneTripState extends State<SelectOneTrip> {
     final _height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBars(
-          text: "trip".tr,
-          context: context,
-          withIcon: false,
-          canBack: true,
-          endDrawer: true,
-        ),
+        text: "trip".tr,
+        context: context,
+        withIcon: false,
+        canBack: true,
+        endDrawer: true,
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -33,7 +33,8 @@ class _SelectOneTripState extends State<SelectOneTrip> {
               margin: const EdgeInsets.all(15.0),
               child: InkWell(
                 onTap: () {
-                   push(context, TripTest(image: 'assets/images/camry2.png',type:"Car"));
+                  push(context,
+                      TripTest(image: 'assets/images/camry2.png', type: "Car"));
                   // push(
                   //     context,
                   //     const OneDirctiontrip(
@@ -47,7 +48,7 @@ class _SelectOneTripState extends State<SelectOneTrip> {
                     Image.asset('assets/images/camry2.png',
                         // width: 300,
                         height: _height / 4,
-                        fit: BoxFit.fitHeight ),
+                        fit: BoxFit.fitHeight),
                     ListTile(
                       title: Text(
                         'car'.tr,
@@ -65,7 +66,8 @@ class _SelectOneTripState extends State<SelectOneTrip> {
               margin: const EdgeInsets.all(15.0),
               child: InkWell(
                 onTap: () {
-                  push(context, TripTest(image: 'assets/images/van2.png',type:"Van"));
+                  push(context,
+                      TripTest(image: 'assets/images/van2.png', type: "Van"));
                   // push(
                   //     context,
                   //     const OneDirctiontrip(
@@ -94,8 +96,8 @@ class _SelectOneTripState extends State<SelectOneTrip> {
               ),
             ),
             Card(
-               shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(8.0))),
+              shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(8.0))),
               child: Padding(
                 padding: const EdgeInsets.all(15.0),
                 child: Text('please_choose_vehicle'.tr,

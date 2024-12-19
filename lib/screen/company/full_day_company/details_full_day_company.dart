@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:lyon/api/api.dart';
 import 'package:lyon/model/company_model/get_order_total_price_company_model.dart';
-import 'package:lyon/screen/company/other/hestory/history_orders_company.dart';
+import 'package:lyon/v_done/company/history/history_orders_company.dart';
 import 'package:lyon/shared/mehod/message.dart';
 import 'package:lyon/shared/mehod/switch_sreen.dart';
 import 'package:lyon/shared/styles/colors.dart';

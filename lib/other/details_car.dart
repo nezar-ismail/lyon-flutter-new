@@ -19,15 +19,11 @@ import 'confirm.dart';
 
 class DetailsCar extends StatefulWidget {
   final int? price;
-  // ignore: prefer_typing_uninitialized_variables
   final firstDate;
-  // ignore: prefer_typing_uninitialized_variables
   final lastDate;
   final String carId;
   final String? carImage;
-  // ignore: prefer_typing_uninitialized_variables
   final firstTime;
-  // ignore: prefer_typing_uninitialized_variables
   final endTime;
 
   const DetailsCar(
@@ -66,14 +62,10 @@ class _DetailsCarState extends State<DetailsCar> {
     final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: selectedDate,
-        // initialFirstDate: new DateTime.now(),
-        // initialLastDate: (new DateTime.now()).add(new Duration(days: 7)),
         firstDate: firstDate,
         lastDate: DateTime((DateTime.now().year) + 3, 12),
         errorInvalidText: "Out of range");
-    // ignore: unnecessary_null_comparison
     if (firstDateController.text == null) {
-      // ignore: avoid_returning_null_for_void
       return null;
     }
     if (picked != null && picked != selectedDate) {
@@ -98,7 +90,6 @@ class _DetailsCarState extends State<DetailsCar> {
         initialDate: selectedDate,
         firstDate: selectedDate,
         currentDate: selectedDate,
-        // initialDatePickerMode: selectedDate,
         lastDate: selectedDate.add(const Duration(days: 35)),
         errorInvalidText: "Out of range");
     if (picked != null) {
@@ -124,8 +115,6 @@ class _DetailsCarState extends State<DetailsCar> {
       time = pickedTime.format(context);
       DateTime parsedTime =
           DateFormat.Hm().parse(pickedTime.format(context).toString());
-      // ignore: unused_local_variable
-
       if (pickedTime.format(context).toString().contains("AM")) {
         parsedTime = parsedTime.hour == 12
             ? parsedTime.subtract(const Duration(hours: 12))
@@ -139,8 +128,6 @@ class _DetailsCarState extends State<DetailsCar> {
       String formattedTime = DateFormat.Hms().format(parsedTime);
       setState(() {
         timeController.text = formattedTime;
-        // firstHour = pickedTime.hour;
-        // firstMinute = pickedTime.minute;
       });
     }
   }
@@ -167,13 +154,9 @@ class _DetailsCarState extends State<DetailsCar> {
             ? parsedTime
             : parsedTime.add(const Duration(hours: 12));
       }
-      // ignore: unused_local_variable
       String formattedTime = DateFormat.Hms().format(parsedTime);
       setState(() {
         timeController.text = formattedTime;
-
-        // secondHour = pickedTime.hour;
-        // secondMinute = pickedTime.minute;
       });
     }
   }
@@ -222,15 +205,12 @@ class _DetailsCarState extends State<DetailsCar> {
       }
       setState(() {
         showCircle = false;
-        // ignore: avoid_function_literals_in_foreach_calls
         internalSpecifications.forEach((item) {
           concatenateinternal.write('\u{2714} $item\n');
         });
-        // ignore: avoid_function_literals_in_foreach_calls
         features.forEach((item) {
           concatenatefeatures.write('\u{2714} $item\n');
         });
-        // ignore: avoid_function_literals_in_foreach_calls
         safetyFeatures.forEach((item) {
           concatenatesafetyFeatures.write('\u{2714} $item\n');
         });
@@ -425,7 +405,6 @@ class _DetailsCarState extends State<DetailsCar> {
                             ),
                           ],
                         ),
-
                         Visibility(
                             visible: isEndDateNull,
                             child: Padding(
@@ -442,7 +421,6 @@ class _DetailsCarState extends State<DetailsCar> {
                           color: Colors.black,
                           height: 16,
                         ),
-
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
@@ -474,15 +452,10 @@ class _DetailsCarState extends State<DetailsCar> {
                                           fontWeight: FontWeight.bold)),
                                   TextSpan(
                                       text:
-                                          // ignore: unnecessary_string_interpolations
-                                          '${concatenatesafetyFeatures.toString()}'),
+                                          concatenatesafetyFeatures.toString()),
                                 ],
                               ),
                             ),
-                            // Text(
-                            //     '\n\n \n  \n  \n ',
-
-                            //     textAlign: TextAlign.start),
                             InkWell(
                               onTap: () {
                                 setState(() {
@@ -510,16 +483,6 @@ class _DetailsCarState extends State<DetailsCar> {
                           color: Colors.black,
                           height: 16,
                         ),
-                        // Row(
-                        //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        //   children: [
-
-                        //     dividerVertical(),
-
-                        //     dividerVertical(),
-
-                        //   ],
-                        // ),
                         SizedBox(
                           height: _height * .02,
                         ),
@@ -535,14 +498,12 @@ class _DetailsCarState extends State<DetailsCar> {
                           key: _formKey,
                           child: SizedBox(
                             width: MediaQuery.of(context).size.width,
-                            // height: MediaQuery.of(context).size.width/3,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 Container(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 10),
-                                  // width: MediaQuery.of(context).size.width,
                                   decoration: BoxDecoration(
                                       border: Border.all(
                                         color: Colors.black,
@@ -624,7 +585,6 @@ class _DetailsCarState extends State<DetailsCar> {
                             ),
                           ),
                         ),
-
                         SizedBox(
                           height: _height * .01,
                         ),
@@ -633,11 +593,6 @@ class _DetailsCarState extends State<DetailsCar> {
                           width: _width / 2,
                           height: _height * .05,
                           child: buttonSmall(
-                              // style: ElevatedButton.styleFrom(
-                              //   primary: secondaryColor1,
-                              //   shape: RoundedRectangleBorder(
-                              //       borderRadius: BorderRadius.circular(30)),
-                              // ),
                               context: context,
                               text: "book".tr,
                               function: () async {
@@ -655,107 +610,84 @@ class _DetailsCarState extends State<DetailsCar> {
                                       checkEnd = false;
                                       isLoadingButton = true;
                                     });
-                                    await fetchIsCarAvailable()
-                                        .then((value) async {
-                                      //Here I am supposed to put the newly created API.
-                                      //-----------------------------
-                                      // print(sharedToken2);
-                                      // Map<String, String> requestBody = {
-                                      //   'token': sharedToken2!,
-                                      // };
+                                    IsCarAvailable? isCarAvailable =
+                                        await fetchIsCarAvailable();
 
-                                      // var response = await http.post(
-                                      //   Uri.parse(
-                                      //       'https://lyon-jo.com/api/preventMuliableBooking.php'),
-                                      //   // headers: {
-                                      //   //   'Content-Type':
-                                      //   //       "application/json",
-                                      //   // },
-                                      //   body: requestBody,
-                                      // );
-                                      // print(response.statusCode);
-                                      // if (response.statusCode != 200) {
-                                      //   print(
-                                      //       "Now I am supposed to display to him a message");
-                                      // }
-
-                                      //-----------------------------
-                                      if (value.status == 200) {
-                                        print("total price: ${value.price}");
-                                        push(
-                                            context,
-                                            ConfirmInformation(
-                                              carId: widget.carId,
-                                              typeCar: typeCAR,
-                                              startDate:
-                                                  firstDateController.text == ''
-                                                      ? widget.firstDate
-                                                      : firstDateController
-                                                          .text,
-                                              startTime:
-                                                  firstTimeController.text == ''
-                                                      ? widget.firstTime
-                                                      : firstTimeController
-                                                          .text,
-                                              returnDate:
-                                                  endDateController.text == ''
-                                                      ? widget.lastDate
-                                                      : endDateController.text,
-                                              returnTime:
-                                                  endTimeController.text == ''
-                                                      ? widget.endTime
-                                                      : endTimeController.text,
-                                              firstLocation: dropDownValueStart,
-                                              endLocation: dropDownValueEnd,
-                                              numberOfDay: value.days,
-                                              numberOfHour: 0,
-                                              currency: value.currency!,
-                                              totalPrice: value.price!,
-                                              pricePerDay: value.pricePerDay,
-                                              carImage: widget.carImage,
-                                              gasoline: value.gasoline!,
-                                              carSeat: value.carSeat!,
-                                              insurance: value.insurance!,
-                                              smokingCar: value.smokingCar!,
-                                              ashtray: value.ashtray!,
-                                            ));
-                                        setState(() {
-                                          isLoadingButton = false;
-                                          dropDownValueStart = '';
-                                          dropDownValueEnd = '';
-                                        });
-                                      } else if (value.status == 0) {
-                                        showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) {
-                                            return AlertDialog(
-                                              title: Text("message".tr),
-                                              content: Text(
-                                                value.message.toString(),
-                                                style: const TextStyle(
-                                                    color: Colors.red),
+                                    if (isCarAvailable!.status == 200) {
+                                      push(
+                                          context,
+                                          ConfirmInformation(
+                                            carId: widget.carId,
+                                            typeCar: typeCAR,
+                                            startDate:
+                                                firstDateController.text == ''
+                                                    ? widget.firstDate
+                                                    : firstDateController.text,
+                                            startTime:
+                                                firstTimeController.text == ''
+                                                    ? widget.firstTime
+                                                    : firstTimeController.text,
+                                            returnDate:
+                                                endDateController.text == ''
+                                                    ? widget.lastDate
+                                                    : endDateController.text,
+                                            returnTime:
+                                                endTimeController.text == ''
+                                                    ? widget.endTime
+                                                    : endTimeController.text,
+                                            firstLocation: dropDownValueStart,
+                                            endLocation: dropDownValueEnd,
+                                            numberOfDay: isCarAvailable!.days,
+                                            numberOfHour: 0,
+                                            currency: isCarAvailable.currency!,
+                                            totalPrice: isCarAvailable.price!,
+                                            pricePerDay:
+                                                isCarAvailable.pricePerDay,
+                                            carImage: widget.carImage,
+                                            gasoline: isCarAvailable.gasoline!,
+                                            carSeat: isCarAvailable.carSeat!,
+                                            insurance:
+                                                isCarAvailable.insurance!,
+                                            smokingCar:
+                                                isCarAvailable.smokingCar!,
+                                            ashtray: isCarAvailable.ashtray!,
+                                          ));
+                                      setState(() {
+                                        isLoadingButton = false;
+                                        dropDownValueStart = '';
+                                        dropDownValueEnd = '';
+                                      });
+                                    } else {
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                            title: Text("message".tr),
+                                            content: Text(
+                                              isCarAvailable.message.toString(),
+                                              style: const TextStyle(
+                                                  color: Colors.red),
+                                            ),
+                                            actions: <Widget>[
+                                              // ignore: deprecated_member_use
+                                              TextButton(
+                                                child: Text("ok".tr),
+                                                onPressed: () {
+                                                  setState(() {
+                                                    dropDownValueStart = '';
+                                                    dropDownValueEnd = '';
+                                                  });
+                                                  Navigator.of(context).pop();
+                                                },
                                               ),
-                                              actions: <Widget>[
-                                                // ignore: deprecated_member_use
-                                                TextButton(
-                                                  child: Text("ok".tr),
-                                                  onPressed: () {
-                                                    setState(() {
-                                                      dropDownValueStart = '';
-                                                      dropDownValueEnd = '';
-                                                    });
-                                                    Navigator.of(context).pop();
-                                                  },
-                                                ),
-                                              ],
-                                            );
-                                          },
-                                        );
-                                        setState(() {
-                                          isLoadingButton = false;
-                                        });
-                                      }
-                                    });
+                                            ],
+                                          );
+                                        },
+                                      );
+                                      setState(() {
+                                        isLoadingButton = false;
+                                      });
+                                    }
                                   } else {
                                     if (dropDownValueStart == "" &&
                                         dropDownValueEnd == "") {
@@ -775,67 +707,8 @@ class _DetailsCarState extends State<DetailsCar> {
                                     }
                                   }
                                 }
-
-                                //   setState(() {
-                                //     checkStart = false;
-                                //     checkEnd = false;
-                                //   });
-                                //   final first = DateTime(
-                                //       widget.firstYear,
-                                //       widget.firstMonth,
-                                //       widget.firstDay,
-                                //       widget.firstHour);
-                                //   final second = DateTime(
-                                //       widget.secondYear,
-                                //       widget.secondMonth,
-                                //       widget.secondDay,
-                                //       widget.secondHour);
-                                //   // final second = secondController;
-                                //   difference =
-                                //       (second.difference(first).inDays);
-
-                                //   if (difference > 0) {
-                                //     differenceHours =
-                                //         widget.firstHour - widget.secondHour;
-                                //     push(
-                                //         context,
-                                //         ConfirmInformation(
-                                //           typeCar: typeCAR,
-                                //           startTime: widget.firstTime,
-                                //           startDate: widget.firstDate,
-                                //           returnDate: widget.lastDate,
-                                //           returnTime: widget.endTime,
-                                //           firstLocation: dropDownValueStart,
-                                //           endLocation: dropDownValueEnd,
-                                //           numberOfDay: difference,
-                                //           numberOfHour: differenceHours,
-                                //         ));
-                                //   } else if (difference == 0) {
-                                //     differenceHours =
-                                //         widget.secondHour - widget.firstHour;
-                                //     if (differenceHours > 0) {
-                                //       push(
-                                //           context,
-                                //           ConfirmInformation(
-                                //             typeCar: typeCAR,
-                                //             startTime: widget.firstTime,
-                                //             startDate: widget.firstDate,
-                                //             returnDate: widget.lastDate,
-                                //             returnTime: widget.endTime,
-                                //             firstLocation: dropDownValueStart,
-                                //             endLocation: dropDownValueEnd,
-                                //             numberOfDay: difference,
-                                //             numberOfHour: differenceHours,
-                                //           ));
-                                //     } else {
-                                //       showMessage(
-                                //           context: context,
-                                //           text: "Please Enter Correct Date");
-                                //     }
-                                //   }
                               }),
                         )),
-
                         SizedBox(
                           height: _height * .02,
                         ),
@@ -846,7 +719,7 @@ class _DetailsCarState extends State<DetailsCar> {
     );
   }
 
-  Future fetchIsCarAvailable() async {
+  Future<IsCarAvailable?> fetchIsCarAvailable() async {
     String apiUrl = ApiApp.isAvaliableCars;
     SharedPreferences _prefs = await SharedPreferences.getInstance();
     var _sharedToken = _prefs.getString('access_token');
@@ -878,9 +751,7 @@ class _DetailsCarState extends State<DetailsCar> {
     };
     print("this is my majd$json");
     http.Response response =
-        await http.post(Uri.parse(apiUrl), body: json, headers: {
-      'Accept': 'application/json',
-    });
+        await http.post(Uri.parse(apiUrl), body: json,);
     print(response.statusCode);
     print(response.body);
     var jsonResponse = jsonDecode(response.body);
@@ -918,7 +789,7 @@ class _DetailsCarState extends State<DetailsCar> {
       var x = IsCarAvailable.fromJson(jsonResponse);
       return x;
     }
-    //return x;
+    return null;
   }
 }
 

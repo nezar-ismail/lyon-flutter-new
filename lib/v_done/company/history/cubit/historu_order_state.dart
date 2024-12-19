@@ -1,4 +1,4 @@
-part of 'historu_order_cubit.dart';
+part of 'history_order_cubit.dart';
 
 @immutable
 abstract class HistoryOrdersState extends Equatable {

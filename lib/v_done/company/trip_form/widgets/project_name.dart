@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:lyon/v_done/trip_form/cubit/trip_form_cubit.dart';
-import 'package:lyon/v_done/trip_form/widgets/text_feild_form.dart';
+import 'package:lyon/v_done/company/trip_form/cubit/trip_form_cubit.dart';
+import 'package:lyon/v_done/company/trip_form/widgets/text_feild_form.dart';
 import 'package:lyon/shared/styles/colors.dart';
 import 'package:lyon/v_done/utils/custom_snackbar.dart';
 

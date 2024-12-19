@@ -1,8 +1,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lyon/screen/Translate/localization.dart';
 import 'package:lyon/screen/auth/login/cubit/login_cubit.dart';
+import 'package:lyon/v_done/utils/Translate/localization.dart';
 import 'package:lyon/v_done/utils/const.dart';
 
 class LanguageToggle extends StatelessWidget {

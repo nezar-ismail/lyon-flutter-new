@@ -1,23 +1,28 @@
 import 'package:easy_stepper/easy_stepper.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:lyon/model/company_model/trips_model.dart';
-import 'package:lyon/v_done/trip_form/cubit/nav_cubit.dart';
-import 'package:lyon/v_done/trip_form/cubit/trip_form_cubit.dart';
-import 'package:lyon/v_done/trip_form/widgets/project_name.dart';
-import 'package:lyon/v_done/trip_form/widgets/trip_form.dart';
+import 'package:lyon/other/user_trip_program/model/trip.dart';
+import 'package:lyon/other/user_trip_program/widgets/user_trip_form.dart';
 import 'package:lyon/shared/styles/colors.dart';
+import 'package:lyon/v_done/company/trip_form/cubit/nav_cubit.dart';
+import 'package:lyon/v_done/company/trip_form/cubit/trip_form_cubit.dart';
 
-class SelecteMulteTripCompany extends StatelessWidget {
-  SelecteMulteTripCompany({
+class SelecteMulteTripUser extends StatelessWidget {
+  SelecteMulteTripUser({
     super.key,
     required this.type,
+    required this.image,
+    required this.price,
   });
 
+  final String image;
+  final String price;
   final String type;
-  final ValueNotifier<List<ListElement>> trips = ValueNotifier([ListElement()]);
-  final TextEditingController projectName = TextEditingController();
+  final ValueNotifier<List<UserTrips>> trips =
+      ValueNotifier([UserTrips(), UserTrips()]);
   final PageController pageController = PageController();
 
   @override
@@ -41,15 +46,12 @@ class SelecteMulteTripCompany extends StatelessWidget {
               if (state is TripFormLoading) {
                 return const Center(child: CircularProgressIndicator());
               }
-              if (state is TripFormInitial) {
-                return ProjectName(projectName: projectName);
-              }
               return Column(
                 children: [
                   const SizedBox(height: 10),
                   BlocBuilder<TripNavigationCubit, int>(
                     builder: (context, currentPage) {
-                      return ValueListenableBuilder<List<ListElement>>(
+                      return ValueListenableBuilder<List<UserTrips>>(
                         valueListenable: trips,
                         builder: (context, value, _) {
                           return EasyStepper(
@@ -82,11 +84,11 @@ class SelecteMulteTripCompany extends StatelessWidget {
                       child: Column(
                         children: [
                           SizedBox(
-                            height: 700,
+                            height: 500,
                             child: BlocListener<TripNavigationCubit, int>(
                               listener: (context, currentPage) {
                                 if (currentPage >= trips.value.length) {
-                                  trips.value.add(ListElement());
+                                  trips.value.add(const UserTrips());
                                 }
                                 trips.value =
                                     List.from(trips.value); // Notify listeners
@@ -96,23 +98,25 @@ class SelecteMulteTripCompany extends StatelessWidget {
                                   curve: Curves.easeInQuad,
                                 );
                               },
-                              child: ValueListenableBuilder<List<ListElement>>(
+                              child: ValueListenableBuilder<List<UserTrips>>(
                                 valueListenable: trips,
                                 builder: (context, value, _) {
                                   return PageView.builder(
-                                    physics: const NeverScrollableScrollPhysics(),
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
                                     controller: pageController,
                                     itemCount: value.length,
                                     itemBuilder: (context, index) {
                                       if (index >= value.length) {
-                                        value.add(ListElement());
+                                        value.add(UserTrips());
                                         trips.value = List.from(
                                             value); // Notify listeners
                                       }
                                       return Padding(
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 8.0),
-                                        child: TripForm(
+                                        child: UserTripForm(
+                                          image: image,
                                           trip: value[index],
                                           onValidate: (trip) {
                                             value[index] = trip;
@@ -121,7 +125,6 @@ class SelecteMulteTripCompany extends StatelessWidget {
                                           },
                                           vehicleType: type,
                                           trips: value,
-                                          projectName: projectName,
                                         ),
                                       );
                                     },

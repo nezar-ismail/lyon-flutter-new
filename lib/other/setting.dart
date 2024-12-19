@@ -5,8 +5,8 @@ import 'package:lyon/api/api.dart';
 import 'package:lyon/other/main_screen.dart';
 import 'package:lyon/shared/Widgets/appbar.dart';
 import 'package:lyon/shared/styles/colors.dart';
+import 'package:lyon/v_done/utils/Translate/localization.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../screen/Translate/localization.dart';
 import 'package:http/http.dart' as http;
 
 class Setting extends StatefulWidget {

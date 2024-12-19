@@ -10,7 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../api/api.dart';
 import '../../../shared/Widgets/custom_text.dart';
 import '../../../shared/styles/colors.dart';
-import '../other/hestory/history_orders_company.dart';
+import '../../../v_done/company/history/history_orders_company.dart';
 
 class DetailsMultiTripCompany extends StatefulWidget {
   // ignore: prefer_typing_uninitialized_variables

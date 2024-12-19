@@ -5,7 +5,7 @@ import 'package:lyon/shared/Widgets/text_field_widget.dart';
 import 'package:lyon/shared/mehod/switch_sreen.dart';
 
 import '../../../shared/styles/colors.dart';
-import '../../../v_done/trip_form/views/selecte_multe_trip_company.dart';
+import '../../../v_done/company/trip_form/views/selecte_multe_trip_company.dart';
 
 class TripHomePageCompany extends StatefulWidget {
   final String? image;

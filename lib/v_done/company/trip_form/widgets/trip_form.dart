@@ -3,12 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:lyon/model/company_model/trips_model.dart';
 import 'package:lyon/screen/company/trip_company/details_multi_trip_company.dart';
-import 'package:lyon/v_done/trip_form/cubit/nav_cubit.dart';
-import 'package:lyon/v_done/trip_form/cubit/trip_form_cubit.dart';
-import 'package:lyon/v_done/trip_form/utils/picked_func.dart';
-import 'package:lyon/v_done/trip_form/widgets/custom_drop_down.dart';
-import 'package:lyon/v_done/trip_form/widgets/text_feild_form.dart';
-import 'package:lyon/v_done/trip_form/widgets/trips_nav.dart';
+import 'package:lyon/v_done/company/trip_form/cubit/nav_cubit.dart';
+import 'package:lyon/v_done/company/trip_form/cubit/trip_form_cubit.dart';
+import 'package:lyon/v_done/company/trip_form/utils/picked_func.dart';
+import 'package:lyon/v_done/company/trip_form/widgets/custom_drop_down.dart';
+import 'package:lyon/v_done/company/trip_form/widgets/text_feild_form.dart';
+import 'package:lyon/v_done/company/trip_form/widgets/trips_nav.dart';
 import 'package:lyon/shared/mehod/switch_sreen.dart';
 import 'package:lyon/v_done/utils/custom_log.dart';
 

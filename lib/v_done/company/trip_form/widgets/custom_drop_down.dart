@@ -40,6 +40,7 @@ class CustomDropDown extends StatelessWidget {
             onChanged!(val);
           }
         },
+        selectedItem: controller.text.isEmpty ? null : controller.text,
         dropdownDecoratorProps: DropDownDecoratorProps(
           dropdownSearchDecoration: InputDecoration(
             prefixIcon: const Icon(
