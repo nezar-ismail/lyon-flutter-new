@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -46,8 +48,8 @@ class _DetailsOneTripCompanyState extends State<DetailsOneTripCompany> {
   bool isLoading = false;
   @override
   Widget build(BuildContext context) {
-    final _height = MediaQuery.of(context).size.height;
-    final _width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: secondaryColor1,
@@ -64,21 +66,21 @@ class _DetailsOneTripCompanyState extends State<DetailsOneTripCompany> {
           : ListView(
               children: [
                 SizedBox(
-                  height: _height * .03,
+                  height: height * .03,
                 ),
                 Center(
                     child: Image.asset(
                         widget.vechileType == 'Car'
                             ? 'assets/images/camry2.png'
                             : 'assets/images/van2.png',
-                        width: _width / 2)),
+                        width: width / 2)),
                 SizedBox(
-                  height: _height * .03,
+                  height: height * .03,
                 ),
                 Row(
                   children: [
                     SizedBox(
-                      width: _width * .03,
+                      width: width * .03,
                     ),
                     Text('destination'.tr + ' : '.tr,
                         style: const TextStyle(
@@ -89,14 +91,14 @@ class _DetailsOneTripCompanyState extends State<DetailsOneTripCompany> {
                   ],
                 ),
                 SizedBox(
-                  height: _height * .01,
+                  height: height * .01,
                 ),
                 widget.mapMobile['Location'] == 'Multi Location Way'
                     ? Container()
                     : Row(
                         children: [
                           SizedBox(
-                            width: _width * .03,
+                            width: width * .03,
                           ),
                           Text('location'.tr + ' : '.tr,
                               style: const TextStyle(
@@ -107,7 +109,7 @@ class _DetailsOneTripCompanyState extends State<DetailsOneTripCompany> {
                         ],
                       ),
                 SizedBox(
-                  height: _height * .03,
+                  height: height * .03,
                 ),
                 ListView.builder(
                     physics: const ScrollPhysics(),
@@ -132,13 +134,13 @@ class _DetailsOneTripCompanyState extends State<DetailsOneTripCompany> {
                         ),
                         leading: CircleAvatar(
                           radius: 20.0,
-                          child: Text('${i + 1}'),
                           backgroundColor: secondaryColor1,
+                          child: Text('${i + 1}'),
                         ),
                       );
                     }),
                 SizedBox(
-                  height: _height * .1,
+                  height: height * .1,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -148,7 +150,7 @@ class _DetailsOneTripCompanyState extends State<DetailsOneTripCompany> {
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                       SizedBox(
-                        width: _width * .1,
+                        width: width * .1,
                       ),
                       Text(
                         '${widget.totalPrice} ${widget.mapMobile['currency']}',
@@ -160,8 +162,8 @@ class _DetailsOneTripCompanyState extends State<DetailsOneTripCompany> {
                 ),
                 Align(
                   child: SizedBox(
-                      width: _width * 0.5,
-                      height: _height * 0.06,
+                      width: width * 0.5,
+                      height: height * 0.06,
                       // ignore: deprecated_member_use
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
@@ -174,11 +176,10 @@ class _DetailsOneTripCompanyState extends State<DetailsOneTripCompany> {
                           setState(() {
                             isLoading = true;
                           });
-                          SharedPreferences _prefs =
+                          SharedPreferences prefs =
                               await SharedPreferences.getInstance();
-                          var _sharedToken =
-                              _prefs.getString('access_token_company');
-                          print(_sharedToken);
+                          var sharedToken =
+                              prefs.getString('access_token_company');
                           Map<String, dynamic> json = {
                             'list': jsonEncode(widget.webJson),
                             'phone': '0000',
@@ -186,13 +187,12 @@ class _DetailsOneTripCompanyState extends State<DetailsOneTripCompany> {
                             'startDate': widget.webJson[0]['Date'],
                             'name': widget.name,
                             'vechileType': widget.vechileType,
-                            'token': _sharedToken,
+                            'token': sharedToken,
                             'mobile': '1',
                             'totalPrice': widget.totalPrice.toString(),
                             // 'numberOfTrips': widget.itemCount.toString(),
                             'projectName': widget.projectName
                           };
-                          print(json);
                           String apiUrl = ApiApp.addCompanyOrder;
                           http.Response response = await http
                               .post(Uri.parse(apiUrl), body: json)

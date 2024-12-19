@@ -11,13 +11,14 @@ class SelectOneTrip extends StatefulWidget {
   const SelectOneTrip({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _SelectOneTripState createState() => _SelectOneTripState();
 }
 
 class _SelectOneTripState extends State<SelectOneTrip> {
   @override
   Widget build(BuildContext context) {
-    final _height = MediaQuery.of(context).size.height;
+    final height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBars(
         text: "trip".tr,
@@ -34,7 +35,7 @@ class _SelectOneTripState extends State<SelectOneTrip> {
               child: InkWell(
                 onTap: () {
                   push(context,
-                      TripTest(image: 'assets/images/camry2.png', type: "Car"));
+                      const TripTest(image: 'assets/images/camry2.png', type: "Car"));
                   // push(
                   //     context,
                   //     const OneDirctiontrip(
@@ -47,7 +48,7 @@ class _SelectOneTripState extends State<SelectOneTrip> {
                   children: <Widget>[
                     Image.asset('assets/images/camry2.png',
                         // width: 300,
-                        height: _height / 4,
+                        height: height / 4,
                         fit: BoxFit.fitHeight),
                     ListTile(
                       title: Text(
@@ -55,7 +56,7 @@ class _SelectOneTripState extends State<SelectOneTrip> {
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                       subtitle: Text(
-                          '1_4_people'.tr + '\n' + 'capacity_3_luggage'.tr,
+                          '${'1_4_people'.tr}\n${'capacity_3_luggage'.tr}',
                           style: const TextStyle(color: Colors.red)),
                     ),
                   ],
@@ -67,7 +68,7 @@ class _SelectOneTripState extends State<SelectOneTrip> {
               child: InkWell(
                 onTap: () {
                   push(context,
-                      TripTest(image: 'assets/images/van2.png', type: "Van"));
+                      const TripTest(image: 'assets/images/van2.png', type: "Van"));
                   // push(
                   //     context,
                   //     const OneDirctiontrip(
@@ -80,7 +81,7 @@ class _SelectOneTripState extends State<SelectOneTrip> {
                   children: <Widget>[
                     Image.asset('assets/images/van2.png',
                         // width: 300,
-                        height: _height / 4,
+                        height: height / 4,
                         fit: BoxFit.fitHeight),
                     ListTile(
                       title: Text(
@@ -88,7 +89,7 @@ class _SelectOneTripState extends State<SelectOneTrip> {
                         style: const TextStyle(fontWeight: FontWeight.bold),
                       ),
                       subtitle: Text(
-                          '5_7_people'.tr + '\n' + 'capacity_10_luggage'.tr,
+                          '${'5_7_people'.tr}\n${'capacity_10_luggage'.tr}',
                           style: const TextStyle(color: Colors.red)),
                     ),
                   ],

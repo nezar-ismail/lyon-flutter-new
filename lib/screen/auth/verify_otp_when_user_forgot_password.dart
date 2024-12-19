@@ -1,4 +1,4 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+// ignore_for_file: public_member_api_docs, sort_constructors_first, use_build_context_synchronously
 // import 'package:flutter/cupertino.dart';
 import 'dart:async';
 
@@ -48,12 +48,12 @@ class _VerifyOtpWhenUserForgotPasswordState
             ),
             Text(
               'check_your_email'.tr,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 16,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             SizedBox(
@@ -74,7 +74,7 @@ class _VerifyOtpWhenUserForgotPasswordState
                       context: context,
                       barrierDismissible: false,
                       builder: (BuildContext context) {
-                        return Center(
+                        return const Center(
                           child: CircularProgressIndicator(),
                         );
                       });

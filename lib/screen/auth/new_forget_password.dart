@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
 import 'package:lyon/screen/auth/verify_otp_when_user_forgot_password.dart';
@@ -20,8 +22,8 @@ class _NewForgetPasswordState extends State<NewForgetPassword> {
   @override
   Widget build(BuildContext context) {
     // ignore: unused_local_variable
-    final _width = MediaQuery.of(context).size.width;
-    final _height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBars(
           canBack: true,
@@ -37,11 +39,11 @@ class _NewForgetPasswordState extends State<NewForgetPassword> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     SizedBox(
-                      height: _height * .1,
+                      height: height * .1,
                     ),
                     Center(child: logoScreen(context: context)),
                     SizedBox(
-                      height: _height * .05,
+                      height: height * .05,
                     ),
                     textFieldWidgetWithoutFilled(
                         context: context,
@@ -54,7 +56,7 @@ class _NewForgetPasswordState extends State<NewForgetPassword> {
                         obscureText: false,
                         icons: const Icon(Icons.email)),
                     SizedBox(
-                      height: _height * .05,
+                      height: height * .05,
                     ),
                     button(
                         context: context,
@@ -64,7 +66,7 @@ class _NewForgetPasswordState extends State<NewForgetPassword> {
                               context: context,
                               barrierDismissible: false,
                               builder: (BuildContext context) {
-                                return Center(
+                                return const Center(
                                   child: CircularProgressIndicator(
                                     color: Colors.white,
                                     strokeCap: StrokeCap.square,

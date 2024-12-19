@@ -12,6 +12,7 @@ class OrderDetailsProgram extends StatefulWidget {
 
   const OrderDetailsProgram({super.key, required this.id});
   @override
+  // ignore: library_private_types_in_public_api
   _OrderDetailsProgramState createState() => _OrderDetailsProgramState();
 }
 
@@ -135,8 +136,8 @@ class _OrderDetailsProgramState extends State<OrderDetailsProgram> {
                           ),
                           leading: CircleAvatar(
                             radius: 20.0,
-                            child: Text('${i + 1}'),
                             backgroundColor: secondaryColor1,
+                            child: Text('${i + 1}'),
                           ),
                         );
                       }),

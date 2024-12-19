@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, use_build_context_synchronously, unused_element
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/cupertino.dart';
@@ -23,6 +23,7 @@ File? _image2;
 class EditInformation extends StatefulWidget {
   const EditInformation({super.key});
   @override
+  // ignore: library_private_types_in_public_api
   _EditInformationState createState() => _EditInformationState();
 }
 class _EditInformationState extends State<EditInformation> {
@@ -33,6 +34,7 @@ class _EditInformationState extends State<EditInformation> {
   String cc = '';
   String phone = '';
   String emailStr = '';
+  // ignore: non_constant_identifier_names
   String iD_Passport = '';
   String license = '';
   bool isVisablePhoneNumber = false;
@@ -41,10 +43,10 @@ class _EditInformationState extends State<EditInformation> {
   var dio = prefix.Dio();
   updateInformation() async {
     String apiUrl = ApiApp.editProfile;
-    SharedPreferences _prefs = await SharedPreferences.getInstance();
-    var _sharedToken = _prefs.getString('access_token');
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var sharedToken = prefs.getString('access_token');
     var formData = prefix.FormData.fromMap({
-      'token': _sharedToken.toString(),
+      'token': sharedToken.toString(),
       'mobileNumber': phoneController.text.toString().removeAllWhitespace,
       "countryCode":
           theRealPhone != null ? theRealPhone!.dialCode.toString() : '',
@@ -65,9 +67,9 @@ class _EditInformationState extends State<EditInformation> {
   }
   getUserDocument() async {
     String apiUrl = ApiApp.getUserDocument;
-    SharedPreferences _prefs = await SharedPreferences.getInstance();
-    var _sharedToken = _prefs.getString('access_token');
-    final json = {"token": _sharedToken, "mobile": "1"};
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var sharedToken = prefs.getString('access_token');
+    final json = {"token": sharedToken, "mobile": "1"};
 
     http.Response response = await http.post(Uri.parse(apiUrl), body: json);
 
@@ -78,8 +80,8 @@ class _EditInformationState extends State<EditInformation> {
       emailStr = jsonResponse['email'];
       iD_Passport = jsonResponse['iD_Passport'];
       license = jsonResponse['License'];
-      address.text = _prefs.getString("address") ?? "";
-      street.text = _prefs.getString("street") ?? "";
+      address.text = prefs.getString("address") ?? "";
+      street.text = prefs.getString("street") ?? "";
     });
   }
   @override
@@ -114,7 +116,6 @@ class _EditInformationState extends State<EditInformation> {
       ),
       actions: <Widget>[
         CupertinoActionSheetAction(
-          child: Text('choose_image_gallery'.tr),
           isDefaultAction: false,
           onPressed: () async {
             Navigator.pop(context);
@@ -127,9 +128,9 @@ class _EditInformationState extends State<EditInformation> {
                 _image = File(image.path);
               });
           },
+          child: Text('choose_image_gallery'.tr),
         ),
         CupertinoActionSheetAction(
-          child: Text('choose_image'.tr),
           isDestructiveAction: false,
           onPressed: () async {
             Navigator.pop(context);
@@ -142,10 +143,10 @@ class _EditInformationState extends State<EditInformation> {
                 _image = File(image.path);
               });
           },
+          child: Text('choose_image'.tr),
         ),
         _image != null
             ? CupertinoActionSheetAction(
-                child: Text('view_image'.tr),
                 isDestructiveAction: false,
                 onPressed: () async {
                   push(
@@ -154,6 +155,7 @@ class _EditInformationState extends State<EditInformation> {
                         image: _image,
                       ));
                 },
+                child: Text('view_image'.tr),
               )
             : Container()
       ],
@@ -174,36 +176,37 @@ class _EditInformationState extends State<EditInformation> {
       ),
       actions: <Widget>[
         CupertinoActionSheetAction(
-          child: Text('choose_image_gallery'.tr),
           isDefaultAction: false,
           onPressed: () async {
             Navigator.pop(context);
             XFile? image2 =
                 await _imagePicker.pickImage(source: ImageSource.gallery);
-            if (image2 != null)
+            if (image2 != null) {
               setState(() {
                 isSavedButton = true;
                 _image2 = File(image2.path);
               });
+            }
           },
+          child: Text('choose_image_gallery'.tr),
         ),
         CupertinoActionSheetAction(
-          child: Text('choose_image'.tr),
           isDestructiveAction: false,
           onPressed: () async {
             Navigator.pop(context);
             XFile? image2 =
                 await _imagePicker.pickImage(source: ImageSource.camera);
-            if (image2 != null)
+            if (image2 != null) {
               setState(() {
                 isSavedButton = true;
                 _image2 = File(image2.path);
               });
+            }
           },
+          child: Text('choose_image'.tr),
         ),
         _image2 != null
             ? CupertinoActionSheetAction(
-                child: Text('view_image'.tr),
                 isDestructiveAction: false,
                 onPressed: () async {
                   push(
@@ -212,6 +215,7 @@ class _EditInformationState extends State<EditInformation> {
                         image: _image2,
                       ));
                 },
+                child: Text('view_image'.tr),
               )
             : Container()
       ],
@@ -227,8 +231,8 @@ class _EditInformationState extends State<EditInformation> {
   bool openCircle = false;
   @override
   Widget build(BuildContext context) {
-    final _width = MediaQuery.of(context).size.width;
-    final _height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
     return SizedBox(
       height: MediaQuery.of(context).size.height,
       child: Scaffold(
@@ -237,6 +241,7 @@ class _EditInformationState extends State<EditInformation> {
           backgroundColor: secondaryColor1,
           title: Text(
             "edit_profile".tr,
+            // ignore: prefer_const_constructors
             style: TextStyle(color: Colors.white),
           ),
           centerTitle: true,
@@ -248,13 +253,13 @@ class _EditInformationState extends State<EditInformation> {
                 : SingleChildScrollView(
                     child: Center(
                       child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: _width * .02),
+                        padding: EdgeInsets.symmetric(horizontal: width * .02),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             SizedBox(
-                              height: _height * .04,
+                              height: height * .04,
                             ),
                             CustomText(
                                 text: 'phone_number_(optional)'.tr,
@@ -265,7 +270,7 @@ class _EditInformationState extends State<EditInformation> {
                                         ? Alignment.centerLeft
                                         : Alignment.centerRight),
                             SizedBox(
-                              height: _height * .01,
+                              height: height * .01,
                             ),
                             GestureDetector(
                               onTap: () {
@@ -275,7 +280,7 @@ class _EditInformationState extends State<EditInformation> {
                               },
                               child: Container(
                                 width: double.infinity,
-                                height: _height * .065,
+                                height: height * .065,
                                 decoration: BoxDecoration(
                                     border: Border.all(color: secondaryColor1),
                                     borderRadius: const BorderRadius.all(
@@ -330,14 +335,14 @@ class _EditInformationState extends State<EditInformation> {
                                               });
                                             },
                                             child: CustomText(
-                                              text: cc + '-' + phone,
+                                              text: '$cc-$phone',
                                               alignment: Alignment.center,
                                               size: 20,
                                             ))),
                               ),
                             ),
                             SizedBox(
-                              height: _height * .01,
+                              height: height * .01,
                             ),
                             CustomText(
                                 text: 'email_(optional)'.tr,
@@ -348,7 +353,7 @@ class _EditInformationState extends State<EditInformation> {
                                         ? Alignment.centerLeft
                                         : Alignment.centerRight),
                             SizedBox(
-                              height: _height * .01,
+                              height: height * .01,
                             ),
                             Form(
                               key: _formKey,
@@ -373,11 +378,11 @@ class _EditInformationState extends State<EditInformation> {
                             Visibility(
                               visible: check,
                               child: SizedBox(
-                                height: _height * .02,
+                                height: height * .02,
                               ),
                             ),
                             SizedBox(
-                              height: _height * .01,
+                              height: height * .01,
                             ),
                             CustomText(
                                 text: 'address_(optional)'.tr,
@@ -388,7 +393,7 @@ class _EditInformationState extends State<EditInformation> {
                                         ? Alignment.centerLeft
                                         : Alignment.centerRight),
                             SizedBox(
-                              height: _height * .01,
+                              height: height * .01,
                             ),
                             textFieldWidgetWithoutFilledWithEditFunction(
                                 context: context,
@@ -403,7 +408,7 @@ class _EditInformationState extends State<EditInformation> {
                                   });
                                 }),
                             SizedBox(
-                              height: _height * .01,
+                              height: height * .01,
                             ),
                             CustomText(
                               text: 'street_(optional)'.tr,
@@ -415,7 +420,7 @@ class _EditInformationState extends State<EditInformation> {
                               color: Colors.grey,
                             ),
                             SizedBox(
-                              height: _height * .01,
+                              height: height * .01,
                             ),
                             textFieldWidgetWithoutFilledWithEditFunction(
                                 context: context,
@@ -430,7 +435,7 @@ class _EditInformationState extends State<EditInformation> {
                                   });
                                 }),
                             SizedBox(
-                              height: _height * .02,
+                              height: height * .02,
                             ),
                             Column(
                               children: [
@@ -442,22 +447,21 @@ class _EditInformationState extends State<EditInformation> {
                                             ? Container(
                                                 )
                                             : SizedBox(
+                                                width: width * .7,
+                                                height: height / 6,
                                                 child: Image.network(
-                                                    'https://lyon-jo.com/' +
-                                                        iD_Passport),
-                                                width: _width * .7,
-                                                height: _height / 6,
+                                                    'https://lyon-jo.com/$iD_Passport'),
                                               )
                                         : Image.file(
                                             _image!,
                                             fit: BoxFit.cover,
-                                            width: _width * .7,
-                                            height: _height / 6,
+                                            width: width * .7,
+                                            height: height / 6,
                                           ),
                                   ),
                                 ),
                                 SizedBox(
-                                  height: _height * .02,
+                                  height: height * .02,
                                 ),
                                 GestureDetector(
                                   child: ClipRRect(
@@ -467,24 +471,23 @@ class _EditInformationState extends State<EditInformation> {
                                             ? Container(
                                                 )
                                             : SizedBox(
+                                                width: width * .7,
+                                                height: height / 6,
                                                 child: Image.network(
-                                                    'https://lyon-jo.com/' +
-                                                        license),
-                                                width: _width * .7,
-                                                height: _height / 6,
+                                                    'https://lyon-jo.com/$license'),
                                               )
                                         : Image.file(
                                             _image2!,
                                             fit: BoxFit.cover,
-                                            width: _width * .7,
-                                            height: _height / 6,
+                                            width: width * .7,
+                                            height: height / 6,
                                           ),
                                   ),
                                 ),
                               ],
                             ),
                             SizedBox(
-                              height: _height * .05,
+                              height: height * .05,
                             ),
                             Visibility(
                               visible: isSavedButton,

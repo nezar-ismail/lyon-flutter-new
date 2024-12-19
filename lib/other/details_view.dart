@@ -36,8 +36,8 @@ class _DetailsViewState extends State<DetailsView> {
 
   @override
   Widget build(BuildContext context) {
-    final _width = MediaQuery.of(context).size.width;
-    final _height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: secondaryColor1,
@@ -54,18 +54,18 @@ class _DetailsViewState extends State<DetailsView> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(
-                    height: _height * .01,
+                    height: height * .01,
                   ),
                   Text(
                     snapshot.data!.data!.name.toString(),
                     style: styleBlack25WithBold,
                   ),
                   SizedBox(
-                    height: _height * .02,
+                    height: height * .02,
                   ),
                   SizedBox(
-                    height: _height / 5,
-                    width: _width,
+                    height: height / 5,
+                    width: width,
                     child: CarouselSlider.builder(
                       unlimitedMode: true,
                       autoSliderDelay: const Duration(seconds: 3),
@@ -77,23 +77,23 @@ class _DetailsViewState extends State<DetailsView> {
                       slideBuilder: (index) => Image.network(
                         'https://lyon-jo.com/${snapshot.data!.data!.images![index]}',
                         width: double.infinity,
-                        height: _height / 5,
+                        height: height / 5,
                         fit: BoxFit.cover,
                       ),
                     ),
                   ),
                   SizedBox(
-                    height: _height * .02,
+                    height: height * .02,
                   ),
                   Text(
                     'internal_specifications'.tr,
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   SizedBox(
-                    height: _height * .01,
+                    height: height * .01,
                   ),
                   SizedBox(
-                    width: _width,
+                    width: width,
                     child: Wrap(
                       direction: Axis.horizontal,
                       children: snapshot.data!.data!.internalSpecifications!
@@ -119,25 +119,25 @@ class _DetailsViewState extends State<DetailsView> {
                     ),
                   ),
                   SizedBox(
-                    height: _height * .01,
+                    height: height * .01,
                   ),
                   Container(
                     color: const Color(0xffC4C4C4),
-                    height: _height * .003,
-                    width: _width * .7,
+                    height: height * .003,
+                    width: width * .7,
                   ),
                   SizedBox(
-                    height: _height * .02,
+                    height: height * .02,
                   ),
                   Text(
                     'safety_features'.tr,
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   SizedBox(
-                    height: _height * .01,
+                    height: height * .01,
                   ),
                   SizedBox(
-                    width: _width,
+                    width: width,
                     child: Wrap(
                       direction: Axis.horizontal,
                       children:
@@ -163,25 +163,25 @@ class _DetailsViewState extends State<DetailsView> {
                     ),
                   ),
                   SizedBox(
-                    height: _height * .01,
+                    height: height * .01,
                   ),
                   Container(
                     color: const Color(0xffC4C4C4),
-                    height: _height * .003,
-                    width: _width * .7,
+                    height: height * .003,
+                    width: width * .7,
                   ),
                   SizedBox(
-                    height: _height * .02,
+                    height: height * .02,
                   ),
                   Text(
                     'features'.tr,
                     style: const TextStyle(fontWeight: FontWeight.bold),
                   ),
                   SizedBox(
-                    height: _height * .01,
+                    height: height * .01,
                   ),
                   SizedBox(
-                    width: _width,
+                    width: width,
                     child: Wrap(
                       direction: Axis.horizontal,
                       children: snapshot.data!.data!.features!.map((item) {

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
@@ -13,6 +14,7 @@ class OrderDetailsTransportation extends StatefulWidget {
 
   const OrderDetailsTransportation({super.key, required this.id});
   @override
+  // ignore: library_private_types_in_public_api
   _OrderDetailsTransportationState createState() =>
       _OrderDetailsTransportationState();
 }
@@ -35,7 +37,9 @@ class _OrderDetailsTransportationState
 
     http.Response response = await http.post(Uri.parse(apiUrl), body: json);
     var jsonResponse = jsonDecode(response.body);
-    print(response.body);
+    if (kDebugMode) {
+      print(response.body);
+    }
 
     return GetOrderDetailsTransportationModel.fromJson(jsonResponse);
   }
@@ -55,7 +59,9 @@ class _OrderDetailsTransportationState
               return const Center(child: CircularProgressIndicator());
             }
             if (snapshot.data!.data != null) {
-              print(snapshot.data!.data!);
+              if (kDebugMode) {
+                print(snapshot.data!.data!);
+              }
               return SingleChildScrollView(
                 child: Column(
                   children: [

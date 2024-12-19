@@ -1,5 +1,8 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -32,8 +35,8 @@ class _LogInCompanyState extends State<LogInCompany> {
 
   @override
   Widget build(BuildContext context) {
-    final _width = MediaQuery.of(context).size.width;
-    final _height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
     return Form(
       key: _formKey,
       child: Scaffold(
@@ -53,10 +56,10 @@ class _LogInCompanyState extends State<LogInCompany> {
                     children: [
                       logoScreen(context: context),
                       SizedBox(
-                        height: _height * .02,
+                        height: height * .02,
                       ),
                       SizedBox(
-                        width: _width * .8,
+                        width: width * .8,
                         child: textFieldWidgetWithoutFilled(
                             context: context,
                             controller: email,
@@ -69,10 +72,10 @@ class _LogInCompanyState extends State<LogInCompany> {
                             icons: const Icon(Icons.email)),
                       ),
                       SizedBox(
-                        height: _height * .02,
+                        height: height * .02,
                       ),
                       SizedBox(
-                        width: _width * .8,
+                        width: width * .8,
                         child: textFieldWidgetWithoutFilled(
                           context: context,
                           icons: const Icon(Icons.lock),
@@ -85,7 +88,7 @@ class _LogInCompanyState extends State<LogInCompany> {
                         ),
                       ),
                       SizedBox(
-                        height: _height * .05,
+                        height: height * .05,
                       ),
                       button(
                           context: context,
@@ -110,17 +113,21 @@ class _LogInCompanyState extends State<LogInCompany> {
                               bool? isWithTrip;
                               var jsonResponse = jsonDecode(response.body);
                               if (jsonResponse['status'] == 200) {
-                                SharedPreferences _prefs =
+                                SharedPreferences prefs =
                                     await SharedPreferences.getInstance();
-                                _prefs.setString('access_token_company',
+                                prefs.setString('access_token_company',
                                     jsonResponse['token']);
                                 var box = GetStorage();
                                 box.write('access', jsonResponse['token']);
-                                print(box.read('access'));
-                                print(_prefs.getString('access_token_company'));
-                                _prefs.setString(
+                                if (kDebugMode) {
+                                  print(box.read('access'));
+                                }
+                                if (kDebugMode) {
+                                  print(prefs.getString('access_token_company'));
+                                }
+                                prefs.setString(
                                     'company_name', jsonResponse['name']);
-                                _prefs.setBool('isCompanyLoggedIn', true);
+                                prefs.setBool('isCompanyLoggedIn', true);
                                 if (jsonResponse['rental'] == '1') {
                                   setState(() {
                                     isWithRental = true;
@@ -148,9 +155,9 @@ class _LogInCompanyState extends State<LogInCompany> {
                                     isWithTrip = false;
                                   });
                                 }
-                                _prefs.setBool('withRental', isWithRental!);
-                                _prefs.setBool('withTrip', isWithTrip!);
-                                _prefs.setBool('withFullDay', isWithfullDay!);
+                                prefs.setBool('withRental', isWithRental!);
+                                prefs.setBool('withTrip', isWithTrip!);
+                                prefs.setBool('withFullDay', isWithfullDay!);
                                 pushAndRemoveUntil(
                                     context,
                                     HomePageCompany());

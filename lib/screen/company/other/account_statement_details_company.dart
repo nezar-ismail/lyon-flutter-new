@@ -35,14 +35,14 @@ class _AccountStatementDetailsCompanyState
   String? apiUrl;
   String? sharedToken;
   Future<AccountStatementModel> accountStatementComoany() async {
-    SharedPreferences _prefs = await SharedPreferences.getInstance();
+    SharedPreferences prefs = await SharedPreferences.getInstance();
 
     // if (widget.accountType == 'customer') {
     //   apiUrl = ApiApp.accountStatement;
     //   sharedToken = _prefs.getString('access_token');
     // } else if(widget.accountType == 'company') {
     apiUrl = ApiApp.getCompanyAccountStatement;
-    sharedToken = _prefs.getString('access_token_company');
+    sharedToken = prefs.getString('access_token_company');
     // }
 
     final json = {

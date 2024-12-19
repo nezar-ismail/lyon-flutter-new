@@ -18,17 +18,13 @@ class TripCheckOutController extends GetxController {
   }
 
   Future<bool> checkIfUserInsertedPassport() async {
-    SharedPreferences _prefs = await SharedPreferences.getInstance();
-    var _sharedToken = _prefs.getString('access_token');
-    print(_sharedToken);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var sharedToken = prefs.getString('access_token');
     var response = await http.post(
       Uri.parse('https://lyon-jo.com/api/userDocuments.php'),
-      body: {'token': _sharedToken},
+      body: {'token': sharedToken},
     );
-    print(response.body);
     var jsonResponse = jsonDecode(response.body);
-    print("jsonResponse of the tripCheckoutController: $jsonResponse");
-    print("Here is the license value: ${jsonResponse['License']}");
     if (jsonResponse['status'] == 404) {
       return false;
     } else if (jsonResponse['ID/Passport'] == null) {

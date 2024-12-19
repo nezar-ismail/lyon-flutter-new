@@ -1,3 +1,5 @@
+// ignore_for_file: no_leading_underscores_for_local_identifiers, use_build_context_synchronously
+
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -47,20 +49,6 @@ class _DetailsFullDayCompanyState extends State<DetailsFullDayCompany> {
   late Future<GetOrderPriceCompanyModel> futureGetOrderPrice;
   bool isLoading = false;
 
-  // @override
-  // void initState() {
-  //   futureGetOrderPrice = getOrderTotalPrice();
-  //   super.initState();
-  // }
-
-  // Future<GetOrderPriceCompanyModel> getOrderTotalPrice() async {
-  //   String apiUrl = ApiApp.getOrderTotalPrice;
-
-  //   http.Response response = await http.post(Uri.parse(apiUrl), body: json);
-
-  //   var jsonResponse = jsonDecode(response.body);
-  //   // return GetOrderPriceCompanyModel.fromJson(jsonResponse);
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -98,7 +86,7 @@ class _DetailsFullDayCompanyState extends State<DetailsFullDayCompany> {
                         ),
                         Center(
                             child: Image.network(
-                          'https://lyon-jo.com/' + widget.vehicleimage,
+                          'https://lyon-jo.com/${widget.vehicleimage}',
                           width: MediaQuery.of(context).size.width / 2,
                         )),
                         SizedBox(
@@ -160,15 +148,11 @@ class _DetailsFullDayCompanyState extends State<DetailsFullDayCompany> {
                                 ]),
                                 DataRow(cells: [
                                   DataCell(Text('price_day'.tr)),
-                                  DataCell(Text(widget.pricePerDay.toString() +
-                                      '  ' +
-                                      widget.currency)),
+                                  DataCell(Text('${widget.pricePerDay}  ${widget.currency}')),
                                 ]),
                                 DataRow(cells: [
                                   DataCell(Text('total_price_2'.tr)),
-                                  DataCell(Text(widget.totalPrice.toString() +
-                                      '  ' +
-                                      widget.currency)),
+                                  DataCell(Text('${widget.totalPrice}  ${widget.currency}')),
                                 ]),
                               ],
                             ),

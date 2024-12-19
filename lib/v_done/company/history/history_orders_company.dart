@@ -20,6 +20,7 @@ class HistoryOrdersCompany extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => HistoryOrdersCubit()..fetchOrders(),
+      // ignore: deprecated_member_use
       child: WillPopScope(
         onWillPop: () async => false,
         child: Scaffold(
@@ -120,11 +121,12 @@ class HistoryOrdersCompany extends StatelessWidget {
       return Center(child: Text('you_do_not_have_any_reservations'.tr));
     }
 
-    Future<void> _launchUrl(String url) async {
+    Future<void> launchUrl(String url) async {
       if (await canLaunchUrl(Uri.parse(url))) {
-        await launchUrl(Uri.parse(url));
+        await launchUrl(Uri.parse(url) as String);
       } else {
         showMessage(
+          // ignore: use_build_context_synchronously
           context: context,
           text: "Can't_open_invoice_please_try_again!".tr,
         );
@@ -148,7 +150,7 @@ class HistoryOrdersCompany extends StatelessWidget {
                     final invoiceUrl =
                         _getInvoiceUrl(order.service!, order.contractId);
                     if (invoiceUrl != null) {
-                      await _launchUrl(invoiceUrl);
+                      await launchUrl(invoiceUrl);
                     } else {
                       showMessage(
                         context: context,

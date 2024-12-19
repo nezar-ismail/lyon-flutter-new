@@ -12,6 +12,7 @@ class RentalOrderDetailsCompany extends StatefulWidget {
 
   const RentalOrderDetailsCompany({super.key, required this.id});
   @override
+  // ignore: library_private_types_in_public_api
   _RentalOrderDetailsCompanyState createState() =>
       _RentalOrderDetailsCompanyState();
 }

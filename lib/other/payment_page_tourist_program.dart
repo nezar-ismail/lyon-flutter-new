@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -26,6 +28,7 @@ class CashOrVisaTouristProgram extends StatefulWidget {
 
   // ignore: prefer_typing_uninitialized_variables
   final vehicleType;
+  // ignore: prefer_typing_uninitialized_variables
   final locationTicket;
 
   const CashOrVisaTouristProgram(

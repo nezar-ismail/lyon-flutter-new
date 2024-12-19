@@ -25,11 +25,11 @@ class AppBars extends AppBar {
           actions: [
             endDrawer
                 ? Padding(
-                    padding: EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8.0),
                     child: Center(child: GetBuilder<AmountController>(
                       builder: (controller) {
                         if (isGuest == true) {
-                          return Text('');
+                          return const Text('');
                         } else {
                           return Text(
                             // ignore: prefer_interpolation_to_compose_strings

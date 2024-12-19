@@ -21,9 +21,9 @@ class AppHelper {
     required Function(String blacklist, int remainingAmount) onSuccess,
   }) async {
     String apiUrl = ApiApp.checkBlacklist;
-    SharedPreferences _prefs = await SharedPreferences.getInstance();
-    var _sharedToken = _prefs.getString('access_token');
-    final json = {"token": _sharedToken, "mobile": "1"};
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var sharedToken = prefs.getString('access_token');
+    final json = {"token": sharedToken, "mobile": "1"};
 
     try {
       http.Response response = await http.post(Uri.parse(apiUrl), body: json);

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lyon/screen/company/other/home_page_company.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,6 +13,7 @@ class SplashScreen extends StatefulWidget {
   });
 
   @override
+  // ignore: library_private_types_in_public_api
   _SplashScreenState createState() => _SplashScreenState();
 }
 
@@ -28,7 +30,9 @@ class _SplashScreenState extends State<SplashScreen> {
     setState(() {
       tokenCompany =
           sharedPreferences.getString('access_token_company').toString();
-      print(tokenCompany);
+      if (kDebugMode) {
+        print(tokenCompany);
+      }
       if (tokenCompany.isNotEmpty && tokenCompany != '') {
         isCompanyLoggedIn = true;
       }
@@ -74,6 +78,7 @@ class _SplashScreenState extends State<SplashScreen> {
       } else {
         Future.delayed(const Duration(seconds: 2), () {
           if (mounted) {
+            // ignore: use_build_context_synchronously
             Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(builder: (BuildContext context) {
                 return token == 'null' || token.isEmpty || token == ''

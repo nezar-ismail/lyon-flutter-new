@@ -22,9 +22,9 @@ class _RentalAvailableCompanyState extends State<RentalAvailableCompany> {
 
   Future<AvailableCarCompanyModel> getCarsCompany() async {
     String apiUrl = ApiApp.getCompanyVehicles;
-    SharedPreferences _prefs = await SharedPreferences.getInstance();
-    var _sharedToken = _prefs.getString('access_token_company');
-    final json = {"token": _sharedToken, "mobile": "1"};
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var sharedToken = prefs.getString('access_token_company');
+    final json = {"token": sharedToken, "mobile": "1"};
 
     http.Response response = await http.post(Uri.parse(apiUrl), body: json);
 

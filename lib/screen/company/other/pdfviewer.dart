@@ -1,4 +1,4 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+// ignore_for_file: public_member_api_docs, sort_constructors_first, use_build_context_synchronously
 import 'package:flutter/material.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:get/get.dart';
@@ -24,6 +24,7 @@ class PdfViewerPage extends StatefulWidget {
     required this.projectName,
   });
   @override
+  // ignore: library_private_types_in_public_api
   _PdfViewerPageState createState() => _PdfViewerPageState();
 }
 
@@ -125,16 +126,16 @@ class _PdfViewerPageState extends State<PdfViewerPage> {
                                                   .validate()) {
                                                 String apiUrl = ApiApp
                                                     .sendAccountStatementByEmail;
-                                                SharedPreferences _prefs =
+                                                SharedPreferences prefs =
                                                     await SharedPreferences
                                                         .getInstance();
-                                                var _sharedToken =
-                                                    _prefs.getString(
+                                                var sharedToken =
+                                                    prefs.getString(
                                                         'access_token_company');
                                                 final json = {
                                                   "dateFrom": widget.dateFrom,
                                                   "dateTo": widget.dateTo,
-                                                  "token": _sharedToken,
+                                                  "token": sharedToken,
                                                   'email':
                                                       email.text.toString(),
                                                   "isCompany": "1",

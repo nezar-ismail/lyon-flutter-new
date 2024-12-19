@@ -20,7 +20,7 @@ Widget textFieldWidgetWithoutFilled(
   return ConstrainedBox(
     constraints: const BoxConstraints(minWidth: double.infinity, minHeight: 50),
     child: TextFormField(
-      inputFormatters: [
+      inputFormatters: const [
         // FilteringTextInputFormatter.deny(RegExp(r"\s\b|\b\s")),
       ],
       validator: (value) {

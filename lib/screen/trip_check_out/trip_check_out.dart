@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_typing_uninitialized_variables, use_build_context_synchronously
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -64,10 +66,10 @@ class _TripCheckOutState extends State<TripCheckOut> {
   // }
 
   getToken() async {
-    SharedPreferences _prefs = await SharedPreferences.getInstance();
-    var _sharedToken = _prefs.getString('access_token');
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var sharedToken = prefs.getString('access_token');
     String apiUrl = ApiApp.checkUserDocuments;
-    final json = {"token": _sharedToken, "mobile": "1"};
+    final json = {"token": sharedToken, "mobile": "1"};
 
     http.Response response =
         await http.post(Uri.parse(apiUrl), body: json).whenComplete(() {
@@ -77,7 +79,6 @@ class _TripCheckOutState extends State<TripCheckOut> {
     });
 
     var jsonResponse = jsonDecode(response.body);
-    print("Response: $jsonResponse");
     return jsonResponse;
   }
 
@@ -85,10 +86,7 @@ class _TripCheckOutState extends State<TripCheckOut> {
 
   @override
   void initState() {
-    print(widget.destination);
-    // TODO: implement initState
     super.initState();
-    print(widget.destination);
     futurePost = getToken();
     asyncFunc();
     if (widget.pickupSpot.trim() ==
@@ -142,18 +140,18 @@ class _TripCheckOutState extends State<TripCheckOut> {
               return Column(
                 children: [
                   Padding(
-                      padding: EdgeInsets.only(top: 50.0, bottom: 10.0),
+                      padding: const EdgeInsets.only(top: 50.0, bottom: 10.0),
                       child: Obx(
                         () => Center(
                           child: tripCheckOutController
                                   .displayThankfulMessageInTrip.value
-                              ? Text(
+                              ? const Text(
                                   "Thank You! Press continue",
                                   style: TextStyle(
                                       fontSize: 17,
                                       fontWeight: FontWeight.w500),
                                 )
-                              : Text(
+                              : const Text(
                                   "Please attach the below photos: ",
                                   style: TextStyle(
                                       fontSize: 17,
@@ -254,7 +252,7 @@ class _TripCheckOutState extends State<TripCheckOut> {
                                   context: context,
                                   barrierDismissible: false,
                                   builder: (BuildContext context) {
-                                    return Center(
+                                    return const Center(
                                       child: CircularProgressIndicator(
                                         color: Colors.white,
                                         strokeCap: StrokeCap.square,
@@ -265,9 +263,6 @@ class _TripCheckOutState extends State<TripCheckOut> {
                               var passportInserted =
                                   await tripCheckOutController
                                       .checkIfUserInsertedPassport();
-                              print("Response: $passportInserted");
-                              print(tripCheckOutController
-                                  .displayTicketButton.value);
 
                               //if the user (pickUp spot) from airport
                               //--then-> check if his ticket && passport is inserted successfully
@@ -285,8 +280,6 @@ class _TripCheckOutState extends State<TripCheckOut> {
                                             .displayTicketButton.value ==
                                         false) {
                                   Navigator.of(context).pop();
-                                  print(
-                                      "Heyy: ${widget.pickupSpot} ${widget.destination}");
                                   push(
                                       context,
                                       CashOrVisaTranspotation(
@@ -310,11 +303,8 @@ class _TripCheckOutState extends State<TripCheckOut> {
                                   );
                                 }
                               } else {
-                                print("Passport inserted: $passportInserted");
                                 if (passportInserted) {
                                   Navigator.of(context).pop();
-                                  print(
-                                      "Heyy: ${widget.pickupSpot} ${widget.destination}");
                                   push(
                                     context,
                                     CashOrVisaTranspotation(

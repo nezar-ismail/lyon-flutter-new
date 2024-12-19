@@ -1,6 +1,9 @@
+// ignore_for_file: use_build_context_synchronously, duplicate_ignore
+
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter/material.dart';
@@ -55,6 +58,7 @@ class _HistoryInformationState extends State<HistoryInformation>
     http.Response response = await http
         .post(Uri.parse(apiUrl), body: json)
         .timeout(const Duration(seconds: 5), onTimeout: () {
+      // ignore: use_build_context_synchronously
       pushAndRemoveUntil(context, MainScreen(numberIndex: 1));
       throw Exception('Cannot connect to the server');
     });
@@ -125,7 +129,9 @@ class _HistoryInformationState extends State<HistoryInformation>
                             "orderId": id,
                           });
                       var responseBody = jsonDecode(response.body);
-                      print(responseBody.toString());
+                      if (kDebugMode) {
+                        print(responseBody.toString());
+                      }
                       if (responseBody["status"] == 200 ||
                           responseBody["status"] == 500) {
                         String apiUrl = ApiApp.deleteOrderByID;

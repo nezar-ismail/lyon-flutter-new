@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../shared/mehod/message.dart';
@@ -24,8 +25,9 @@ class _FirstScreenState extends State<FirstScreen> {
   final _formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
-    final _width = MediaQuery.of(context).size.width;
-    final _height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
+    // ignore: deprecated_member_use
     return WillPopScope(
       onWillPop: () => showPopup(
           context: context,
@@ -49,7 +51,7 @@ class _FirstScreenState extends State<FirstScreen> {
           child: Column(
             children: [
               SizedBox(
-                height: _height * .02,
+                height: height * .02,
               ),
               Text(
                 'select_country'.tr,
@@ -96,7 +98,7 @@ class _FirstScreenState extends State<FirstScreen> {
                 visible: isLocationAmman,
                 child: Center(
                   child: SizedBox(
-                    width: _width * .7,
+                    width: width * .7,
                     child: DropdownSearch<String>(
                       dropdownButtonProps:
                           const DropdownButtonProps(color: secondaryColor1),
@@ -128,7 +130,7 @@ class _FirstScreenState extends State<FirstScreen> {
                         'Queen Alia Airport',
                         'King Hussien Bridge'
                       ],
-                      popupProps: PopupProps.menu(
+                      popupProps: const PopupProps.menu(
                         showSearchBox: true,
                       ),
                       // showSearchBox: true,
@@ -166,7 +168,7 @@ class _FirstScreenState extends State<FirstScreen> {
                 visible: isLocationDubai,
                 child: Center(
                   child: SizedBox(
-                    width: _width * .7,
+                    width: width * .7,
                     child: DropdownSearch<String>(
                       /*   dropdownSearchDecoration: const InputDecoration(
                                 errorBorder: OutlineInputBorder(
@@ -188,7 +190,7 @@ class _FirstScreenState extends State<FirstScreen> {
                             showSearchBox: true,
                             // ignore: deprecated_member_use
                             label: "Select Location", */
-                      dropdownDecoratorProps: DropDownDecoratorProps(
+                      dropdownDecoratorProps: const DropDownDecoratorProps(
                           dropdownSearchDecoration: InputDecoration(
                         label: Text("Select Location"),
                       )),
@@ -204,11 +206,11 @@ class _FirstScreenState extends State<FirstScreen> {
                 ),
               ),
               SizedBox(
-                height: _height * .05,
+                height: height * .05,
               ),
               SizedBox(
-                  width: _width * .50,
-                  height: _height * .05,
+                  width: width * .50,
+                  height: height * .05,
                   // ignore: deprecated_member_use
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
@@ -224,10 +226,16 @@ class _FirstScreenState extends State<FirstScreen> {
                     onPressed: () {
                       if (_formKey.currentState!.validate() &&
                           _located != null) {
-                        print(destination);
-                        print(locationValue);
+                        if (kDebugMode) {
+                          print(destination);
+                        }
+                        if (kDebugMode) {
+                          print(locationValue);
+                        }
                       } else {
-                        print('please check destination and location');
+                        if (kDebugMode) {
+                          print('please check destination and location');
+                        }
                       }
                     },
                   ))

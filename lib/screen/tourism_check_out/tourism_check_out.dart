@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_typing_uninitialized_variables
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -40,10 +42,10 @@ class _TourismCheckOutState extends State<TourismCheckOut> {
 
   var futurePost;
   getToken() async {
-    SharedPreferences _prefs = await SharedPreferences.getInstance();
-    var _sharedToken = _prefs.getString('access_token');
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var sharedToken = prefs.getString('access_token');
     String apiUrl = ApiApp.checkUserDocuments;
-    final json = {"token": _sharedToken, "mobile": "1"};
+    final json = {"token": sharedToken, "mobile": "1"};
 
     http.Response response =
         await http.post(Uri.parse(apiUrl), body: json).whenComplete(() {
@@ -51,7 +53,6 @@ class _TourismCheckOutState extends State<TourismCheckOut> {
       });
     });
 
-    print("response.body: ${response.body}");
     var jsonResponse = jsonDecode(response.body);
     return jsonResponse;
   }
@@ -177,7 +178,6 @@ class _TourismCheckOutState extends State<TourismCheckOut> {
                         context: context,
                         text: "confirm".tr,
                         function: () async {
-                          print(widget.locationTicket);
                           if (widget.tick) {
                             if (tourismCheckOutController
                                         .displayTicketButton.value ==

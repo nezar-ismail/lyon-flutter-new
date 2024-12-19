@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:io';
 import 'package:dio/dio.dart' as prefix;
 import 'package:flutter/cupertino.dart';
@@ -139,8 +141,9 @@ class _RentalCheckOutCompanyState extends State<RentalCheckOutCompany> {
 
   @override
   Widget build(BuildContext context) {
-    final _width = MediaQuery.of(context).size.width;
-    final _height = MediaQuery.of(context).size.height;
+    
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
     return Form(
       key: _formKey,
       child: Scaffold(
@@ -157,10 +160,10 @@ class _RentalCheckOutCompanyState extends State<RentalCheckOutCompany> {
               Image.network(
                 widget.carImage,
                 // "assets/images/logo.png",
-                width: _width * .5,
+                width: width * .5,
               ),
               SizedBox(
-                height: _height * .02,
+                height: height * .02,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -208,7 +211,7 @@ class _RentalCheckOutCompanyState extends State<RentalCheckOutCompany> {
                 ],
               ),
               SizedBox(
-                height: _height * .02,
+                height: height * .02,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -256,11 +259,11 @@ class _RentalCheckOutCompanyState extends State<RentalCheckOutCompany> {
                 ],
               ),
               SizedBox(
-                height: _height * .05,
+                height: height * .05,
               ),
               Center(
                 child: SizedBox(
-                  width: _width * .8,
+                  width: width * .8,
                   child: textFieldWidgetWithoutFilledCompany(
                     context: context,
                     controller: projectName,
@@ -274,11 +277,11 @@ class _RentalCheckOutCompanyState extends State<RentalCheckOutCompany> {
                 ),
               ),
               SizedBox(
-                height: _height * .02,
+                height: height * .02,
               ),
               Center(
                 child: SizedBox(
-                  width: _width * .8,
+                  width: width * .8,
                   child: textFieldWidgetWithoutFilledCompany(
                     context: context,
                     controller: name,
@@ -292,11 +295,11 @@ class _RentalCheckOutCompanyState extends State<RentalCheckOutCompany> {
                 ),
               ),
               SizedBox(
-                height: _height * .02,
+                height: height * .02,
               ),
               Center(
                   child: SizedBox(
-                      width: _width * .8,
+                      width: width * .8,
                       child: TextFormField(
                         maxLength: 10,
                         validator: (value) {
@@ -339,7 +342,7 @@ class _RentalCheckOutCompanyState extends State<RentalCheckOutCompany> {
                         ),
                       ))),
               SizedBox(
-                height: _height * .02,
+                height: height * .02,
               ),
               GestureDetector(
                   onTap: () {
@@ -386,11 +389,11 @@ class _RentalCheckOutCompanyState extends State<RentalCheckOutCompany> {
                 ),
               ),
               SizedBox(
-                height: _height * .02,
+                height: height * .02,
               ),
               SizedBox(
-                  width: _width * .50,
-                  height: _height * .05,
+                  width: width * .50,
+                  height: height * .05,
                   // ignore: deprecated_member_use
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
@@ -436,7 +439,7 @@ class _RentalCheckOutCompanyState extends State<RentalCheckOutCompany> {
                     },
                   )),
               SizedBox(
-                height: _height * .04,
+                height: height * .04,
               ),
             ],
           ),
@@ -456,8 +459,8 @@ class _RentalCheckOutCompanyState extends State<RentalCheckOutCompany> {
             });
             Navigator.pop(context);
           },
-          child: Text('delete_photo'.tr),
           isDestructiveAction: true,
+          child: Text('delete_photo'.tr),
         ),
       ],
       cancelButton: CupertinoActionSheetAction(
@@ -478,7 +481,6 @@ class _RentalCheckOutCompanyState extends State<RentalCheckOutCompany> {
       ),
       actions: <Widget>[
         CupertinoActionSheetAction(
-          child: Text('choose_image_gallery'.tr),
           isDefaultAction: false,
           onPressed: () async {
             Navigator.pop(context);
@@ -491,9 +493,9 @@ class _RentalCheckOutCompanyState extends State<RentalCheckOutCompany> {
               });
             }
           },
+          child: Text('choose_image_gallery'.tr),
         ),
         CupertinoActionSheetAction(
-          child: Text('choose_image'.tr),
           isDestructiveAction: false,
           onPressed: () async {
             Navigator.pop(context);
@@ -506,6 +508,7 @@ class _RentalCheckOutCompanyState extends State<RentalCheckOutCompany> {
               });
             }
           },
+          child: Text('choose_image'.tr),
         )
       ],
       cancelButton: CupertinoActionSheetAction(

@@ -11,7 +11,7 @@ class TripHomePageCompany extends StatefulWidget {
   final String? image;
   final String? type;
   final String? numberTrip;
-  TripHomePageCompany({super.key, this.image, this.type, this.numberTrip});
+  const TripHomePageCompany({super.key, this.image, this.type, this.numberTrip});
 
   @override
   State<TripHomePageCompany> createState() => _TripHomePageCompanyState();
@@ -27,16 +27,13 @@ class _TripHomePageCompanyState extends State<TripHomePageCompany> {
   @override
   void initState() {
     super.initState();
-    print(widget.type);
-    print(widget.numberTrip);
-    print(widget.image);
     //  numberTrip = TextEditingController(text: '1');
   }
 
   @override
   Widget build(BuildContext context) {
-    final _width = MediaQuery.of(context).size.width;
-    final _height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
     return Form(
       key: _formKey,
       child: Scaffold(
@@ -51,14 +48,14 @@ class _TripHomePageCompanyState extends State<TripHomePageCompany> {
           child: Column(
             children: [
               SizedBox(
-                height: _height * .03,
+                height: height * .03,
               ),
               SizedBox(
-                height: _height * .02,
+                height: height * .02,
               ),
               Center(
                 child: SizedBox(
-                  width: _width * .8,
+                  width: width * .8,
                   child: textFieldWidgetWithoutFilledCompany(
                     context: context,
                     controller: projectName,
@@ -71,11 +68,11 @@ class _TripHomePageCompanyState extends State<TripHomePageCompany> {
                 ),
               ),
               SizedBox(
-                height: _height * .02,
+                height: height * .02,
               ),
               Center(
                 child: SizedBox(
-                  width: _width * .8,
+                  width: width * .8,
                   child: textFieldWidgetWithoutFilledCompany(
                     context: context,
                     controller: name,
@@ -88,11 +85,11 @@ class _TripHomePageCompanyState extends State<TripHomePageCompany> {
                 ),
               ),
               SizedBox(
-                height: _height * .02,
+                height: height * .02,
               ),
               Center(
                   child: SizedBox(
-                      width: _width * .8,
+                      width: width * .8,
                       child: TextFormField(
                         maxLength: 10,
                         validator: (value) {
@@ -134,11 +131,11 @@ class _TripHomePageCompanyState extends State<TripHomePageCompany> {
                         ),
                       ))),
               SizedBox(
-                height: _height * .02,
+                height: height * .02,
               ),
               SizedBox(
-                  width: _width * .50,
-                  height: _height * .05,
+                  width: width * .50,
+                  height: height * .05,
                   // ignore: deprecated_member_use
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(

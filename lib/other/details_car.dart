@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_carousel_slider/carousel_slider.dart';
 import 'package:get/get_utils/src/extensions/internacionalization.dart';
@@ -19,12 +20,12 @@ import 'confirm.dart';
 
 class DetailsCar extends StatefulWidget {
   final int? price;
-  final firstDate;
-  final lastDate;
+  final String firstDate;
+  final String lastDate;
   final String carId;
   final String? carImage;
-  final firstTime;
-  final endTime;
+  final String firstTime;
+  final String endTime;
 
   const DetailsCar(
       {super.key,
@@ -32,11 +33,12 @@ class DetailsCar extends StatefulWidget {
       required this.firstDate,
       required this.carId,
       required this.lastDate,
-      this.firstTime,
-      this.endTime,
+      required this.firstTime,
+      required this.endTime,
       this.carImage});
 
   @override
+  // ignore: library_private_types_in_public_api
   _DetailsCarState createState() => _DetailsCarState();
 }
 
@@ -65,9 +67,6 @@ class _DetailsCarState extends State<DetailsCar> {
         firstDate: firstDate,
         lastDate: DateTime((DateTime.now().year) + 3, 12),
         errorInvalidText: "Out of range");
-    if (firstDateController.text == null) {
-      return null;
-    }
     if (picked != null && picked != selectedDate) {
       setState(() {
         selectedDate = picked;
@@ -112,14 +111,18 @@ class _DetailsCarState extends State<DetailsCar> {
       context: context,
     );
     if (pickedTime != null) {
+      // ignore: use_build_context_synchronously
       time = pickedTime.format(context);
       DateTime parsedTime =
+          // ignore: use_build_context_synchronously
           DateFormat.Hm().parse(pickedTime.format(context).toString());
+      // ignore: use_build_context_synchronously
       if (pickedTime.format(context).toString().contains("AM")) {
         parsedTime = parsedTime.hour == 12
             ? parsedTime.subtract(const Duration(hours: 12))
             : parsedTime;
       }
+      // ignore: use_build_context_synchronously
       if (pickedTime.format(context).toString().contains("PM")) {
         parsedTime = parsedTime.hour == 12
             ? parsedTime
@@ -141,14 +144,18 @@ class _DetailsCarState extends State<DetailsCar> {
     );
 
     if (pickedTime != null) {
+      // ignore: use_build_context_synchronously
       time = pickedTime.format(context);
       DateTime parsedTime =
+          // ignore: use_build_context_synchronously
           DateFormat.Hm().parse(pickedTime.format(context).toString());
+      // ignore: use_build_context_synchronously
       if (pickedTime.format(context).toString().contains("AM")) {
         parsedTime = parsedTime.hour == 12
             ? parsedTime.subtract(const Duration(hours: 12))
             : parsedTime;
       }
+      // ignore: use_build_context_synchronously
       if (pickedTime.format(context).toString().contains("PM")) {
         parsedTime = parsedTime.hour == 12
             ? parsedTime
@@ -180,7 +187,9 @@ class _DetailsCarState extends State<DetailsCar> {
     items[0] = 'amman'.tr;
     items[1] = 'king_hussien_bridge'.tr;
     items[2] = 'queen_alia_airport'.tr;
-    print(items);
+    if (kDebugMode) {
+      print(items);
+    }
     getDataSharedPreferences();
     MethodAppApi().methodPOSTReturnResponse(
         url: ApiApp.getCarDetails,
@@ -191,6 +200,7 @@ class _DetailsCarState extends State<DetailsCar> {
       int safetyCount = value["safetyCount"];
       typeCAR = value["data"]["name"];
       for (int i = 0; i < length; i++) {
+        // ignore: prefer_interpolation_to_compose_strings
         carImage.add('https://lyon-jo.com/' + value["data"]["images"][i]);
       }
 
@@ -205,29 +215,25 @@ class _DetailsCarState extends State<DetailsCar> {
       }
       setState(() {
         showCircle = false;
-        internalSpecifications.forEach((item) {
+        for (var item in internalSpecifications) {
           concatenateinternal.write('\u{2714} $item\n');
-        });
-        features.forEach((item) {
+        }
+        for (var item in features) {
           concatenatefeatures.write('\u{2714} $item\n');
-        });
-        safetyFeatures.forEach((item) {
+        }
+        for (var item in safetyFeatures) {
           concatenatesafetyFeatures.write('\u{2714} $item\n');
-        });
+        }
       });
     });
 
-    if (widget.firstDate != null) {
-      setState(() {
-        firstDateController.text = widget.firstDate;
-      });
-    }
-    if (widget.lastDate != null) {
-      setState(() {
-        endDateController.text = widget.lastDate;
-      });
-    }
-    super.initState();
+    setState(() {
+      firstDateController.text = widget.firstDate;
+    });
+    setState(() {
+      endDateController.text = widget.lastDate;
+    });
+      super.initState();
   }
 
   @override
@@ -252,8 +258,8 @@ class _DetailsCarState extends State<DetailsCar> {
 
   @override
   Widget build(BuildContext context) {
-    final _width = MediaQuery.of(context).size.width;
-    final _height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
     return Scaffold(
       backgroundColor: backgroundColor,
       appBar: AppBarWithNotification(
@@ -275,18 +281,18 @@ class _DetailsCarState extends State<DetailsCar> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(
-                          height: _height * .01,
+                          height: height * .01,
                         ),
                         Text(
                           typeCAR,
                           style: styleBlack25WithBold,
                         ),
                         SizedBox(
-                          height: _height * .02,
+                          height: height * .02,
                         ),
                         SizedBox(
-                          height: _height / 5,
-                          width: _width,
+                          height: height / 5,
+                          width: width,
                           child: CarouselSlider.builder(
                             unlimitedMode: true,
                             autoSliderDelay: const Duration(seconds: 3),
@@ -299,13 +305,13 @@ class _DetailsCarState extends State<DetailsCar> {
                             slideBuilder: (index) => Image.network(
                               carImage[index],
                               width: double.infinity,
-                              height: _height / 5,
+                              height: height / 5,
                               fit: BoxFit.cover,
                             ),
                           ),
                         ),
                         SizedBox(
-                          height: _height * .02,
+                          height: height * .02,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -335,7 +341,7 @@ class _DetailsCarState extends State<DetailsCar> {
                               ),
                             ),
                             SizedBox(
-                              width: _width * .01,
+                              width: width * .01,
                             ),
                             Expanded(
                               flex: 2,
@@ -355,7 +361,7 @@ class _DetailsCarState extends State<DetailsCar> {
                           ],
                         ),
                         SizedBox(
-                          height: _height * .01,
+                          height: height * .01,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -386,7 +392,7 @@ class _DetailsCarState extends State<DetailsCar> {
                               ),
                             ),
                             SizedBox(
-                              width: _width * .02,
+                              width: width * .02,
                             ),
                             Expanded(
                               flex: 2,
@@ -408,14 +414,14 @@ class _DetailsCarState extends State<DetailsCar> {
                         Visibility(
                             visible: isEndDateNull,
                             child: Padding(
-                              padding: EdgeInsets.only(top: _height * .01),
+                              padding: EdgeInsets.only(top: height * .01),
                               child: Text(
                                 'please_enter_end_date'.tr,
                                 style: TextStyle(color: Colors.red.shade700),
                               ),
                             )),
                         SizedBox(
-                          height: _height * .01,
+                          height: height * .01,
                         ),
                         const Divider(
                           color: Colors.black,
@@ -484,7 +490,7 @@ class _DetailsCarState extends State<DetailsCar> {
                           height: 16,
                         ),
                         SizedBox(
-                          height: _height * .02,
+                          height: height * .02,
                         ),
                         Center(
                             child: Text(
@@ -492,7 +498,7 @@ class _DetailsCarState extends State<DetailsCar> {
                           style: stylePrimary18,
                         )),
                         SizedBox(
-                          height: _height * .015,
+                          height: height * .015,
                         ),
                         Form(
                           key: _formKey,
@@ -529,7 +535,7 @@ class _DetailsCarState extends State<DetailsCar> {
                                   ),
                                 ),
                                 SizedBox(
-                                  height: _height * .01,
+                                  height: height * .01,
                                 ),
                                 checkStart
                                     ? Text(
@@ -540,7 +546,7 @@ class _DetailsCarState extends State<DetailsCar> {
                                       )
                                     : const Text(""),
                                 SizedBox(
-                                  height: _height * .01,
+                                  height: height * .01,
                                 ),
                                 Container(
                                   width: double.infinity,
@@ -571,7 +577,7 @@ class _DetailsCarState extends State<DetailsCar> {
                                   ),
                                 ),
                                 SizedBox(
-                                  height: _height * .01,
+                                  height: height * .01,
                                 ),
                                 checkEnd
                                     ? Text(
@@ -586,12 +592,12 @@ class _DetailsCarState extends State<DetailsCar> {
                           ),
                         ),
                         SizedBox(
-                          height: _height * .01,
+                          height: height * .01,
                         ),
                         Center(
                             child: SizedBox(
-                          width: _width / 2,
-                          height: _height * .05,
+                          width: width / 2,
+                          height: height * .05,
                           child: buttonSmall(
                               context: context,
                               text: "book".tr,
@@ -615,6 +621,7 @@ class _DetailsCarState extends State<DetailsCar> {
 
                                     if (isCarAvailable!.status == 200) {
                                       push(
+                                          // ignore: use_build_context_synchronously
                                           context,
                                           ConfirmInformation(
                                             carId: widget.carId,
@@ -637,7 +644,7 @@ class _DetailsCarState extends State<DetailsCar> {
                                                     : endTimeController.text,
                                             firstLocation: dropDownValueStart,
                                             endLocation: dropDownValueEnd,
-                                            numberOfDay: isCarAvailable!.days,
+                                            numberOfDay: isCarAvailable.days,
                                             numberOfHour: 0,
                                             currency: isCarAvailable.currency!,
                                             totalPrice: isCarAvailable.price!,
@@ -659,6 +666,7 @@ class _DetailsCarState extends State<DetailsCar> {
                                       });
                                     } else {
                                       showDialog(
+                                        // ignore: use_build_context_synchronously
                                         context: context,
                                         builder: (BuildContext context) {
                                           return AlertDialog(
@@ -710,7 +718,7 @@ class _DetailsCarState extends State<DetailsCar> {
                               }),
                         )),
                         SizedBox(
-                          height: _height * .02,
+                          height: height * .02,
                         ),
                       ],
                     ),
@@ -721,8 +729,8 @@ class _DetailsCarState extends State<DetailsCar> {
 
   Future<IsCarAvailable?> fetchIsCarAvailable() async {
     String apiUrl = ApiApp.isAvaliableCars;
-    SharedPreferences _prefs = await SharedPreferences.getInstance();
-    var _sharedToken = _prefs.getString('access_token');
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var sharedToken = prefs.getString('access_token');
 
     String changeDate(String date) {
       var year = date.split('/')[0];
@@ -747,17 +755,26 @@ class _DetailsCarState extends State<DetailsCar> {
           : endTimeController.text,
       "id": widget.carId,
       "mobile": "1",
-      "token": _sharedToken,
+      "token": sharedToken,
     };
-    print("this is my majd$json");
-    http.Response response =
-        await http.post(Uri.parse(apiUrl), body: json,);
-    print(response.statusCode);
-    print(response.body);
+    if (kDebugMode) {
+      print("this is my majd$json");
+    }
+    http.Response response = await http.post(
+      Uri.parse(apiUrl),
+      body: json,
+    );
+    if (kDebugMode) {
+      print(response.statusCode);
+    }
+    if (kDebugMode) {
+      print(response.body);
+    }
     var jsonResponse = jsonDecode(response.body);
 
     if (jsonResponse["status"] == 422 || jsonResponse["status"] == 400) {
       showDialog(
+        // ignore: use_build_context_synchronously
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(

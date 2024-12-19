@@ -1,9 +1,6 @@
-import 'dart:convert';
 
-import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lyon/other/user_trip_program/api/api_service.dart';
-import 'package:lyon/other/user_trip_program/model/trip.dart';
 import 'package:lyon/v_done/utils/Translate/localization.dart';
 import 'package:lyon/v_done/utils/custom_log.dart';
 import 'package:meta/meta.dart';

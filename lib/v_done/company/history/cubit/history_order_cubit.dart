@@ -57,7 +57,7 @@ class HistoryOrdersCubit extends Cubit<HistoryOrdersState> {
       final http.Response response = await http
           .post(Uri.parse(ApiApp.deleteCompanyOrder), body: requestBody);
 
-      final responseBody = jsonDecode(response.body);
+      jsonDecode(response.body);
 
       // Refetch orders after deletion
       await fetchOrders();

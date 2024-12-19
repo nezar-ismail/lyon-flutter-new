@@ -1,11 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:get/get.dart';
 import 'package:lyon/model/company_model/get_orders_company_model.dart';
-import 'package:lyon/v_done/company/history/cubit/history_order_cubit.dart';
 import 'package:lyon/screen/company/other/home_page_company.dart';
 import 'package:lyon/shared/mehod/message.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -43,9 +41,9 @@ class _HistoryOrdersCompanyState extends State<HistoryOrdersCompany> {
 
   Future<GetOrdersCompanyModel> getAllOrdersCompany() async {
     String apiUrl = ApiApp.getCompanyOrders;
-    SharedPreferences _prefs = await SharedPreferences.getInstance();
-    var _sharedToken = _prefs.getString('access_token_company');
-    final json = {"token": _sharedToken, "mobile": "1"};
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var sharedToken = prefs.getString('access_token_company');
+    final json = {"token": sharedToken, "mobile": "1"};
 
     http.Response response = await http.post(Uri.parse(apiUrl), body: json);
 
@@ -55,6 +53,7 @@ class _HistoryOrdersCompanyState extends State<HistoryOrdersCompany> {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: deprecated_member_use
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(
@@ -168,6 +167,7 @@ class _HistoryOrdersCompanyState extends State<HistoryOrdersCompany> {
                                                               Uri.parse(url));
                                                         } else {
                                                           showMessage(
+                                                              // ignore: use_build_context_synchronously
                                                               context: context,
                                                               text:
                                                                   'Can\'t open please try again!');
@@ -185,6 +185,7 @@ class _HistoryOrdersCompanyState extends State<HistoryOrdersCompany> {
                                                               Uri.parse(url));
                                                         } else {
                                                           showMessage(
+                                                              // ignore: use_build_context_synchronously
                                                               context: context,
                                                               text:
                                                                   'Can\'t open please try again!');
@@ -202,6 +203,7 @@ class _HistoryOrdersCompanyState extends State<HistoryOrdersCompany> {
                                                               Uri.parse(url));
                                                         } else {
                                                           showMessage(
+                                                              // ignore: use_build_context_synchronously
                                                               context: context,
                                                               text:
                                                                   'Can\'t open please try again!');
@@ -311,6 +313,7 @@ class _HistoryOrdersCompanyState extends State<HistoryOrdersCompany> {
                                                                             jsonDecode(
                                                                                 response.body);
                                                                         showMessage(
+                                                                            // ignore: use_build_context_synchronously
                                                                             context:
                                                                                 context,
                                                                             text:

@@ -37,7 +37,7 @@ class _MainScreenState extends State<MainScreen> {
   final GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
   @override
   void initState() {
-    // checkUpdates();
+    checkUpdates();
     getNotificationPermission();
     FirebaseMessaging.instance.getInitialMessage().then((message) {
       if (message != null) {
@@ -49,8 +49,6 @@ class _MainScreenState extends State<MainScreen> {
             ));
       }
     });
-
-
 
     FirebaseMessaging.onMessage.listen((message) {
       if (message.notification != null) {
@@ -79,96 +77,59 @@ class _MainScreenState extends State<MainScreen> {
     super.initState();
   }
 
-Future<void> getNotificationPermission() async {
-  // Requesting notification permission
-  await FirebaseMessaging.instance.requestPermission(
-    alert: true,
-    announcement: true,
-    badge: true,
-    carPlay: false,
-    criticalAlert: false,
-    provisional: true,
-    sound: true,
-  );
+  Future<void> getNotificationPermission() async {
+    // Requesting notification permission
+    await FirebaseMessaging.instance.requestPermission(
+      alert: true,
+      announcement: true,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: true,
+      sound: true,
+    );
 
-  // Set foreground notification options
-  FirebaseMessaging messaging = FirebaseMessaging.instance;
-  messaging.setForegroundNotificationPresentationOptions(
-    alert: true,
-    badge: true,
-    sound: true,
-  );
+    // Set foreground notification options
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+    messaging.setForegroundNotificationPresentationOptions(
+      alert: true,
+      badge: true,
+      sound: true,
+    );
 
-  // Initialize local notifications plugin
-  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-      FlutterLocalNotificationsPlugin();
+    // Initialize local notifications plugin
+    FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+        FlutterLocalNotificationsPlugin();
 
-  const AndroidInitializationSettings initializationSettingsAndroid =
-      AndroidInitializationSettings('mipmap/ic_launcher');
+    const AndroidInitializationSettings initializationSettingsAndroid =
+        AndroidInitializationSettings('mipmap/ic_launcher');
 
-  const DarwinInitializationSettings initializationSettingsIOS =
-      DarwinInitializationSettings(
-    requestAlertPermission: true,
-    requestBadgePermission: true,
-    requestSoundPermission: true,
-  );
+    const DarwinInitializationSettings initializationSettingsIOS =
+        DarwinInitializationSettings(
+      requestAlertPermission: true,
+      requestBadgePermission: true,
+      requestSoundPermission: true,
+    );
 
-  const InitializationSettings initializationSettings =
-      InitializationSettings(
-    android: initializationSettingsAndroid,
-    iOS: initializationSettingsIOS,
-  );
+    const InitializationSettings initializationSettings =
+        InitializationSettings(
+      android: initializationSettingsAndroid,
+      iOS: initializationSettingsIOS,
+    );
 
-  await flutterLocalNotificationsPlugin.initialize(initializationSettings);
-}
-
-  void checkUpdates() async {
-    const appleId =
-        '1614812888'; // If this value is null, its packagename will be considered
-    const playStoreId =
-        "com.lyonjo.company"; // If this value is null, its packagename will be considered
-    const country = 'us';
-    await AppVersionUpdate.checkForUpdates(
-            appleId: appleId, playStoreId: playStoreId, country: country)
-        .then((data) async {
-
-
-      if (data.canUpdate!) {
-        await AppVersionUpdate.showAlertUpdate(
-            // ignore: use_build_context_synchronously
-            context: context,
-            appVersionResult: data,
-            mandatory: true,
-            title: 'New version available',
-            titleTextStyle:
-                const TextStyle(fontSize: 24.0, fontWeight: FontWeight.w500),
-            content:
-                'please update application to new version (${data.storeVersion}) to continue',
-            contentTextStyle:
-                const TextStyle(fontSize: 16.0, fontWeight: FontWeight.w400),
-            cancelButtonStyle: const ButtonStyle(
-                backgroundColor: WidgetStatePropertyAll(Colors.redAccent)),
-            updateButtonStyle: const ButtonStyle(
-                backgroundColor: WidgetStatePropertyAll(secondaryColor1)),
-            updateButtonText: 'UPDATE',
-            cancelTextStyle: const TextStyle(color: Colors.white),
-            updateTextStyle: const TextStyle(color: Colors.white),
-            backgroundColor: Colors.white);
-      }
-    });
+    await flutterLocalNotificationsPlugin.initialize(initializationSettings);
   }
 
   @override
   Widget build(BuildContext context) {
     final tabs = [
-    
       HistoryInformation(
         isGuest: widget.isGuest,
       ),
       Offer(
         isGuest: widget.isGuest,
       ),
-        HomeScreen(
+      HomeScreen(
         numberIndex: 0,
         name: widget.name,
         isGuest: widget.isGuest,
@@ -205,7 +166,6 @@ Future<void> getNotificationPermission() async {
         index: _page,
         height: MediaQuery.of(context).size.height * .07,
         items: <Widget>[
-       
           Icon(
             Icons.bookmark_added_outlined,
             size: 30,
@@ -216,7 +176,7 @@ Future<void> getNotificationPermission() async {
             size: 30,
             color: _page == 1 ? secondaryColor1 : colorPrimary,
           ),
-            Icon(
+          Icon(
             Icons.home_outlined,
             size: 30,
             color: _page == 2 ? secondaryColor1 : colorPrimary,
@@ -266,11 +226,46 @@ Future<void> getNotificationPermission() async {
     );
   }
 
-    @override
-    void dispose() {
-      super.dispose();
-    
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
-      
+  void checkUpdates() async {
+    try {
+      const appleId = '1614812888';
+      const playStoreId = "com.lyonjo.company";
+      const country = 'us';
+
+      final data = await AppVersionUpdate.checkForUpdates(
+          appleId: appleId, playStoreId: playStoreId, country: country);
+
+      if (data.canUpdate == true) {
+        if (!context.mounted) return; // Check if context is still valid
+
+        await AppVersionUpdate.showAlertUpdate(
+            context: context,
+            appVersionResult: data,
+            mandatory: true,
+            title: 'New version available',
+            titleTextStyle:
+                const TextStyle(fontSize: 24.0, fontWeight: FontWeight.w500),
+            content:
+                'please update application to new version (${data.storeVersion}) to continue',
+            contentTextStyle:
+                const TextStyle(fontSize: 16.0, fontWeight: FontWeight.w400),
+            cancelButtonStyle: const ButtonStyle(
+                backgroundColor: WidgetStatePropertyAll(Colors.redAccent)),
+            updateButtonStyle: const ButtonStyle(
+                backgroundColor: WidgetStatePropertyAll(secondaryColor1)),
+            updateButtonText: 'UPDATE',
+            cancelTextStyle: const TextStyle(color: Colors.white),
+            updateTextStyle: const TextStyle(color: Colors.white),
+            backgroundColor: Colors.white);
+      }
+    } catch (e) {
+      // Handle any errors that might occur during version checking
+      print('Error checking for updates: $e');
     }
+  }
 }

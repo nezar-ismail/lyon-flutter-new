@@ -60,8 +60,8 @@ class _AccountStatementDateCompanyState
   List<String> projectsName = [];
   getProjectsName() async {
     // String apiUrl = ApiApp.getProjectName;
-    SharedPreferences _prefs = await SharedPreferences.getInstance();
-    var token = _prefs.getString('access_token_company');
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('access_token_company');
     logInfo(token.toString());
     http.Response response = await http.post(
         Uri.parse('https://lyon-jo.com/api/GetProjectName.php'),
@@ -112,8 +112,8 @@ class _AccountStatementDateCompanyState
 
   @override
   Widget build(BuildContext context) {
-    final _width = MediaQuery.of(context).size.width;
-    final _height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
     return Form(
       key: _formKey,
       child: isLaoding
@@ -131,18 +131,18 @@ class _AccountStatementDateCompanyState
                 child: Column(
                   children: [
                     SizedBox(
-                      height: _height * .1,
+                      height: height * .1,
                     ),
                     Image.asset(
                       "assets/images/logo.png",
-                      width: _width * .5,
+                      width: width * .5,
                     ),
                     SizedBox(
-                      height: _height * .02,
+                      height: height * .02,
                     ),
                     Center(
                       child: SizedBox(
-                        width: _width * .8,
+                        width: width * .8,
                         child: textFieldWidgetWithoutFilledWithFunctionSmall(
                           context: context,
                           fun: () {
@@ -165,11 +165,11 @@ class _AccountStatementDateCompanyState
                       ),
                     ),
                     SizedBox(
-                      height: _height * .02,
+                      height: height * .02,
                     ),
                     Center(
                       child: SizedBox(
-                        width: _width * .8,
+                        width: width * .8,
                         child: textFieldWidgetWithoutFilledWithFunctionSmall(
                           context: context,
                           fun: firstController == null
@@ -192,10 +192,10 @@ class _AccountStatementDateCompanyState
                       ),
                     ),
                     SizedBox(
-                      height: _height * .02,
+                      height: height * .02,
                     ),
                     SizedBox(
-                      width: _width * .8,
+                      width: width * .8,
                       child: DropdownSearch<String>(
                         /*  dropdownSearchDecoration: const InputDecoration(
                     errorBorder: OutlineInputBorder(
@@ -244,11 +244,11 @@ class _AccountStatementDateCompanyState
                       ),
                     ),
                     SizedBox(
-                      height: _height * .05,
+                      height: height * .05,
                     ),
                     SizedBox(
-                        width: _width * .50,
-                        height: _height * .05,
+                        width: width * .50,
+                        height: height * .05,
                         // ignore: deprecated_member_use
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(

@@ -1,5 +1,8 @@
+// ignore_for_file: prefer_typing_uninitialized_variables, use_build_context_synchronously
+
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lyon/api/api.dart';
@@ -62,10 +65,10 @@ class _NewCheckOutState extends State<NewCheckOut> {
   CheckOutController controller = Get.find();
 
   getToken() async {
-    SharedPreferences _prefs = await SharedPreferences.getInstance();
-    var _sharedToken = _prefs.getString('access_token');
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var sharedToken = prefs.getString('access_token');
     String apiUrl = ApiApp.checkUserDocuments;
-    final json = {"token": _sharedToken, "mobile": "1"};
+    final json = {"token": sharedToken, "mobile": "1"};
 
     http.Response response =
         await http.post(Uri.parse(apiUrl), body: json).whenComplete(() {
@@ -82,7 +85,6 @@ class _NewCheckOutState extends State<NewCheckOut> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     futurePost = getToken();
     asyncFunc();
@@ -98,7 +100,9 @@ class _NewCheckOutState extends State<NewCheckOut> {
 
   void displayingThanksIfUserIsNotComingOrGoingToAirport() async {
     String? tempVar = await controller.callTheUserDocumentsAPI();
-    print("Here is the tempVariable: $tempVar");
+    if (kDebugMode) {
+      print("Here is the tempVariable: $tempVar");
+    }
     if (controller.theUserIsComingOrGoingToAirport.value == true) {
       if (tempVar == "All images are attached" &&
           controller.askUserForTicketUploading.value == false) {
@@ -119,7 +123,9 @@ class _NewCheckOutState extends State<NewCheckOut> {
   Widget build(BuildContext context) {
     //CheckOutController controller = Get.find();
     displayingThanksIfUserIsNotComingOrGoingToAirport();
-    print("HII");
+    if (kDebugMode) {
+      print("HII");
+    }
     return Scaffold(
         backgroundColor: backgroundColor,
         appBar: AppBar(
@@ -140,18 +146,18 @@ class _NewCheckOutState extends State<NewCheckOut> {
               return Column(
                 children: [
                   Padding(
-                    padding: EdgeInsets.only(top: 50.0, bottom: 10.0),
+                    padding: const EdgeInsets.only(top: 50.0, bottom: 10.0),
                     child: Center(
                       child: controller.displayAThankfulMessage.value
-                          ? Padding(
-                              padding: const EdgeInsets.only(top: 50.0),
+                          ? const Padding(
+                              padding: EdgeInsets.only(top: 50.0),
                               child: Text(
                                 "Thank you! Press continue",
                                 style: TextStyle(
                                     fontSize: 17, fontWeight: FontWeight.w500),
                               ),
                             )
-                          : Text(
+                          : const Text(
                               "Please attach the below photos: ",
                               style: TextStyle(
                                   fontSize: 17, fontWeight: FontWeight.w500),
@@ -258,7 +264,7 @@ class _NewCheckOutState extends State<NewCheckOut> {
                               context: context,
                               barrierDismissible: false,
                               builder: (BuildContext context) {
-                                return Center(
+                                return const Center(
                                   child: CircularProgressIndicator(
                                     color: Colors.white,
                                     strokeCap: StrokeCap.square,
@@ -268,10 +274,14 @@ class _NewCheckOutState extends State<NewCheckOut> {
                               });
                           await controller
                               .checkIfLicenseAndPassportAreAttached();
-                          print(
+                          if (kDebugMode) {
+                            print(
                               "1st var: ${controller.licenseAndPassportAreAttached.value}");
-                          print(
+                          }
+                          if (kDebugMode) {
+                            print(
                               "2nd var: ${controller.askUserForTicketUploading.value}");
+                          }
 
                           if (widget.pickUpSpot == "Queen Alia Airport" ||
                               widget.pickUpSpot == "Queen Alia Airport" ||
@@ -282,8 +292,10 @@ class _NewCheckOutState extends State<NewCheckOut> {
                                 controller.askUserForTicketUploading.value ==
                                     false) {
                               Navigator.of(context).pop();
-                              print(
+                              if (kDebugMode) {
+                                print(
                                   "${widget.pickUpSpot} - ${widget.destinationSpot}");
+                              }
 
                               push(
                                   context,
@@ -301,9 +313,13 @@ class _NewCheckOutState extends State<NewCheckOut> {
                                       carId: widget.carId,
                                       currency: widget.currency));
                             } else {
-                              print(controller
+                              if (kDebugMode) {
+                                print(controller
                                   .licenseAndPassportAreAttached.value);
-                              print(controller.askUserForTicketUploading.value);
+                              }
+                              if (kDebugMode) {
+                                print(controller.askUserForTicketUploading.value);
+                              }
                               Navigator.of(context).pop();
 
                               showMessage(

@@ -43,33 +43,33 @@ showPopup(
                   children: [
                     ElevatedButton(
                       onPressed: () => funReject(),
-                      child: Text(
-                        "no".tr,
-                        style: TextStyle(color: Colors.white),
-                      ),
                       style: ButtonStyle(
                           backgroundColor:
-                              MaterialStateProperty.all<Color>(secondaryColor1),
+                              WidgetStateProperty.all<Color>(secondaryColor1),
                           shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                              WidgetStateProperty.all<RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(18.0),
                           ))),
+                      child: Text(
+                        "no".tr,
+                        style: const TextStyle(color: Colors.white),
+                      ),
                     ),
                     ElevatedButton(
                       onPressed: () => funAccept(),
-                      child: Text(
-                        "yes".tr,
-                        style: TextStyle(color: Colors.white),
-                      ),
                       style: ButtonStyle(
                           backgroundColor:
-                              MaterialStateProperty.all<Color>(secondaryColor1),
+                              WidgetStateProperty.all<Color>(secondaryColor1),
                           shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                              WidgetStateProperty.all<RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(18.0),
                           ))),
+                      child: Text(
+                        "yes".tr,
+                        style: const TextStyle(color: Colors.white),
+                      ),
                     ),
                   ],
                 )

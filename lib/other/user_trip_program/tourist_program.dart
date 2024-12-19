@@ -1,9 +1,7 @@
 import 'package:easy_stepper/easy_stepper.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
-import 'package:lyon/model/company_model/trips_model.dart';
 import 'package:lyon/other/user_trip_program/model/trip.dart';
 import 'package:lyon/other/user_trip_program/widgets/user_trip_form.dart';
 import 'package:lyon/shared/styles/colors.dart';
@@ -22,7 +20,7 @@ class SelecteMulteTripUser extends StatelessWidget {
   final String price;
   final String type;
   final ValueNotifier<List<UserTrips>> trips =
-      ValueNotifier([UserTrips(), UserTrips()]);
+      ValueNotifier([const UserTrips(), const UserTrips()]);
   final PageController pageController = PageController();
 
   @override
@@ -108,7 +106,7 @@ class SelecteMulteTripUser extends StatelessWidget {
                                     itemCount: value.length,
                                     itemBuilder: (context, index) {
                                       if (index >= value.length) {
-                                        value.add(UserTrips());
+                                        value.add(const UserTrips());
                                         trips.value = List.from(
                                             value); // Notify listeners
                                       }

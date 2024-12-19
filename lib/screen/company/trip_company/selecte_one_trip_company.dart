@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:async';
 import 'dart:convert';
 import 'package:dropdown_search/dropdown_search.dart';
@@ -17,11 +19,11 @@ class SelecteOneTripCompany extends StatefulWidget {
   final String image;
   final String numTrip;
   const SelecteOneTripCompany({
-    Key? key,
+    super.key,
     required this.image,
     required this.type,
     required this.numTrip,
-  }) : super(key: key);
+  });
 
   @override
   State<SelecteOneTripCompany> createState() => _SelecteOneTripCompanyState();
@@ -98,8 +100,8 @@ class _SelecteOneTripCompanyState extends State<SelecteOneTripCompany> {
   var isMultiLocation = false;
   getTransportationRoutes() async {
     String apiUrl = ApiApp.getAllCompanyTransportations;
-    SharedPreferences _prefs = await SharedPreferences.getInstance();
-    var token = _prefs.getString('access_token_company');
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('access_token_company');
     http.Response response = await http
         .post(Uri.parse(apiUrl), body: {"token": token, "mobile": "1"});
 
@@ -117,16 +119,14 @@ class _SelecteOneTripCompanyState extends State<SelecteOneTripCompany> {
   }
 
   Future<int> checkCompanyType() async {
-    SharedPreferences _prefs = await SharedPreferences.getInstance();
-    var _sharedToken = _prefs.getString('access_token_company');
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var sharedToken = prefs.getString('access_token_company');
 
-    print(_sharedToken);
     var response = await http.post(
         Uri.parse("https://lyon-jo.com/api/checkCompanyTypeTrip.php"),
         body: {
-          'token': _sharedToken.toString(),
+          'token': sharedToken.toString(),
         });
-    print(response.body);
 
     var jsonResponse = jsonDecode(response.body);
 
@@ -144,7 +144,6 @@ class _SelecteOneTripCompanyState extends State<SelecteOneTripCompany> {
   @override
   void initState() {
     // checkCompanyType();
-    print(widget.type);
     // getTransportationRoutes().then((value) {
     //   if (mounted) {
     //     setState(() {
@@ -166,8 +165,8 @@ class _SelecteOneTripCompanyState extends State<SelecteOneTripCompany> {
 
   @override
   Widget build(BuildContext context) {
-    final _height = MediaQuery.of(context).size.height;
-    final _width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
     return isLoading == true
         ? const Scaffold(
             body: Center(
@@ -182,7 +181,7 @@ class _SelecteOneTripCompanyState extends State<SelecteOneTripCompany> {
             body: Column(
               children: [
                 SizedBox(
-                  height: _height * .02,
+                  height: height * .02,
                 ),
                 Form(
                   key: formKey,
@@ -191,7 +190,7 @@ class _SelecteOneTripCompanyState extends State<SelecteOneTripCompany> {
                       children: [
                         Center(
                           child: SizedBox(
-                            width: _width * .8,
+                            width: width * .8,
                             child: textFieldWidgetWithoutFilledCompany(
                               context: context,
                               controller: projectName,
@@ -205,11 +204,11 @@ class _SelecteOneTripCompanyState extends State<SelecteOneTripCompany> {
                           ),
                         ),
                         SizedBox(
-                          height: _height * .02,
+                          height: height * .02,
                         ),
                         Center(
                           child: SizedBox(
-                            width: _width * .8,
+                            width: width * .8,
                             child: textFieldWidgetWithoutFilledCompany(
                               context: context,
                               controller: name,
@@ -222,11 +221,11 @@ class _SelecteOneTripCompanyState extends State<SelecteOneTripCompany> {
                           ),
                         ),
                         SizedBox(
-                          height: _height * .02,
+                          height: height * .02,
                         ),
                         Center(
                             child: SizedBox(
-                                width: _width * .8,
+                                width: width * .8,
                                 child: TextFormField(
                                   maxLength: phoneNumberLength,
                                   validator: (value) {
@@ -238,7 +237,7 @@ class _SelecteOneTripCompanyState extends State<SelecteOneTripCompany> {
                                     return null;
                                   },
                                   onChanged: (value) {
-                                    if (value.length == 0) {
+                                    if (value.isEmpty) {
                                       setState(() {
                                         phoneNumberLength = 10;
                                       });
@@ -279,10 +278,10 @@ class _SelecteOneTripCompanyState extends State<SelecteOneTripCompany> {
                                     ),
                                   ),
                                 ))),
-                        SizedBox(height: _height * .02),
+                        SizedBox(height: height * .02),
                         Center(
                           child: SizedBox(
-                            width: _width * .8,
+                            width: width * .8,
                             child: TextField(
                               controller: note,
                               textAlignVertical: TextAlignVertical.center,
@@ -320,11 +319,11 @@ class _SelecteOneTripCompanyState extends State<SelecteOneTripCompany> {
                           ),
                         ),
                         SizedBox(
-                          height: _height * .05,
+                          height: height * .05,
                         ),
                         Center(
                           child: SizedBox(
-                            width: _width * .7,
+                            width: width * .7,
                             child: DropdownSearch<String>(
                               /*       dropdownSearchDecoration: const InputDecoration(
                                   errorBorder: OutlineInputBorder(
@@ -379,13 +378,13 @@ class _SelecteOneTripCompanyState extends State<SelecteOneTripCompany> {
                           ),
                         ),
                         SizedBox(
-                          height: _height * .02,
+                          height: height * .02,
                         ),
                         isMultiLocation == true
                             ? Container()
                             : Center(
                                 child: SizedBox(
-                                  width: _width * .7,
+                                  width: width * .7,
                                   child: DropdownSearch<String>(
                                     /*  dropdownSearchDecoration: const InputDecoration(
                                   errorBorder: OutlineInputBorder(
@@ -437,7 +436,7 @@ class _SelecteOneTripCompanyState extends State<SelecteOneTripCompany> {
                                 ),
                               ),
                         SizedBox(
-                          height: _height * .02,
+                          height: height * .02,
                         ),
                         ListView.builder(
                             physics: const ScrollPhysics(),
@@ -447,11 +446,11 @@ class _SelecteOneTripCompanyState extends State<SelecteOneTripCompany> {
                             itemBuilder: (context, i) {
                               return column(i);
                             }),
-                        SizedBox(height: _height * .03),
+                        SizedBox(height: height * .03),
                         Center(
                           child: SizedBox(
-                            width: _width * .50,
-                            height: _height * .05,
+                            width: width * .50,
+                            height: height * .05,
                             // ignore: deprecated_member_use
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
@@ -479,10 +478,10 @@ class _SelecteOneTripCompanyState extends State<SelecteOneTripCompany> {
                                   setState(() {
                                     isLoading = true;
                                   });
-                                  SharedPreferences _prefs =
+                                  SharedPreferences prefs =
                                       await SharedPreferences.getInstance();
-                                  var _sharedToken =
-                                      _prefs.getString('access_token_company');
+                                  var sharedToken =
+                                      prefs.getString('access_token_company');
                                   Map<String, dynamic> jsonApi = {
                                     'destination': destinationValue,
                                     'trips': isCompany.toString() == '1'
@@ -490,20 +489,17 @@ class _SelecteOneTripCompanyState extends State<SelecteOneTripCompany> {
                                         : locationValue,
                                     'vehicleType': widget.type,
                                     'numberOfTrips': count.toString(),
-                                    'token': _sharedToken,
+                                    'token': sharedToken,
                                     'mobile': '1'
                                   };
 
-                                  print(jsonApi);
                                   String apiUrl =
                                       ApiApp.getTotalTransportationOrder;
 
                                   http.Response response = await http
                                       .post(Uri.parse(apiUrl), body: jsonApi);
                                   var jsonResponse = jsonDecode(response.body);
-                                  print(jsonApi);
                                   Timer(const Duration(seconds: 3), () {
-                                    print(mapMobile[0]);
                                     push(
                                         context,
                                         DetailsOneTripCompany(
@@ -540,37 +536,12 @@ class _SelecteOneTripCompanyState extends State<SelecteOneTripCompany> {
             ),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerDocked,
-            floatingActionButton: Padding(
-              padding: const EdgeInsets.all(30.0),
+            floatingActionButton: const Padding(
+              padding: EdgeInsets.all(30.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  // FloatingActionButton(
-                  //   backgroundColor: secondaryColor1,
-                  //   heroTag: "btn2",
-                  //   onPressed: () {
-                  //     setState(() {
-                  //       // ids = [];
-                  //       if (count != 0 && count != 1) {
-                  //         count--;
-                  //       }
-                  //     });
-                  //   },
-                  //   child: const Icon(Icons.remove),
-                  // ),
-                  // FloatingActionButton(
-                  //   backgroundColor: secondaryColor1,
-                  //   heroTag: "btn1",
-                  //   onPressed: () {
-                  //     setState(() {
-                  //       // ids = [];
-                  //       if (count != 9) {
-                  //         count++;
-                  //       }
-                  //     });
-                  //   },
-                  //   child: const Icon(Icons.add),
-                  // )
+                  
                 ],
               ),
             ));
@@ -581,14 +552,14 @@ class _SelecteOneTripCompanyState extends State<SelecteOneTripCompany> {
     time.add(
       timeController[entryIndex].text,
     );
-    SharedPreferences _prefs = await SharedPreferences.getInstance();
-    var _sharedToken = _prefs.getString('access_token_company');
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var sharedToken = prefs.getString('access_token_company');
     Map<String, dynamic> jsonApi = {
       'destination': destinationValue,
       'trips': isMultiLocation == true ? "Multi Location Way" : locationValue,
       'vehicleType': widget.type,
       'numberOfTrips': count.toString(),
-      'token': _sharedToken,
+      'token': sharedToken,
       'note': note.text,
       'mobile': '1'
     };
@@ -633,7 +604,6 @@ class _SelecteOneTripCompanyState extends State<SelecteOneTripCompany> {
 
     webJson.add(obj);
     // }
-    print('asfdsadsadsafsadsafsadsfasfs ========== $webJson');
     // webJson.clear();
     // setState(() {
     mapMobile.add(json);
@@ -641,12 +611,12 @@ class _SelecteOneTripCompanyState extends State<SelecteOneTripCompany> {
   }
 
   column(int index) {
-    final _height = MediaQuery.of(context).size.height;
-    final _width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
     return Column(
       children: [
         SizedBox(
-          height: _height * .01,
+          height: height * .01,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -657,7 +627,7 @@ class _SelecteOneTripCompanyState extends State<SelecteOneTripCompany> {
               style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
             ),
             SizedBox(
-              width: _width * .4,
+              width: width * .4,
               child: textFieldWidgetWithoutFilledWithFunction(
                   context: context,
                   hintText: "date".tr,
@@ -676,7 +646,7 @@ class _SelecteOneTripCompanyState extends State<SelecteOneTripCompany> {
                   textValidatorEmpty: "please_enter_date".tr),
             ),
             SizedBox(
-              width: _width * .4,
+              width: width * .4,
               child: textFieldWidgetWithoutFilledWithFunctionSmall(
                 context: context,
                 fun: () {

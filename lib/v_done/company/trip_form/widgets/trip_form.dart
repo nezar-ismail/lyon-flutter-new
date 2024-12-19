@@ -355,8 +355,8 @@ class TripForm extends StatelessWidget {
                       }
                     },
                     style: ButtonStyle(
-                      foregroundColor: MaterialStateProperty.all(Colors.white),
-                      backgroundColor: MaterialStateProperty.all(Colors.red),
+                      foregroundColor: WidgetStateProperty.all(Colors.white),
+                      backgroundColor: WidgetStateProperty.all(Colors.red),
                     ),
                     child: const Text("Delete Trip"),
                   ),
@@ -433,9 +433,9 @@ class TripForm extends StatelessWidget {
                     }
                   },
                   style: ButtonStyle(
-                    foregroundColor: MaterialStateProperty.all(Colors.white),
+                    foregroundColor: WidgetStateProperty.all(Colors.white),
                     backgroundColor:
-                        MaterialStateProperty.all(Colors.blueAccent),
+                        WidgetStateProperty.all(Colors.blueAccent),
                   ),
                   child: Text("continue".tr),
                 ),

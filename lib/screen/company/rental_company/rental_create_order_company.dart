@@ -60,8 +60,8 @@ class _RentalCreateOrderCompanyState extends State<RentalCreateOrderCompany> {
 
   Future<GetOrderPriceCompanyModel> getOrderTotalPrice() async {
     String apiUrl = ApiApp.getOrderTotalPrice;
-    SharedPreferences _prefs = await SharedPreferences.getInstance();
-    var _sharedToken = _prefs.getString('access_token_company');
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var sharedToken = prefs.getString('access_token_company');
     final json = {
       "startDate": widget.startDate,
       "startTime": widget.startTime,
@@ -69,7 +69,7 @@ class _RentalCreateOrderCompanyState extends State<RentalCreateOrderCompany> {
       "endTime": widget.endTime,
       "id": widget.id,
       "mobile": "1",
-      "token": _sharedToken
+      "token": sharedToken
     };
 
     http.Response response = await http.post(Uri.parse(apiUrl), body: json);
@@ -80,8 +80,8 @@ class _RentalCreateOrderCompanyState extends State<RentalCreateOrderCompany> {
 
   @override
   Widget build(BuildContext context) {
-    final _width = MediaQuery.of(context).size.width;
-    final _height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -107,20 +107,20 @@ class _RentalCreateOrderCompanyState extends State<RentalCreateOrderCompany> {
                     child: Column(
                       children: [
                         SizedBox(
-                          height: _height * .02,
+                          height: height * .02,
                         ),
                         Image.network(
                           widget.carImage,
-                          width: _width * .5,
+                          width: width * .5,
                         ),
                         SizedBox(
-                          height: _height * .02,
+                          height: height * .02,
                         ),
                         Center(
                           child: SingleChildScrollView(
                             scrollDirection: Axis.horizontal,
                             child: DataTable(
-                              columnSpacing: _width * .03,
+                              columnSpacing: width * .03,
                               decoration: BoxDecoration(
                                 // color: Colors.grey.shade100,
                                 // border: Border.all(color: Colors.grey),
@@ -136,7 +136,7 @@ class _RentalCreateOrderCompanyState extends State<RentalCreateOrderCompany> {
                                     label: Text(widget.vehicleName,
                                         // snapshot.data!.data!.numberOfDays.toString(),
                                         style: TextStyle(
-                                            fontSize: _width * .03,
+                                            fontSize: width * .03,
                                             fontWeight: FontWeight.bold))),
                               ],
                               rows: [
@@ -177,29 +177,25 @@ class _RentalCreateOrderCompanyState extends State<RentalCreateOrderCompany> {
                                 ]),
                                 DataRow(cells: [
                                   DataCell(Text('price_day'.tr)),
-                                  DataCell(Text(snapshot
+                                  DataCell(Text('${snapshot
                                           .data!.data!.pricePerDay!
-                                          .toStringAsFixed(0) +
-                                      ' ' +
-                                      snapshot.data!.currency!)),
+                                          .toStringAsFixed(0)} ${snapshot.data!.currency!}')),
                                 ]),
                                 DataRow(cells: [
                                   DataCell(Text('total_price_2'.tr)),
-                                  DataCell(Text(snapshot.data!.data!.totalPrice!
-                                          .toStringAsFixed(0) +
-                                      ' ' +
-                                      snapshot.data!.currency!)),
+                                  DataCell(Text('${snapshot.data!.data!.totalPrice!
+                                          .toStringAsFixed(0)} ${snapshot.data!.currency!}')),
                                 ]),
                               ],
                             ),
                           ),
                         ),
                         SizedBox(
-                          height: _height * .02,
+                          height: height * .02,
                         ),
                         SizedBox(
-                            width: _width * .50,
-                            height: _height * .05,
+                            width: width * .50,
+                            height: height * .05,
                             // ignore: deprecated_member_use
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
@@ -231,13 +227,13 @@ class _RentalCreateOrderCompanyState extends State<RentalCreateOrderCompany> {
 
   postOrder(var total, var pricePerDay) async {
     String apiUrl = ApiApp.addCompanyOrder;
-    SharedPreferences _prefs = await SharedPreferences.getInstance();
-    var _sharedToken = _prefs.getString('access_token_company');
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var sharedToken = prefs.getString('access_token_company');
     // String _frontImage = image1!.path.split('/').last;
-    String _frontImage = widget.licenseImage!.path.split('/').last;
+    String frontImage = widget.licenseImage!.path.split('/').last;
 
     var formData = prefix.FormData.fromMap({
-      "token": _sharedToken,
+      "token": sharedToken,
       "mobile": "1",
       "carId": widget.carId,
       "startDate": widget.startDate,
@@ -252,7 +248,7 @@ class _RentalCreateOrderCompanyState extends State<RentalCreateOrderCompany> {
       "totalPrice": total,
       'licenseImage': await prefix.MultipartFile.fromFile(
           widget.licenseImage.path,
-          filename: _frontImage),
+          filename: frontImage),
     });
 
     await dio.post(apiUrl, data: formData).whenComplete(() {

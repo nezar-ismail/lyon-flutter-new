@@ -17,16 +17,13 @@ class TourismCheckOutController extends GetxController {
   }
 
   Future<bool> checkIfPassportInserted() async {
-    SharedPreferences _prefs = await SharedPreferences.getInstance();
-    var _sharedToken = _prefs.getString('access_token');
-    print(_sharedToken);
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var sharedToken = prefs.getString('access_token');
     var response = await http.post(
       Uri.parse('https://lyon-jo.com/api/userDocuments.php'),
-      body: {'token': _sharedToken},
+      body: {'token': sharedToken},
     );
     var jsonResponse = jsonDecode(response.body);
-    print("jsonResponse of the tripCheckoutController: $jsonResponse");
-    print("Here is the license value: ${jsonResponse['License']}");
     if (jsonResponse['status'] == 404) {
       displayPassportButton.value = true;
 

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lyon/api/api.dart';
@@ -12,6 +13,7 @@ class OrderDetailsRental extends StatefulWidget {
 
   const OrderDetailsRental({super.key, required this.id});
   @override
+  // ignore: library_private_types_in_public_api
   _OrderDetailsRentalState createState() => _OrderDetailsRentalState();
 }
 
@@ -53,7 +55,9 @@ class _OrderDetailsRentalState extends State<OrderDetailsRental> {
             }
             if (snapshot.data!.data != null) {
               var ex = json.decode(snapshot.data!.data!.extraItem!);
-              print(ex);
+              if (kDebugMode) {
+                print(ex);
+              }
               List extraItemsList = [];
               if (ex[0] == true) {
                 extraItemsList.add("filling_of_gasoline".tr);

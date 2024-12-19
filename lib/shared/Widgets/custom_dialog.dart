@@ -33,7 +33,7 @@ Future tempDialog({customContext, title, subTitle, okButton, cancelButton}) {
                     subTitle,
                     //translate(subTitle),
                     //textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 14, color: Colors.red),
                   ),
                 ],
@@ -62,7 +62,7 @@ Future tempDialog({customContext, title, subTitle, okButton, cancelButton}) {
                             //translate(cancelButton),
                             cancelButton,
                             textAlign: TextAlign.center,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 color: Colors.green,
                                 //fontSize: shared.locale == 'ar' ? 12 : 13,
                                 fontWeight: FontWeight.bold),
@@ -92,7 +92,7 @@ Future tempDialog({customContext, title, subTitle, okButton, cancelButton}) {
                           //translate(okButton),
                           okButton,
                           textAlign: TextAlign.center,
-                          style: TextStyle(
+                          style: const TextStyle(
                               color: Colors.white,
                               //fontSize: shared.locale == 'ar' ? 12 : 13,
                               fontWeight: FontWeight.bold),

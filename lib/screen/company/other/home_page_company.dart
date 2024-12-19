@@ -50,6 +50,7 @@ class _HomePageCompanyState extends State<HomePageCompany> {
 
   @override
   Widget build(BuildContext context) {
+    // ignore: deprecated_member_use
     return WillPopScope(
       onWillPop: () async => false,
       child: Scaffold(

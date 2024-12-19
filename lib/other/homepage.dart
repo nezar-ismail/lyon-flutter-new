@@ -1,3 +1,5 @@
+// ignore_for_file: library_private_types_in_public_api
+
 import 'package:flutter/material.dart';
 import 'package:flutter_carousel_slider/carousel_slider.dart';
 import 'package:get/get.dart';
@@ -16,7 +18,7 @@ class HomeScreen extends StatefulWidget {
   final bool? isGuest;
   final String? name;
 
-  HomeScreen({super.key, required this.numberIndex, this.name, this.isGuest});
+  const HomeScreen({super.key, required this.numberIndex, this.name, this.isGuest});
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -26,6 +28,7 @@ class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
   late TabController tabController;
   bool isLoading = true;
+  // ignore: prefer_typing_uninitialized_variables
   var blacklist;
   var remainingAmount = 0;
   final AmountController amountController = Get.find();
@@ -78,8 +81,8 @@ class _HomeScreenState extends State<HomeScreen>
 
   @override
   Widget build(BuildContext context) {
-    final _width = MediaQuery.of(context).size.width;
-    final _height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
 
     return DefaultTabController(
       length: 1,
@@ -87,8 +90,8 @@ class _HomeScreenState extends State<HomeScreen>
       child: Column(
         children: [
           Container(
-            height: _height * .25,
-            width: _width,
+            height: height * .25,
+            width: width,
             decoration: const BoxDecoration(
               boxShadow: [
                 BoxShadow(
@@ -114,8 +117,8 @@ class _HomeScreenState extends State<HomeScreen>
           ),
            SizedBox(height: MediaQuery.of(context).size.height * 0.1,),
           SizedBox(
-            width: _width,
-          height: _height * 0.7,
+            width: width,
+          height: height * 0.7,
             child: isLoading
                 ? const Center(child: CircularProgressIndicator())
                 : Center(

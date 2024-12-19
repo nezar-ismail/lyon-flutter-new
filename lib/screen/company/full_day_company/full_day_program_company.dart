@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
@@ -84,12 +86,11 @@ class _FullDayProgramCompanyState extends State<FullDayProgramCompany> {
   List vechileTypePriceMore3 = [];
   getVechileType() async {
     String apiUrl = ApiApp.getCompanyFullDayPrice;
-    SharedPreferences _prefs = await SharedPreferences.getInstance();
-    var token = _prefs.getString('access_token_company');
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var token = prefs.getString('access_token_company');
     http.Response response = await http
         .post(Uri.parse(apiUrl), body: {"token": token, "mobile": "1"});
     var jsonResponse = jsonDecode(response.body);
-    print(jsonResponse);
     for (var item in jsonResponse) {
       vechileTypeDataBase.add(item['Vehicle']);
       vechileTypePriceLess3.add(item['Price_Less_3']);
@@ -107,14 +108,13 @@ class _FullDayProgramCompanyState extends State<FullDayProgramCompany> {
         });
       }
     });
-    // TODO: implement initState
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    final _height = MediaQuery.of(context).size.height;
-    final _width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         title: Text('full_day_program'.tr),
@@ -131,11 +131,11 @@ class _FullDayProgramCompanyState extends State<FullDayProgramCompany> {
                 child: Column(
                   children: [
                     SizedBox(
-                      height: _height * .05,
+                      height: height * .05,
                     ),
                     Center(
                       child: SizedBox(
-                        width: _width * .8,
+                        width: width * .8,
                         child: DropdownSearch<String>(
                           /*  dropdownSearchDecoration: const InputDecoration(
                               errorBorder: OutlineInputBorder(
@@ -177,11 +177,11 @@ class _FullDayProgramCompanyState extends State<FullDayProgramCompany> {
                       ),
                     ),
                     SizedBox(
-                      height: _height * .02,
+                      height: height * .02,
                     ),
                     Center(
                       child: SizedBox(
-                        width: _width * .8,
+                        width: width * .8,
                         child: DropdownSearch<String>(
                           /*  dropdownSearchDecoration: const InputDecoration(
                               errorBorder: OutlineInputBorder(
@@ -231,11 +231,11 @@ class _FullDayProgramCompanyState extends State<FullDayProgramCompany> {
                       ),
                     ),
                     SizedBox(
-                      height: _height * .02,
+                      height: height * .02,
                     ),
                     Center(
                       child: SizedBox(
-                        width: _width * .8,
+                        width: width * .8,
                         child: textFieldWidgetWithoutFilled(
                           context: context,
                           controller: projectName,
@@ -248,11 +248,11 @@ class _FullDayProgramCompanyState extends State<FullDayProgramCompany> {
                       ),
                     ),
                     SizedBox(
-                      height: _height * .02,
+                      height: height * .02,
                     ),
                     Center(
                       child: SizedBox(
-                        width: _width * .8,
+                        width: width * .8,
                         child: textFieldWidgetWithoutFilled(
                           context: context,
                           controller: name,
@@ -265,11 +265,11 @@ class _FullDayProgramCompanyState extends State<FullDayProgramCompany> {
                       ),
                     ),
                     SizedBox(
-                      height: _height * .02,
+                      height: height * .02,
                     ),
                     Center(
                         child: SizedBox(
-                            width: _width * .8,
+                            width: width * .8,
                             child: TextFormField(
                               maxLength: 10,
                               validator: (value) {
@@ -313,11 +313,11 @@ class _FullDayProgramCompanyState extends State<FullDayProgramCompany> {
                               ),
                             ))),
                     SizedBox(
-                      height: _height * .02,
+                      height: height * .02,
                     ),
                     Center(
                       child: SizedBox(
-                        width: _width * .8,
+                        width: width * .8,
                         child: textFieldWidgetWithoutFilledWithFunctionSmall(
                           context: context,
                           fun: () {
@@ -340,11 +340,11 @@ class _FullDayProgramCompanyState extends State<FullDayProgramCompany> {
                       ),
                     ),
                     SizedBox(
-                      height: _height * .02,
+                      height: height * .02,
                     ),
                     Center(
                       child: SizedBox(
-                        width: _width * .8,
+                        width: width * .8,
                         child: textFieldWidgetWithoutFilledWithFunctionSmall(
                           context: context,
                           fun: firstController == null
@@ -367,11 +367,11 @@ class _FullDayProgramCompanyState extends State<FullDayProgramCompany> {
                       ),
                     ),
                     SizedBox(
-                      height: _height * .05,
+                      height: height * .05,
                     ),
                     SizedBox(
-                        width: _width * .50,
-                        height: _height * .05,
+                        width: width * .50,
+                        height: height * .05,
                         // ignore: deprecated_member_use
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
@@ -393,15 +393,15 @@ class _FullDayProgramCompanyState extends State<FullDayProgramCompany> {
                                 setState(() {
                                   isLoading = true;
                                 });
-                                SharedPreferences _prefs =
+                                SharedPreferences prefs =
                                     await SharedPreferences.getInstance();
-                                var _sharedToken =
-                                    _prefs.getString('access_token_company');
+                                var sharedToken =
+                                    prefs.getString('access_token_company');
                                 Map<String, dynamic> json = {
                                   // 'phone': phone.text,
                                   // 'name': name.text,
                                   'VehicleType': vechileType,
-                                  'token': _sharedToken,
+                                  'token': sharedToken,
                                   'mobile': '1',
                                   'startDate': firstDateController.text,
                                   'endDate': endDateController.text,

@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -23,6 +25,7 @@ Future<void> openUrl({required String url}) async {
   }
 }
 Future<void> launchPhoneDialer(String contactNumber) async {
+  // ignore: no_leading_underscores_for_local_identifiers
   final Uri _phoneUri = Uri(scheme: "tel", path: contactNumber);
   try {
     // ignore: deprecated_member_use
@@ -39,7 +42,7 @@ Future<void> launchPhoneDialer(String contactNumber) async {
 OpenWhatsapp({required BuildContext context,required String number}) async {
   // ignore: non_constant_identifier_names
   var WhatsappURlAndroid =
-      "whatsapp://send?phone=" + number ;
+      "whatsapp://send?phone=$number" ;
   // ignore: non_constant_identifier_names
   var whatappURL_ios = "https://api.whatsapp.com/send?phone=$number=${Uri.parse('Hello')}";
   if (Platform.isIOS) {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../shared/styles/colors.dart';
 
 class ViewImage extends StatelessWidget {
+  // ignore: prefer_typing_uninitialized_variables
   final image;
   const ViewImage({super.key, this.image});
 

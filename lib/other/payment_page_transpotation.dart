@@ -1,5 +1,8 @@
+// ignore_for_file: prefer_typing_uninitialized_variables, duplicate_ignore, library_private_types_in_public_api, use_build_context_synchronously
+
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_utils/get_utils.dart';
 import 'package:in_app_review/in_app_review.dart';
@@ -58,8 +61,8 @@ class _CashOrVisaTranspotationState extends State<CashOrVisaTranspotation> {
 
   @override
   Widget build(BuildContext context) {
-    final _width = MediaQuery.of(context).size.width;
-    final _height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -76,7 +79,7 @@ class _CashOrVisaTranspotationState extends State<CashOrVisaTranspotation> {
               child: Column(
                 children: [
                   SizedBox(
-                    height: _height * .05,
+                    height: height * .05,
                   ),
                   CustomText(
                     text: 'payment_method'.tr,
@@ -86,7 +89,7 @@ class _CashOrVisaTranspotationState extends State<CashOrVisaTranspotation> {
                     alignment: Alignment.center,
                   ),
                   SizedBox(
-                    height: _height * .03,
+                    height: height * .03,
                   ),
                   RadioListTile<PaymentMethod>(
                       title: Text('cash_on_delivery'.tr),
@@ -107,7 +110,7 @@ class _CashOrVisaTranspotationState extends State<CashOrVisaTranspotation> {
                         });
                       }),
                   SizedBox(
-                    height: _height * .02,
+                    height: height * .02,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -118,19 +121,19 @@ class _CashOrVisaTranspotationState extends State<CashOrVisaTranspotation> {
                         fontWeight: FontWeight.bold,
                       ),
                       CustomText(
-                        text: widget.totalPrice.toString() +
-                            '  ' +
+                        // ignore: prefer_interpolation_to_compose_strings
+                        text: '${widget.totalPrice}  ' +
                             widget.currency,
                         size: 20,
                         fontWeight: FontWeight.bold,
                       ),
                     ],
                   ),
-                  SizedBox(height: _height * .05),
+                  SizedBox(height: height * .05),
                   // ignore: deprecated_member_use
                   SizedBox(
-                    width: _width * 0.45,
-                    height: _height * 0.06,
+                    width: width * 0.45,
+                    height: height * 0.06,
                     // ignore: deprecated_member_use
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
@@ -143,11 +146,13 @@ class _CashOrVisaTranspotationState extends State<CashOrVisaTranspotation> {
                         setState(() {
                           isLoadingCreateOrder = true;
                         });
-                        SharedPreferences _prefs =
+                        SharedPreferences prefs =
                             await SharedPreferences.getInstance();
-                        var _sharedToken = _prefs.getString('access_token');
-                        print(
-                            "widget startLocation ${widget.startLocation} widget end ${widget.endLocation} widget.startDate: ${widget.startDate} widget.startTime: ${widget.startTime} widget.vehicleType: ${widget.vehicleType} widget.destination: ${widget.destination} widget.totalPrice: ${widget.totalPrice} widget.locationTicket: ${widget.locationTicket} widget.wayType: ${widget.wayType} paymentMethod: ${paymentMethod.name} _sharedToken: $_sharedToken");
+                        var sharedToken = prefs.getString('access_token');
+                        if (kDebugMode) {
+                          print(
+                            "widget startLocation ${widget.startLocation} widget end ${widget.endLocation} widget.startDate: ${widget.startDate} widget.startTime: ${widget.startTime} widget.vehicleType: ${widget.vehicleType} widget.destination: ${widget.destination} widget.totalPrice: ${widget.totalPrice} widget.locationTicket: ${widget.locationTicket} widget.wayType: ${widget.wayType} paymentMethod: ${paymentMethod.name} _sharedToken: $sharedToken");
+                        }
                         String apiUrl = ApiApp.createUserOrder;
                         final json = {
                           "startDate": widget.startDate,
@@ -158,7 +163,7 @@ class _CashOrVisaTranspotationState extends State<CashOrVisaTranspotation> {
                           "totalPrice": widget.totalPrice.toString(),
                           "location": widget.locationTicket.toString(),
                           "mobile": "1",
-                          "token": _sharedToken,
+                          "token": sharedToken,
                           "additionalNote": "",
                           "wayType": widget.wayType,
                           "country": "",
@@ -173,7 +178,9 @@ class _CashOrVisaTranspotationState extends State<CashOrVisaTranspotation> {
                               ? "Queen Alia Airport"
                               : widget.endLocation.toString().trim(),
                         };
-                        print(json);
+                        if (kDebugMode) {
+                          print(json);
+                        }
                         http.Response response = await http
                             .post(Uri.parse(apiUrl), body: json)
                             .whenComplete(() {
@@ -210,7 +217,7 @@ class _CashOrVisaTranspotationState extends State<CashOrVisaTranspotation> {
                           });
                           if (paymentMethod.name == 'bankTransfer') {
                             var url =
-                                'https://lyon-jo.com/api/VisaPayment.php?mobile=1&token=$_sharedToken';
+                                'https://lyon-jo.com/api/VisaPayment.php?mobile=1&token=$sharedToken';
 
                             // if (await canLaunchUrl(Uri.parse(url))) {
                             //   await launchUrl(Uri.parse(url)).whenComplete(() {

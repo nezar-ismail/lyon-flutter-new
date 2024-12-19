@@ -1,5 +1,8 @@
+// ignore_for_file: prefer_typing_uninitialized_variables, duplicate_ignore, use_build_context_synchronously
+
 import 'dart:convert';
 import 'package:dropdown_search/dropdown_search.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -30,6 +33,7 @@ class TripTest extends StatefulWidget {
 
 class _TripTestState extends State<TripTest> {
   final List<TransportationFromTo> transportationFromList = [];
+  // ignore: prefer_typing_uninitialized_variables
   var _selectedItem;
   TextEditingController dateController = TextEditingController();
   TextEditingController timeController = TextEditingController();
@@ -53,12 +57,6 @@ class _TripTestState extends State<TripTest> {
   var selectedID;
   var selectedIDTo;
   double totalPrice = 0.0;
-  //bool isVisibleTicket = false;
-  //bool isCheckTicket = false;
-  // bool isCheckPassport = false;
-  //bool isUploadTicketSuccess = false;
-  // bool isVisiblePassport = true;
-  // bool isUploadPassportSuccess = false;
   var currency;
   bool isLoading = true;
   String locationTicket = '';
@@ -96,6 +94,7 @@ class _TripTestState extends State<TripTest> {
     if (pickedTime != null) {
       // time = pickedTime.format(context);
       DateTime parsedTime =
+          // ignore: use_build_context_synchronously
           DateFormat.Hm().parse(pickedTime.format(context).toString());
       // ignore: unused_local_variable
       String formattedTime = DateFormat('HH:mm:ss').format(parsedTime);
@@ -108,10 +107,10 @@ class _TripTestState extends State<TripTest> {
   }
 
   checkUserDocuments() async {
-    SharedPreferences _prefs = await SharedPreferences.getInstance();
-    var _sharedToken = _prefs.getString('access_token');
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var sharedToken = prefs.getString('access_token');
     String apiUrl = ApiApp.checkUserDocuments;
-    final json = {"token": _sharedToken, "mobile": "1"};
+    final json = {"token": sharedToken, "mobile": "1"};
 
     http.Response response = await http.post(Uri.parse(apiUrl), body: json);
 
@@ -140,17 +139,17 @@ class _TripTestState extends State<TripTest> {
   var idFullDay;
   @override
   Widget build(BuildContext context) {
-    final _width = MediaQuery.of(context).size.width;
-    final _height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
     return Scaffold(
         floatingActionButton:
             totalPrice == 0.0 && destnationFrom != '' && destnationTo != ''
                 ? GestureDetector(
                     onTap: () async {
-                      var _url = Uri.parse("https://wa.me/962777477748");
+                      var url = Uri.parse("https://wa.me/962777477748");
 
-                      if (!await launchUrl(_url)) {
-                        throw Exception('Could not launch $_url');
+                      if (!await launchUrl(url)) {
+                        throw Exception('Could not launch $url');
                       }
                     },
                     child: Image.asset(
@@ -168,8 +167,8 @@ class _TripTestState extends State<TripTest> {
             ? const Center(child: CircularProgressIndicator())
             : Center(
                 child: SizedBox(
-                    width: _width * .90,
-                    height: _height * .80,
+                    width: width * .90,
+                    height: height * .80,
                     child: Card(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
@@ -180,16 +179,16 @@ class _TripTestState extends State<TripTest> {
                             child: Column(
                               children: [
                                 SizedBox(
-                                  height: _height * .02,
+                                  height: height * .02,
                                 ),
                                 Center(
                                     child: Image.asset(widget.image,
-                                        width: _width / 2)),
+                                        width: width / 2)),
                                 SizedBox(
-                                  height: _height * .02,
+                                  height: height * .02,
                                 ),
                                 SizedBox(
-                                  height: _height / 4,
+                                  height: height / 4,
                                   child: ListView.builder(
                                     physics:
                                         const NeverScrollableScrollPhysics(),
@@ -235,11 +234,11 @@ class _TripTestState extends State<TripTest> {
                                           }
                                           String apiUrl =
                                               ApiApp.getTransportationRoutes;
-                                          SharedPreferences _prefs =
+                                          SharedPreferences prefs =
                                               await SharedPreferences
                                                   .getInstance();
                                           var token =
-                                              _prefs.getString('access_token');
+                                              prefs.getString('access_token');
                                           http.Response response = await http
                                               .post(Uri.parse(apiUrl), body: {
                                             "token": token,
@@ -250,11 +249,15 @@ class _TripTestState extends State<TripTest> {
                                             setState(() {
                                               locationsWayLoading = true;
                                               locationsWayLoading2 = false;
-                                              print(
+                                              if (kDebugMode) {
+                                                print(
                                                   "token is: $token, type is: ${widget.type}, wayType is: $wayType");
+                                              }
                                             });
-                                            print(LocalizationService()
+                                            if (kDebugMode) {
+                                              print(LocalizationService()
                                                 .getCurrentLang());
+                                            }
                                           });
 
                                           var jsonResponse =
@@ -290,7 +293,7 @@ class _TripTestState extends State<TripTest> {
                                     : locationsWayLoading == false
                                         ? Container()
                                         : SizedBox(
-                                            width: _width * .75,
+                                            width: width * .75,
                                             child: DropdownSearch<String>(
                                               /* dropdownSearchDecoration:
                                               const InputDecoration(
@@ -340,7 +343,9 @@ class _TripTestState extends State<TripTest> {
                                                 showSearchBox: true,
                                               ),
                                               onChanged: (value) async {
-                                                print(locationStartAr);
+                                                if (kDebugMode) {
+                                                  print(locationStartAr);
+                                                }
 
                                                 setState(() {
                                                   locationTo.clear();
@@ -355,7 +360,9 @@ class _TripTestState extends State<TripTest> {
                                                       locationStartAr[
                                                           locationStart
                                                               .indexOf(value!)];
-                                                  print(destnationFrom);
+                                                  if (kDebugMode) {
+                                                    print(destnationFrom);
+                                                  }
                                                   locationTo.clear();
                                                   locationToAr.clear();
                                                   locationToArabic.clear();
@@ -367,15 +374,17 @@ class _TripTestState extends State<TripTest> {
                                                                 widget.image));
                                                   }
                                                 });
-                                                print(
+                                                if (kDebugMode) {
+                                                  print(
                                                     "Here is the pickup spot: $destnationFrom");
+                                                }
                                                 locationToLoading = true;
                                                 String apiUrl = ApiApp
                                                     .getTransportationFromTo;
-                                                SharedPreferences _prefs =
+                                                SharedPreferences prefs =
                                                     await SharedPreferences
                                                         .getInstance();
-                                                var token = _prefs
+                                                var token = prefs
                                                     .getString('access_token');
                                                 http.Response response =
                                                     await http.post(
@@ -387,18 +396,24 @@ class _TripTestState extends State<TripTest> {
                                                       "wayType": wayType,
                                                       "fromDes": destnationFrom
                                                     }).whenComplete(() {
-                                                  print(value);
+                                                  if (kDebugMode) {
+                                                    print(value);
+                                                  }
                                                   setState(() {
                                                     locationToLoading = false;
-                                                    print(locationTo);
+                                                    if (kDebugMode) {
+                                                      print(locationTo);
+                                                    }
                                                   });
                                                 });
 
                                                 if (_selectedItem != 2) {
                                                   var jsonResponse =
                                                       jsonDecode(response.body);
-                                                  print(
+                                                  if (kDebugMode) {
+                                                    print(
                                                       jsonResponse.toString());
+                                                  }
                                                   locationToAr.clear();
                                                   locationToArabic.clear();
                                                   locationTo.clear();
@@ -432,13 +447,23 @@ class _TripTestState extends State<TripTest> {
                                                   }
 
                                                   // print(locationStart.length);
-                                                  print(locationTo.length);
-                                                  print(locationToAr.length);
-                                                  print(destnationFrom.length);
+                                                  if (kDebugMode) {
+                                                    print(locationTo.length);
+                                                  }
+                                                  if (kDebugMode) {
+                                                    print(locationToAr.length);
+                                                  }
+                                                  if (kDebugMode) {
+                                                    print(destnationFrom.length);
+                                                  }
                                                   // print(destnationTo.length);
-                                                  print(idDestnationTo.length);
-                                                  print(
+                                                  if (kDebugMode) {
+                                                    print(idDestnationTo.length);
+                                                  }
+                                                  if (kDebugMode) {
+                                                    print(
                                                       locationToArabic.length);
+                                                  }
 
                                                   int?
                                                       selectedIndexrequireTicket;
@@ -487,8 +512,10 @@ class _TripTestState extends State<TripTest> {
                                                   var jsonResponse2 =
                                                       jsonDecode(
                                                           response2.body);
-                                                  print(
+                                                  if (kDebugMode) {
+                                                    print(
                                                       "The first 1st print: $currency");
+                                                  }
                                                   setState(() {
                                                     totalPrice =
                                                         jsonResponse2['price']
@@ -496,8 +523,10 @@ class _TripTestState extends State<TripTest> {
 
                                                     currency = jsonResponse2[
                                                         'currency'];
-                                                    print(
+                                                    if (kDebugMode) {
+                                                      print(
                                                         "The first 2nd print: $currency");
+                                                    }
                                                   });
                                                 }
                                               },
@@ -516,7 +545,7 @@ class _TripTestState extends State<TripTest> {
                                             ),
                                           ),
                                 SizedBox(
-                                  height: _height * .02,
+                                  height: height * .02,
                                 ),
 
                                 wayType == 'full_day'
@@ -529,39 +558,8 @@ class _TripTestState extends State<TripTest> {
                                                     CircularProgressIndicator(),
                                               )
                                             : SizedBox(
-                                                width: _width * .75,
+                                                width: width * .75,
                                                 child: DropdownSearch<String>(
-                                                  /*   dropdownSearchDecoration: const InputDecoration(
-                                                  errorBorder: OutlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                          color: secondaryColor1),
-                                                      borderRadius:
-                                                          BorderRadius.all(
-                                                              Radius.circular(
-                                                                  10))),
-                                                  border: InputBorder.none,
-                                                  enabledBorder:
-                                                      OutlineInputBorder(
-                                                          borderSide: BorderSide(
-                                                              color:
-                                                                  secondaryColor1),
-                                                          borderRadius:
-                                                              BorderRadius.all(
-                                                                  Radius.circular(
-                                                                      10))),
-                                                  contentPadding: EdgeInsets.only(
-                                                      right: 20, left: 20)),
-                                              popupBarrierColor:
-                                                  Colors.black.withOpacity(.5),
-                                              validator: (value) => value == null
-                                                  ? 'please_select_dropoff_location'.tr
-                                                  : null,
-                                              mode: Mode.DIALOG,
-                                              items: locationTo,
-                                              showSearchBox: true,
-                                              // ignore: deprecated_member_use
-                                              label: "dropoff_location".tr, */
-                                                  // label: "First Location",
                                                   dropdownDecoratorProps:
                                                       const DropDownDecoratorProps(
                                                           dropdownSearchDecoration:
@@ -592,7 +590,9 @@ class _TripTestState extends State<TripTest> {
                                                               locationTo
                                                                   .indexOf(
                                                                       value!)];
-                                                      print(destnationTo);
+                                                      if (kDebugMode) {
+                                                        print(destnationTo);
+                                                      }
                                                       int selectedIndex =
                                                           LocalizationService()
                                                                       .getCurrentLang() ==
@@ -604,20 +604,26 @@ class _TripTestState extends State<TripTest> {
                                                                   .indexOf(
                                                                       value);
 
-                                                      print(
+                                                      if (kDebugMode) {
+                                                        print(
                                                           "The selected index: $selectedIndex");
-                                                      print(idDestnationTo);
+                                                      }
+                                                      if (kDebugMode) {
+                                                        if (kDebugMode) {
+                                                      }
+                                                        print(idDestnationTo);
+                                                      }
                                                       selectedIDTo =
                                                           idDestnationTo[
                                                               selectedIndex];
                                                     });
                                                     String apiUrl = ApiApp
                                                         .getTransportationFromPrice;
-                                                    SharedPreferences _prefs =
+                                                    SharedPreferences prefs =
                                                         await SharedPreferences
                                                             .getInstance();
                                                     var token =
-                                                        _prefs.getString(
+                                                        prefs.getString(
                                                             'access_token');
                                                     http.Response response =
                                                         await http.post(
@@ -633,16 +639,22 @@ class _TripTestState extends State<TripTest> {
                                                         jsonDecode(
                                                             response.body);
 
-                                                    print(jsonResponse);
+                                                    if (kDebugMode) {
+                                                      print(jsonResponse);
+                                                    }
                                                     setState(() {
                                                       currency = (jsonResponse[
                                                               'currency'])
                                                           .toString();
-                                                      print(
+                                                      if (kDebugMode) {
+                                                        print(
                                                           "id for me: $selectedID type:  ${widget.type}  wayType: $wayType");
+                                                      }
 
-                                                      print(jsonResponse[
+                                                      if (kDebugMode) {
+                                                        print(jsonResponse[
                                                           'price']);
+                                                      }
                                                       totalPrice =
                                                           jsonResponse['price']
                                                               .toDouble();
@@ -677,10 +689,10 @@ class _TripTestState extends State<TripTest> {
                                     : Column(
                                         children: [
                                           SizedBox(
-                                            height: _height * .02,
+                                            height: height * .02,
                                           ),
                                           SizedBox(
-                                            width: _width * .75,
+                                            width: width * .75,
                                             // height: _height * .1,
                                             child:
                                                 textFieldWidgetWithoutFilledWithFunction(
@@ -703,10 +715,10 @@ class _TripTestState extends State<TripTest> {
                                                         "please_enter_date".tr),
                                           ),
                                           SizedBox(
-                                            height: _height * .02,
+                                            height: height * .02,
                                           ),
                                           SizedBox(
-                                            width: _width * .75,
+                                            width: width * .75,
                                             // height: _height * .1,
                                             child:
                                                 textFieldWidgetWithoutFilledWithFunctionSmall(
@@ -728,7 +740,7 @@ class _TripTestState extends State<TripTest> {
                                         ],
                                       ),
                                 SizedBox(
-                                  height: _height * .02,
+                                  height: height * .02,
                                 ),
                                 // Spacer(),
 
@@ -753,118 +765,8 @@ class _TripTestState extends State<TripTest> {
                                                   fontSize: 20))
                                         ],
                                       ),
-
-                                // Visibility(
-                                //   visible: isVisiblePassport,
-                                //   child: SizedBox(
-                                //     height: _height * .02,
-                                //   ),
-                                // ),
-                                // Visibility(
-                                //   visible: isVisiblePassport,
-                                //   // ignore: deprecated_member_use
-                                //   child: ElevatedButton(
-                                //     style: ElevatedButton.styleFrom(
-                                //       backgroundColor: Colors.red.shade300,
-                                //       shape: RoundedRectangleBorder(
-                                //         borderRadius: BorderRadius.circular(18),
-                                //       ),
-                                //     ),
-                                //     onPressed: () {
-                                //       Navigator.push(
-                                //           context,
-                                //           MaterialPageRoute(
-                                //               builder: (context) =>
-                                //                   UploadPassportPhoto(
-                                //                     title:
-                                //                         'upload_passport_id_photos'
-                                //                             .tr,
-                                //                   ))).whenComplete(() {
-                                //         setState(() {
-                                //           isVisiblePassport = false;
-                                //           isUploadPassportSuccess = true;
-                                //           isCheckPassport = false;
-                                //         });
-                                //       });
-                                //     },
-                                //     child: Text(
-                                //       'upload_passport_id_photos'.tr,
-                                //       style:
-                                //           const TextStyle(color: Colors.white),
-                                //     ),
-                                //   ),
-                                // ),
-                                // Visibility(
-                                //   visible: isUploadPassportSuccess,
-                                //   child: Text(
-                                //     'passport_uploaded_successfully'.tr,
-                                //     style: const TextStyle(color: Colors.green),
-                                //   ),
-                                // ),
-                                // Visibility(
-                                //   visible: isCheckPassport,
-                                //   child: Text(
-                                //     'please_upload_passport'.tr,
-                                //     style: const TextStyle(color: Colors.red),
-                                //   ),
-                                // ),
-                                // Visibility(
-                                //   visible: isVisibleTicket,
-                                //   child: SizedBox(
-                                //     height: _height * .02,
-                                //   ),
-                                // ),
-                                // Visibility(
-                                //   visible: isVisibleTicket,
-                                //   // ignore: deprecated_member_use
-                                //   child: ElevatedButton(
-                                //     style: ElevatedButton.styleFrom(
-                                //       backgroundColor: Colors.red.shade300,
-                                //       shape: RoundedRectangleBorder(
-                                //         borderRadius: BorderRadius.circular(18),
-                                //       ),
-                                //     ),
-                                //     onPressed: () {
-                                //       Navigator.push(
-                                //           context,
-                                //           MaterialPageRoute(
-                                //               builder: (context) =>
-                                //                   UploadPassportPhoto(
-                                //                     title: 'upload_ticket_photo'
-                                //                         .tr,
-                                //                   ))).whenComplete(() {
-                                //         setState(() {
-                                //           locationTicket = "Outside of Jordan";
-                                //           isVisibleTicket = false;
-                                //           isCheckTicket = false;
-                                //           isUploadTicketSuccess = true;
-                                //         });
-                                //       });
-                                //     },
-                                //     child: Text(
-                                //       'upload_ticket_photo'.tr,
-                                //       style:
-                                //           const TextStyle(color: Colors.white),
-                                //     ),
-                                //   ),
-                                // ),
-                                // Visibility(
-                                //   visible: isUploadTicketSuccess,
-                                //   child: Text(
-                                //     'ticket_uploaded_successfully'.tr,
-                                //     style: const TextStyle(color: Colors.green),
-                                //   ),
-                                // ),
-                                // Visibility(
-                                //   visible: isCheckTicket,
-                                //   child: Text(
-                                //     'please_upload_ticket'.tr,
-                                //     style: const TextStyle(color: Colors.red),
-                                //   ),
-                                // ),
-
                                 SizedBox(
-                                  height: _height * .01,
+                                  height: height * .01,
                                 ),
                                 totalPrice == 0.0 &&
                                         destnationFrom != '' &&
@@ -888,14 +790,14 @@ class _TripTestState extends State<TripTest> {
                                       )
                                     : const SizedBox(),
                                 SizedBox(
-                                  height: _height * .01,
+                                  height: height * .01,
                                 ),
 
                                 destnationFrom == '' || totalPrice == 0.0
                                     ? Container()
                                     : SizedBox(
-                                        width: _width * .50,
-                                        height: _height * .05,
+                                        width: width * .50,
+                                        height: height * .05,
                                         // ignore: deprecated_member_use
                                         child: ElevatedButton(
                                           style: ElevatedButton.styleFrom(
@@ -911,7 +813,9 @@ class _TripTestState extends State<TripTest> {
                                                 color: Colors.white),
                                           ),
                                           onPressed: () async {
-                                            print("DestTo: $destnationTo");
+                                            if (kDebugMode) {
+                                              print("DestTo: $destnationTo");
+                                            }
                                             if (_formKey.currentState!
                                                 .validate()) {
                                               showDialog(
@@ -932,10 +836,10 @@ class _TripTestState extends State<TripTest> {
 
                                               var result = await Navigator.push(
                                                   context,
-                                                  new MaterialPageRoute(
+                                                  MaterialPageRoute(
                                                     builder: (BuildContext
                                                             context) =>
-                                                        new ConfirmationScreen(
+                                                        ConfirmationScreen(
                                                       fromLocation:
                                                           destnationFrom,
                                                       toLocation: destnationTo,
@@ -950,29 +854,6 @@ class _TripTestState extends State<TripTest> {
                                                     ),
                                                     fullscreenDialog: true,
                                                   ));
-                                              //await Navigator.push(
-                                              //   context,
-                                              //   MaterialPageRoute<void>(
-                                              //       builder: (BuildContext
-                                              //               context) =>
-                                              //           ConfirmationScreen(
-                                              //             fromLocation:
-                                              //                 destnationFrom,
-                                              //             toLocation:
-                                              //                 destnationTo,
-                                              //             date: dateController
-                                              //                 .text,
-                                              //             time: timeController
-                                              //                 .text,
-                                              //             carType:
-                                              //                 widget.type ??
-                                              //                     'Car',
-                                              //             price: totalPrice
-                                              //                 .toString(),
-                                              //             tripType: wayType,
-                                              //             currency: currency,
-                                              //           )),
-                                              // );
                                               if (result == false) {
                                                 Navigator.of(context).pop();
                                               } else {
@@ -1085,82 +966,31 @@ class _TripTestState extends State<TripTest> {
                                                                               const Text("ok"),
                                                                           onPressed:
                                                                               () async {
-                                                                            //                                          Navigator.of(
-                                                                            //                                       context)
-                                                                            //                                   .pop();
-
-                                                                            //                   String apiUrl = ApiApp
-                                                                            //                     .createUserOrder;
-                                                                            //                 SharedPreferences _prefs =
-                                                                            //                     await SharedPreferences
-                                                                            //                         .getInstance();
-                                                                            //                 var token = _prefs
-                                                                            //                     .getString('access_token');
-                                                                            //                 http.Response response =
-                                                                            //                     await http.post(
-                                                                            //                         Uri.parse(apiUrl),
-                                                                            //                         body: {
-                                                                            //                       "orderType":"Trip",
-                                                                            //                       "token": token,
-                                                                            //                       "vehicleType": widget.type,
-                                                                            //                       "additionalNote":"",
-                                                                            //                       "startDate":dateController.text,
-                                                                            //                       "startTime":timeController.text,
-                                                                            //                       "mobile": "1",
-                                                                            //                       "wayType": wayType,
-                                                                            //                       "location":"Inside Jordan",
-                                                                            //                       "destination":selectedIDTo,
-                                                                            //                       "paymentMethod":"0",
-                                                                            //                       "country":"",
-                                                                            //                       "totalPrice":totalPrice.toString(),
-                                                                            //               "currency":currency
-                                                                            //                     }).whenComplete(() {
-
-                                                                            //           pushAndRemoveUntil(
-                                                                            // context,
-                                                                            // MainScreen(
-                                                                            //   numberIndex: 1,
-                                                                            // ));
-                                                                            //   showMessage(
-                                                                            // context: context,
-                                                                            // text: 'Order created successfully');
-                                                                            //                     });
-                                                                            //                 var jsonResponse =
-                                                                            //                     jsonDecode(response.body);
-                                                                            print("The location ticket: $locationTicket");
-                                                                            print("The start date is: ${dateController.text}");
-                                                                            print("The time is: ${timeController.text}");
-                                                                            print("The total price: ${totalPrice.toString()}");
-                                                                            print("The vehicle type: ${widget.type}");
-
-                                                                            print("The currency, and the wayType is: $currency and $wayType");
-                                                                            print("test222  $destnationTo");
-
+                                                                            if (kDebugMode) {
+                                                                              print("The location ticket: $locationTicket");
+                                                                            }
+                                                                            if (kDebugMode) {
+                                                                              print("The start date is: ${dateController.text}");
+                                                                            }
+                                                                            if (kDebugMode) {
+                                                                              print("The time is: ${timeController.text}");
+                                                                            }
+                                                                            if (kDebugMode) {
+                                                                              if (kDebugMode) {
+                                                                            }
+                                                                              print("The total price: ${totalPrice.toString()}");
+                                                                            }
+                                                                            if (kDebugMode) {
+                                                                              print("The vehicle type: ${widget.type}");
+                                                                            }
+                                                                            if (kDebugMode) {
+                                                                              print("The currency, and the wayType is: $currency and $wayType");
+                                                                            }
+                                                                            if (kDebugMode) {
+                                                                              print("test222  $destnationTo");
+                                                                            }
                                                                             push(
                                                                                 context,
-                                                                                // CashOrVisaTranspotation(
-                                                                                //     locationTicket:
-                                                                                //         locationTicket,
-                                                                                //     startDate: dateController
-                                                                                //         .text,
-                                                                                //     startTime:
-                                                                                //         timeController
-                                                                                //             .text,
-                                                                                //     totalPrice: totalPrice.toString().substring(
-                                                                                //         0,
-                                                                                //         totalPrice.toString().indexOf(
-                                                                                //             '.')),
-                                                                                //     vehicleType:
-                                                                                //         widget
-                                                                                //             .type,
-                                                                                //     destination: _selectedItem == 2
-                                                                                //         ? idFullDay
-                                                                                //         : selectedIDTo,
-                                                                                //     currency:
-                                                                                //         currency,
-                                                                                //     wayType:
-                                                                                //         wayType)
-
                                                                                 TripCheckOut(
                                                                                   pickupSpot: destnationFrom,
                                                                                   dropOffSpot: destnationTo,
@@ -1201,14 +1031,18 @@ class _TripTestState extends State<TripTest> {
                                                                           : TextButton(
                                                                               child: const Text("ok"),
                                                                               onPressed: () {
-                                                                                print(locationTicket);
-                                                                                print(dateController.text);
-                                                                                print(timeController.text);
-                                                                                print(totalPrice.toString());
-                                                                                print(widget.type);
-                                                                                print(currency);
-                                                                                print(wayType);
-                                                                                print(_selectedItem == 2 ? idFullDay : selectedIDTo);
+                                                                                if (kDebugMode) {
+                                                                                  print(locationTicket);
+                                                                                }
+                                                                                if (kDebugMode) {
+                                                                                  print(dateController.text);
+                                                                                }
+                                                                                if (kDebugMode) {
+                                                                                  if (kDebugMode) {
+                                                                                }
+                                                                                  print(timeController.text);
+                                                                                }
+                                                                              
                                                                                 push(
                                                                                   context,
                                                                                   CashOrVisaTranspotation(
@@ -1302,7 +1136,7 @@ class _TripTestState extends State<TripTest> {
                                           },
                                         )),
                                 SizedBox(
-                                  height: _height * .05,
+                                  height: height * .05,
                                 ),
                               ],
                             ),

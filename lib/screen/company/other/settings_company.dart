@@ -99,15 +99,15 @@ class _SettingsCompanyState extends State<SettingsCompany> {
                   setState(() {
                     _chosenValue = value!;
                   });
-                  SharedPreferences _prefs =
+                  SharedPreferences prefs =
                       await SharedPreferences.getInstance();
-                  var _sharedToken = _prefs.getString('access_token_company');
+                  var sharedToken = prefs.getString('access_token_company');
                   String apiUrl =
                       "https://lyon-jo.com/api/CompanyCurrencyChange.php";
 
                   final json = {
                     "currency": _chosenValue,
-                    "token": _sharedToken,
+                    "token": sharedToken,
                     "mobile": "1",
                   };
                   //  Get.to(MainScreen(numberIndex: 0,));

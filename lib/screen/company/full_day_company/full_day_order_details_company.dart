@@ -13,6 +13,7 @@ class FullDayOrderDetailsCompany extends StatefulWidget {
 
   const FullDayOrderDetailsCompany({super.key, required this.id});
   @override
+  // ignore: library_private_types_in_public_api
   _FullDayOrderDetailsCompanyState createState() =>
       _FullDayOrderDetailsCompanyState();
 }
@@ -31,9 +32,7 @@ class _FullDayOrderDetailsCompanyState
     final json = {"id": widget.id, 'mobile': '1'};
 
     http.Response response = await http.post(Uri.parse(apiUrl), body: json);
-    print(response.body);
     var jsonResponse = jsonDecode(response.body);
-    print(jsonResponse);
     var x = FullDayOrderDetailsCompanyModel.fromJson(jsonResponse);
     return x;
   }
@@ -74,8 +73,7 @@ class _FullDayOrderDetailsCompanyState
                     ),
                     Center(
                         child: Image.network(
-                      'https://lyon-jo.com/' +
-                          snapshot.data!.data!.vehicleImagePath!,
+                      'https://lyon-jo.com/${snapshot.data!.data!.vehicleImagePath!}',
                       width: MediaQuery.of(context).size.width / 2,
                     )),
                     SizedBox(
@@ -154,9 +152,7 @@ class _FullDayOrderDetailsCompanyState
                             DataRow(cells: [
                               DataCell(Text('price_day'.tr)),
                               DataCell(Text(
-                                  snapshot.data!.data!.pricePerDay.toString() +
-                                      '  ' +
-                                      snapshot.data!.currency.toString())),
+                                  '${snapshot.data!.data!.pricePerDay}  ${snapshot.data!.currency}')),
                             ]),
                             DataRow(cells: [
                               DataCell(Text('number_of_days'.tr)),
@@ -168,9 +164,7 @@ class _FullDayOrderDetailsCompanyState
                               DataCell(Padding(
                                 padding: const EdgeInsets.only(top: 5),
                                 child: Text(
-                                    snapshot.data!.data!.totalPrice.toString() +
-                                        '  ' +
-                                        snapshot.data!.currency.toString()),
+                                    '${snapshot.data!.data!.totalPrice}  ${snapshot.data!.currency}'),
                               )),
                             ]),
                             DataRow(cells: [

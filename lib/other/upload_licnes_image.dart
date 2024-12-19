@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:dio/dio.dart' as diopackage;
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -15,6 +16,7 @@ class UploadLicnesImage extends StatefulWidget {
   const UploadLicnesImage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _UploadLicnesImageState createState() => _UploadLicnesImageState();
 }
 
@@ -48,15 +50,15 @@ class _UploadLicnesImageState extends State<UploadLicnesImage> {
 
   postImages(File? frontImage) async {
     String apiUrl = ApiApp.uploadUserDocuments;
-    SharedPreferences _prefs = await SharedPreferences.getInstance();
-    var _sharedToken = _prefs.getString('access_token');
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    var sharedToken = prefs.getString('access_token');
 
-    String _frontImage = frontImage!.path.split('/').last;
+    String frontImage0 = frontImage!.path.split('/').last;
     var formData = diopackage.FormData.fromMap({
-      'token': _sharedToken,
+      'token': sharedToken,
       'userBookingUploadLicense': await diopackage.MultipartFile.fromFile(
           frontImage.path,
-          filename: _frontImage),
+          filename: frontImage0),
       "mobile": "1"
     });
     // ignore: unused_local_variable
@@ -85,6 +87,7 @@ class _UploadLicnesImageState extends State<UploadLicnesImage> {
             ? const Center(
                 child: CircularProgressIndicator(),
               )
+            // ignore: deprecated_member_use
             : WillPopScope(
                 onWillPop: () async {
                   Navigator.pop(context, true);
@@ -217,32 +220,15 @@ class _UploadLicnesImageState extends State<UploadLicnesImage> {
                                   isLoadingButton = true;
                                 });
                                 controller.toggleLicenseVariableToFalse();
-                                //  String? tempVar =
-                                //     await controller.callTheUserDocumentsAPI();
-                                // print("Here is the tempVariable: $tempVar");
-                                // if (controller.theUserIsComingOrGoingToAirport
-                                //         .value ==
-                                //     true) {
-                                //   if (tempVar == "All images are attached" &&
-                                //       controller.askUserForTicketUploading
-                                //               .value ==
-                                //           false) {
-                                //     controller.displayAThankfulMessage.value =
-                                //         true;
-                                //   }
-                                // } else {
-                                //   if (tempVar == "All images are attached") {
-                                //     controller.displayAThankfulMessage.value = true;
-                                //   }
-                                // }
-                                print(controller
+                                if (kDebugMode) {
+                                  print(controller
                                     .askUserForLicenseUploading.value);
+                                }
                                 await postImages(image1).then((value) {
                                   showMessage(
                                       context: context,
                                       text: "pictures_have_been_saved".tr);
                                   Navigator.pop(context, true);
-                                  // Navigator.pushReplacement(context,MaterialPageRoute(builder: (context)=>CheckOut(character:widget.isOk)) );
                                 });
                               }
                             }),
@@ -265,8 +251,8 @@ class _UploadLicnesImageState extends State<UploadLicnesImage> {
               isLastItem = false;
             });
           },
-          child: Text('delete_photo'.tr),
           isDestructiveAction: true,
+          child: Text('delete_photo'.tr),
         ),
       ],
       cancelButton: CupertinoActionSheetAction(
@@ -287,7 +273,6 @@ class _UploadLicnesImageState extends State<UploadLicnesImage> {
       ),
       actions: <Widget>[
         CupertinoActionSheetAction(
-          child: Text('choose_image_gallery'.tr),
           isDefaultAction: false,
           onPressed: () async {
             Navigator.pop(context);
@@ -300,9 +285,9 @@ class _UploadLicnesImageState extends State<UploadLicnesImage> {
               });
             }
           },
+          child: Text('choose_image_gallery'.tr),
         ),
         CupertinoActionSheetAction(
-          child: Text('choose_image'.tr),
           isDestructiveAction: false,
           onPressed: () async {
             Navigator.pop(context);
@@ -315,6 +300,7 @@ class _UploadLicnesImageState extends State<UploadLicnesImage> {
               });
             }
           },
+          child: Text('choose_image'.tr),
         )
       ],
       cancelButton: CupertinoActionSheetAction(

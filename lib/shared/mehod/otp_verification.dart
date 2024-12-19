@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:lyon/screen/auth/new_verify_otp.dart';
 import 'package:http/http.dart' as http;
 import 'package:get/get.dart';
@@ -18,7 +19,7 @@ class OtpVerification {
       if (jsonResponse['success'] == 400) {
         Get.to(() => NewVerifyOTP(
               email: funcEmail,
-              theBodyOfSignUpAPI: Map(),
+              theBodyOfSignUpAPI: const {},
             ));
       }
       if (jsonResponse['success'] == 200) {
@@ -29,7 +30,7 @@ class OtpVerification {
     } catch (e) {
       Get.to(() => NewVerifyOTP(
             email: funcEmail,
-            theBodyOfSignUpAPI: Map(),
+            theBodyOfSignUpAPI: const {},
           ));
       return false;
     }
@@ -38,7 +39,9 @@ class OtpVerification {
 
   Future<bool> verifyOTP(String funcEmail, String funcOTP) async {
     try {
-      print('Verify OTP IN');
+      if (kDebugMode) {
+        print('Verify OTP IN');
+      }
       var response = await http
           .post(Uri.parse('https://lyon-jo.com/api/verifyOtp.php'), body: {
         'email': funcEmail,

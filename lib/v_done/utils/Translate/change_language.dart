@@ -7,6 +7,7 @@ class ChangeLanguage extends StatefulWidget {
   const ChangeLanguage({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _ChangeLanguageState createState() => _ChangeLanguageState();
 }
 

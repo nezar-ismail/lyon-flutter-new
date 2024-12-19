@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -62,8 +64,8 @@ class _DetailsMultiTripCompanyState extends State<DetailsMultiTripCompany> {
 
   @override
   Widget build(BuildContext context) {
-    final _height = MediaQuery.of(context).size.height;
-    final _width = MediaQuery.of(context).size.width;
+    final height = MediaQuery.of(context).size.height;
+    final width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: secondaryColor1,
@@ -80,16 +82,16 @@ class _DetailsMultiTripCompanyState extends State<DetailsMultiTripCompany> {
           : ListView(
               children: [
                 SizedBox(
-                  height: _height * .03,
+                  height: height * .03,
                 ),
                 Center(
                     child: Image.asset(
                         widget.vechileType == 'Car'
                             ? 'assets/images/camry2.png'
                             : 'assets/images/van2.png',
-                        width: _width / 2)),
+                        width: width / 2)),
                 SizedBox(
-                  height: _height * .03,
+                  height: height * .03,
                 ),
                 ListView.builder(
                     physics: const ScrollPhysics(),
@@ -149,7 +151,7 @@ class _DetailsMultiTripCompanyState extends State<DetailsMultiTripCompany> {
                       );
                     }),
                 SizedBox(
-                  height: _height * .1,
+                  height: height * .1,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -159,7 +161,7 @@ class _DetailsMultiTripCompanyState extends State<DetailsMultiTripCompany> {
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                       SizedBox(
-                        width: _width * .1,
+                        width: width * .1,
                       ),
                       Text(
                         '$totalPrice ${widget.mapMobile.list[0].currency}',
@@ -171,8 +173,8 @@ class _DetailsMultiTripCompanyState extends State<DetailsMultiTripCompany> {
                 ),
                 Align(
                   child: SizedBox(
-                      width: _width * 0.5,
-                      height: _height * 0.06,
+                      width: width * 0.5,
+                      height: height * 0.06,
                       // ignore: deprecated_member_use
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
@@ -190,10 +192,10 @@ class _DetailsMultiTripCompanyState extends State<DetailsMultiTripCompany> {
                             setState(() {
                               isLoading = true;
                             });
-                            SharedPreferences _prefs =
+                            SharedPreferences prefs =
                                 await SharedPreferences.getInstance();
-                            var _sharedToken =
-                                _prefs.getString('access_token_company');
+                            var sharedToken =
+                                prefs.getString('access_token_company');
                             Map<String, dynamic> json = {
                               'list': jsonEncode(widget.mapMobile.list),
                               'phone': widget.mapMobile.list[0].phoneNumber,
@@ -201,7 +203,7 @@ class _DetailsMultiTripCompanyState extends State<DetailsMultiTripCompany> {
                               'startTime': widget.mapMobile.list[0].time,
                               'startDate': widget.mapMobile.list[0].date,
                               'vechileType': widget.vechileType,
-                              'token': _sharedToken,
+                              'token': sharedToken,
                               'mobile': '1',
                               'totalPrice': totalPrice.toString(),
                               'projectName': widget.projectName

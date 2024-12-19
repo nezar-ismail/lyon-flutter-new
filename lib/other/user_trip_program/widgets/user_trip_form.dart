@@ -248,8 +248,8 @@ class UserTripForm extends StatelessWidget {
                       }
                     },
                     style: ButtonStyle(
-                      foregroundColor: MaterialStateProperty.all(Colors.white),
-                      backgroundColor: MaterialStateProperty.all(Colors.red),
+                      foregroundColor: WidgetStateProperty.all(Colors.white),
+                      backgroundColor: WidgetStateProperty.all(Colors.red),
                     ),
                     child: const Text("Delete Trip"),
                   ),
@@ -305,9 +305,9 @@ class UserTripForm extends StatelessWidget {
                     }
                   },
                   style: ButtonStyle(
-                    foregroundColor: MaterialStateProperty.all(Colors.white),
+                    foregroundColor: WidgetStateProperty.all(Colors.white),
                     backgroundColor:
-                        MaterialStateProperty.all(Colors.blueAccent),
+                        WidgetStateProperty.all(Colors.blueAccent),
                   ),
                   child: Text("continue".tr),
                 ),
@@ -325,7 +325,9 @@ class UserTripForm extends StatelessWidget {
     );
     return destinationController.text.isNotEmpty &&
         timeController.text.isNotEmpty &&
+        // ignore: unrelated_type_equality_checks
         currency != "empty" &&
+        // ignore: unrelated_type_equality_checks
         price != "empty" &&
         dateController.text.isNotEmpty &&
         requireTicket != "empty";

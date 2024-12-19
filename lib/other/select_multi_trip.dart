@@ -8,12 +8,14 @@ class SelectMultiTrip extends StatefulWidget {
   const SelectMultiTrip({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _SelectMultiTripState createState() => _SelectMultiTripState();
 }
 
 class _SelectMultiTripState extends State<SelectMultiTrip> {
   @override
   Widget build(BuildContext context) {
+    // ignore: no_leading_underscores_for_local_identifiers
     final _height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBars(

@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -13,6 +14,7 @@ class Setting extends StatefulWidget {
   const Setting({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _SettingState createState() => _SettingState();
 }
 
@@ -94,13 +96,13 @@ class _SettingState extends State<Setting> {
                       LocalizationService().changeLocale("English");
                     }
                   });
-                  SharedPreferences _prefs =
+                  SharedPreferences prefs =
                       await SharedPreferences.getInstance();
-                  var _sharedToken = _prefs.getString('access_token');
+                  var sharedToken = prefs.getString('access_token');
                   String apiUrl = ApiApp.changeLanguage;
                   final json = {
                     "language": language.toString(),
-                    "token": _sharedToken,
+                    "token": sharedToken,
                     "mobile": "1",
                   };
 
@@ -149,14 +151,14 @@ class _SettingState extends State<Setting> {
                   setState(() {
                     _chosenValue = value;
                   });
-                  SharedPreferences _prefs =
+                  SharedPreferences prefs =
                       await SharedPreferences.getInstance();
-                  var _sharedToken = _prefs.getString('access_token');
+                  var sharedToken = prefs.getString('access_token');
                   String apiUrl = ApiApp.changeCurrency;
 
                   final json = {
                     "currency": _chosenValue,
-                    "token": _sharedToken,
+                    "token": sharedToken,
                     "mobile": "1",
                   };
                   Get.to(MainScreen(
@@ -188,7 +190,9 @@ class _SettingState extends State<Setting> {
                   } else {
                     box.write("isFaceIdEnabled", true);
                   }
-                  print(box.read("isFaceIdEnabled") ?? false);
+                  if (kDebugMode) {
+                    print(box.read("isFaceIdEnabled") ?? false);
+                  }
                 });
               },
               activeColor: secondaryColor1,
