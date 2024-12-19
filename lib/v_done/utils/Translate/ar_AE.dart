@@ -495,4 +495,8 @@ const Map<String, String> arAE = {
   "Phone_number_must_be_10_digits": 'رقم الهاتف يجب ان يكون 10 رقم',
   "Add_more_Trip": 'اضافة رحلة',
   "Loading.......": '.......جاري التحميل',
+  'You can cancel this booking in': 'يمكنك إلغاء هذه الحجز في',
+  'hours': 'ساعات',
+  'minutes': 'دقايق',
+  'days': 'ايام',
 };

@@ -140,7 +140,7 @@ class HistoryOrdersCompany extends StatelessWidget {
           endActionPane: ActionPane(
             motion: const StretchMotion(),
             children: [
-              if (order.isRelayed == 'yes')
+              if (order.isRelayed!.toLowerCase() == 'yes')
                 SlidableAction(
                   // Invoice action
                   autoClose: true,
@@ -161,7 +161,7 @@ class HistoryOrdersCompany extends StatelessWidget {
                   icon: Icons.contacts_rounded,
                   label: 'invoice'.tr,
                 )
-              else if (order.isRelayed == 'no')
+              else if (order.isRelayed!.toLowerCase() == 'no')
                 SlidableAction(
                   onPressed: (_) {
                     _deleteDialog(context, order);
