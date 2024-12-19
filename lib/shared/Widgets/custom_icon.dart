@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter_inner_shadow/flutter_inner_shadow.dart';
 import 'package:flutter_svg/svg.dart';
 
 // ignore: must_be_immutable
@@ -20,43 +21,52 @@ class CustomIcon extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Container(
-          padding: const EdgeInsets.symmetric(
-            vertical: 16,
-            horizontal: 16,
-          ),
+          padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-              // color: Colors.white,
-              borderRadius: BorderRadius.circular(16),
-              boxShadow: const [
-                // BoxShadow(
-                //   color: Colors.grey.withOpacity(0.3),
-                //   spreadRadius: 3,
-                //   blurRadius: 3,
-                //   offset: const Offset(0,
-                //       3), // changes position of shadow
-                // ),
-              ]),
-          child: Column(
-            children: [
-              SvgPicture.asset(
-                icon,
-                width: 60,
-                //  color: secondaryColor1,
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(16),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(.3),
+                offset: const Offset(0, 0),
+                blurRadius: 30,
               ),
-              const SizedBox(
-                height: 16,
-              ),
-              Center(
-                child: Text(
-                  title,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                  ),
-                ),
-              )
             ],
+          ),
+          child: InnerShadow(
+            shadows: [
+              Shadow(
+                color: Colors.black.withOpacity(.3),
+                offset: const Offset(10, 5),
+                blurRadius: 10,
+              ),
+            ],
+            child: SvgPicture.asset(
+              icon,
+              width: MediaQuery.of(context).size.width * .2,
+            ),
+          ),
+        ),
+        const SizedBox(
+          height: 1,
+        ),
+        InnerShadow(
+          shadows: [
+            Shadow(
+              color: Colors.black.withOpacity(.3),
+              offset: const Offset(10, 5),
+              blurRadius: 10,
+            ),
+          ],
+          child: Center(
+            child: Text(
+              title,
+              textAlign: TextAlign.center,
+              style:  TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: MediaQuery.of(context).size.width * .05,
+              ),
+            ),
           ),
         )
       ],

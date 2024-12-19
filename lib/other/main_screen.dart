@@ -30,7 +30,7 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
-  int _page = 0;
+  int _page = 2;
 
   late int nummber;
 
@@ -41,7 +41,6 @@ class _MainScreenState extends State<MainScreen> {
     getNotificationPermission();
     FirebaseMessaging.instance.getInitialMessage().then((message) {
       if (message != null) {
-        logInfo('A new onMessageOpenedApp event was published!');
         push(
             // ignore: use_build_context_synchronously
             context,
@@ -50,6 +49,8 @@ class _MainScreenState extends State<MainScreen> {
             ));
       }
     });
+
+
 
     FirebaseMessaging.onMessage.listen((message) {
       if (message.notification != null) {
@@ -160,15 +161,16 @@ Future<void> getNotificationPermission() async {
   @override
   Widget build(BuildContext context) {
     final tabs = [
-      HomeScreen(
-        numberIndex: 0,
-        name: widget.name,
-        isGuest: widget.isGuest,
-      ),
+    
       HistoryInformation(
         isGuest: widget.isGuest,
       ),
       Offer(
+        isGuest: widget.isGuest,
+      ),
+        HomeScreen(
+        numberIndex: 0,
+        name: widget.name,
         isGuest: widget.isGuest,
       ),
       NewMapScreen(),
@@ -176,7 +178,7 @@ Future<void> getNotificationPermission() async {
     ];
     return Scaffold(
       extendBody: true,
-      backgroundColor: _page == 3 ? Colors.white : Colors.grey.shade100,
+      backgroundColor: Colors.white,
       appBar: AppBars(
         canBack: false,
         withIcon: true,
@@ -198,35 +200,36 @@ Future<void> getNotificationPermission() async {
                         : _page],
       ),
       bottomNavigationBar: CurvedNavigationBar(
-        buttonBackgroundColor: secondaryColor1,
+        buttonBackgroundColor: colorPrimary,
         key: _bottomNavigationKey,
         index: _page,
         height: MediaQuery.of(context).size.height * .07,
         items: <Widget>[
-          Icon(
-            Icons.home_outlined,
-            size: 30,
-            color: _page == 0 ? colorPrimary : colorPrimary.withOpacity(.6),
-          ),
+       
           Icon(
             Icons.bookmark_added_outlined,
             size: 30,
-            color: _page == 1 ? colorPrimary : colorPrimary.withOpacity(.6),
+            color: _page == 0 ? secondaryColor1 : colorPrimary,
           ),
           Icon(
             Icons.local_offer_outlined,
             size: 30,
-            color: _page == 2 ? colorPrimary : colorPrimary.withOpacity(.6),
+            color: _page == 1 ? secondaryColor1 : colorPrimary,
+          ),
+            Icon(
+            Icons.home_outlined,
+            size: 30,
+            color: _page == 2 ? secondaryColor1 : colorPrimary,
           ),
           Icon(
             Icons.electrical_services_outlined,
             size: 30,
-            color: _page == 3 ? colorPrimary : colorPrimary.withOpacity(.6),
+            color: _page == 3 ? secondaryColor1 : colorPrimary,
           ),
           Icon(
             Icons.location_on,
             size: 30,
-            color: _page == 3 ? colorPrimary : colorPrimary.withOpacity(.6),
+            color: _page == 4 ? secondaryColor1 : colorPrimary,
           ),
         ],
         color: secondaryColor1,
@@ -262,4 +265,12 @@ Future<void> getNotificationPermission() async {
             ),
     );
   }
+
+    @override
+    void dispose() {
+      super.dispose();
+    
+
+      
+    }
 }

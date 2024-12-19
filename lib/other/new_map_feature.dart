@@ -17,6 +17,7 @@ class NewMapScreen extends StatefulWidget {
 
 
 class _NewMapScreenState extends State<NewMapScreen> {
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -111,27 +112,18 @@ class _NewMapScreenState extends State<NewMapScreen> {
                   return null;
                 },
               ),
-
-              // widget.backButton
-              //     ? Center(
-              //         child: Positioned(
-              //           top: 20,
-              //           child: Padding(
-              //             padding: const EdgeInsets.all(8.0),
-              //             child: button(
-              //                 context: context,
-              //                 text: "Return to map",
-              //                 function: () {
-              //                   push(context, MainScreen(numberIndex: 3));
-              //                 }),
-              //           ),
-              //         ),
-              //       )
-              //     : Container()
             ]),
           ),
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+
+    
+    super.dispose();
+
   }
 }
